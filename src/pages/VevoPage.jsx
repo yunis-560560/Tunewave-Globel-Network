@@ -543,30 +543,58 @@ export default function VevoPage({ onNavigate, theme }) {
       </section>
 
       {/* 3. WHY VEVO */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
-        <div className="container">
-          <div className="reveal-up glass-panel card-shimmer-sweep" style={{
+      <section
+        className="why-vevo-section"
+        style={{
+          padding: '90px 0',
+          borderTop: '1px solid var(--tw-line)',
+          position: 'relative',
+          overflow: 'hidden',
+          backgroundImage: 'url("/Why%20Upload%20Your%20Music%20Videos%20to%20VEVO%20image.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="reveal-up why-vevo-card" style={{
             padding: '54px 48px',
             borderRadius: 28,
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: 48,
-            alignItems: 'center'
+            alignItems: 'center',
+            background: 'rgba(255, 255, 255, 0.96)',
+            border: '1px solid rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.12)'
           }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>02 · WHY VEVO</span>
+                <span style={{
+                  padding: '6px 14px',
+                  borderRadius: 30,
+                  fontSize: '0.78rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  color: '#0284C7',
+                  background: 'rgba(2, 132, 199, 0.12)',
+                  border: '1px solid rgba(2, 132, 199, 0.28)'
+                }}>
+                  02 · WHY VEVO
+                </span>
               </div>
               <h2 style={{
                 fontSize: 'clamp(2rem, 4vw, 3rem)',
                 fontWeight: 800,
-                color: 'var(--tw-text-white)',
+                color: '#0F172A',
                 lineHeight: 1.15,
                 margin: '12px 0 20px'
               }}>
-                Why Upload Your Music Videos to <span className="text-cyan-gradient">VEVO?</span>
+                Why Upload Your Music Videos to <span style={{ color: '#0090FF' }}>VEVO?</span>
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--tw-text-dim)', fontSize: '1.05rem', lineHeight: 1.6 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, color: '#475569', fontSize: '1.02rem', lineHeight: 1.62 }}>
                 <p>
                   Vevo is one of the most popular places for fans to watch &amp; stream music videos from the artists they love.
                 </p>
@@ -580,20 +608,22 @@ export default function VevoPage({ onNavigate, theme }) {
             </div>
 
             {/* Feature Highlights Grid */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {[
                 { title: "Higher CPM Ad Monetization", desc: "Vevo commands premium ad rates compared to standard YouTube video uploads." },
                 { title: "Official Artist Channel Integration", desc: "Your Vevo uploads syndicate automatically to your unified YouTube Artist Channel." },
                 { title: "Editorial Playlisting Opportunities", desc: "Pitch directly for Vevo DSCVR, Live Performances, and global playlist features." },
                 { title: "100% Royalty Retention", desc: "Keep 100% of the video royalties generated across all global views." }
               ].map((item, i) => (
-                <div key={i} style={{ padding: '16px 20px', background: 'rgba(255,255,255,0.03)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '1rem', fontWeight: 700, color: "var(--tw-text-white)", marginBottom: 4 }}>
-                    <CheckCircle2 size={18} color="var(--tw-cyan)" style={{ flexShrink: 0 }} />
-                    <span>{item.title}</span>
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--tw-text-dim)', paddingLeft: 28 }}>
-                    {item.desc}
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+                  <CheckCircle2 size={20} color="#0090FF" style={{ flexShrink: 0, marginTop: 2 }} />
+                  <div>
+                    <div style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>
+                      {item.title}
+                    </div>
+                    <div style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
+                      {item.desc}
+                    </div>
                   </div>
                 </div>
               ))}
