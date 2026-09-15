@@ -10,9 +10,11 @@ export default function VevoPage({ onNavigate, theme }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const stepsSectionRef = useRef(null);
   const [stepsInView, setStepsInView] = useState(false);
+  const toolkitSectionRef = useRef(null);
+  const [toolkitInView, setToolkitInView] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const stepsObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setStepsInView(true);
@@ -21,12 +23,21 @@ export default function VevoPage({ onNavigate, theme }) {
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
 
-    if (stepsSectionRef.current) {
-      observer.observe(stepsSectionRef.current);
-    }
+    const toolkitObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setToolkitInView(true);
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    if (stepsSectionRef.current) stepsObserver.observe(stepsSectionRef.current);
+    if (toolkitSectionRef.current) toolkitObserver.observe(toolkitSectionRef.current);
 
     return () => {
-      if (stepsSectionRef.current) observer.unobserve(stepsSectionRef.current);
+      if (stepsSectionRef.current) stepsObserver.unobserve(stepsSectionRef.current);
+      if (toolkitSectionRef.current) toolkitObserver.unobserve(toolkitSectionRef.current);
     };
   }, []);
 
@@ -633,29 +644,93 @@ export default function VevoPage({ onNavigate, theme }) {
       </section>
 
       {/* 4. THE TUNEWAVE TOOLKIT: 9 FEATURES */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
+      <section
+        ref={toolkitSectionRef}
+        style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)', position: 'relative', overflow: 'hidden' }}
+      >
+        <style>{`
+          .toolkit-line-wrap {
+            overflow: hidden;
+            display: block;
+            padding: 3px 0;
+          }
+          .toolkit-line-item {
+            display: block;
+            opacity: 0;
+            transform: translateY(45px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+          }
+          .toolkit-line-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          [data-theme="light"] .toolkit-title {
+            color: #0f172a !important;
+          }
+          [data-theme="light"] .toolkit-subtitle {
+            color: #475569 !important;
+          }
+        `}</style>
         <div className="container">
-          <div className="reveal-up" style={{ textAlign: 'center', marginBottom: 60 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-              <span className="pill-badge" style={{ color: 'var(--tw-cyan)' }}>03 · THE TUNEWAVE TOOLKIT</span>
+          <div style={{ textAlign: 'center', marginBottom: 60 }}>
+            {/* Pill Badge - Line 0 */}
+            <div className="toolkit-line-wrap" style={{ marginBottom: 12 }}>
+              <div
+                className={`toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
+                style={{ transitionDelay: '0.1s', display: 'inline-flex', alignItems: 'center', gap: 8 }}
+              >
+                <span className="pill-badge" style={{ color: 'var(--tw-cyan)' }}>03 · THE TUNEWAVE TOOLKIT</span>
+              </div>
             </div>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 800,
-              marginBottom: 16,
-              color: 'var(--tw-text-white)'
-            }}>
-              Why use <span className="text-cyan-gradient">TuneWave.</span>
-            </h2>
-            <p style={{
-              fontSize: '1.15rem',
-              color: 'var(--tw-text-dim)',
-              maxWidth: '680px',
-              margin: '0 auto',
-              lineHeight: 1.6
-            }}>
-              Everything you need to launch, monetize and expand your music visuals and catalog worldwide.
-            </p>
+
+            {/* Line 1: Why use TuneWave. */}
+            <div className="toolkit-line-wrap" style={{ marginBottom: 16 }}>
+              <h2
+                className={`toolkit-title toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
+                style={{
+                  fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+                  fontWeight: 800,
+                  color: 'var(--tw-text-white)',
+                  transitionDelay: '0.32s',
+                  margin: 0
+                }}
+              >
+                Why use <span className="text-cyan-gradient">TuneWave.</span>
+              </h2>
+            </div>
+
+            {/* Line-by-Line Subtitle */}
+            <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+              <div className="toolkit-line-wrap">
+                <p
+                  className={`toolkit-subtitle toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
+                  style={{
+                    fontSize: '1.15rem',
+                    color: 'var(--tw-text-dim)',
+                    lineHeight: 1.6,
+                    margin: 0,
+                    transitionDelay: '0.55s'
+                  }}
+                >
+                  Everything you need to launch, monetize and expand your music visuals and
+                </p>
+              </div>
+              <div className="toolkit-line-wrap">
+                <p
+                  className={`toolkit-subtitle toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
+                  style={{
+                    fontSize: '1.15rem',
+                    color: 'var(--tw-text-dim)',
+                    lineHeight: 1.6,
+                    margin: 0,
+                    transitionDelay: '0.78s'
+                  }}
+                >
+                  catalog worldwide.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="reveal-stagger" style={{
