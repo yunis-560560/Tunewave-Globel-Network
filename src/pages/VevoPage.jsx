@@ -978,33 +978,54 @@ export default function VevoPage({ onNavigate, theme }) {
       {/* 7. BOTTOM CLOSE */}
       <section style={{ padding: '60px 0 20px' }}>
         <div className="container">
-          <div className="glass-panel card-shimmer-sweep dark-inverted-section" style={{
-            padding: '54px 44px',
+          <div className="vevo-cta-card card-shimmer-sweep" style={{
+            padding: '54px 48px',
             borderRadius: 28,
-            background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(14, 165, 233, 0.1) 40%, rgba(9, 13, 21, 0.95) 100%)',
-            border: '1px solid rgba(0, 229, 255, 0.35)',
-            boxShadow: '0 20px 50px -10px rgba(0, 229, 255, 0.15)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: 24
+            gap: 24,
+            position: 'relative',
+            overflow: 'hidden'
           }}>
-            <div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
+            {/* Ambient Overlay for contrast & vibrancy across both themes */}
+            <div className="vevo-cta-overlay" style={{
+              position: 'absolute',
+              inset: 0,
+              pointerEvents: 'none',
+              zIndex: 0
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: '680px' }}>
+              <div className="vevo-cta-badge" style={{
+                fontSize: '0.82rem',
+                fontWeight: 800,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                marginBottom: 8
+              }}>
                 Ready to release?
               </div>
-              <h3 style={{ fontSize: '2rem', fontWeight: 800, color: "#FFFFFF", margin: 0 }}>
+              <h3 className="vevo-cta-title" style={{
+                fontSize: 'clamp(1.75rem, 3.2vw, 2.35rem)',
+                fontWeight: 800,
+                margin: 0,
+                lineHeight: 1.2
+              }}>
                 Distribute to Vevo with TuneWave.
               </h3>
             </div>
+
             <button
               onClick={() => onNavigate('/signup')}
               className="btn-cyan"
               style={{
                 padding: '16px 36px',
                 fontSize: '1rem',
-                fontWeight: 700
+                fontWeight: 700,
+                position: 'relative',
+                zIndex: 1
               }}
             >
               <span>Sign up for free</span>
@@ -1012,6 +1033,51 @@ export default function VevoPage({ onNavigate, theme }) {
             </button>
           </div>
         </div>
+
+        <style>{`
+          .vevo-cta-card {
+            background-image: url('/login_background_image/Your%20music%20journey%20begins%20here%20background.png') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            border: 1px solid rgba(0, 229, 255, 0.35) !important;
+            box-shadow: 0 20px 50px -10px rgba(0, 229, 255, 0.2) !important;
+          }
+          .vevo-cta-overlay {
+            background: linear-gradient(90deg, rgba(8, 12, 22, 0.88) 0%, rgba(9, 14, 26, 0.68) 50%, rgba(8, 12, 22, 0.82) 100%) !important;
+          }
+          .vevo-cta-badge {
+            color: var(--tw-cyan) !important;
+            text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+          }
+          .vevo-cta-title {
+            color: #FFFFFF !important;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+          }
+
+          [data-theme="light"] .vevo-cta-card {
+            background-image: url('/login_background_image/Your%20music%20journey%20begins%20here%20background.png') !important;
+            border: 1px solid rgba(0, 163, 196, 0.28) !important;
+            box-shadow: 0 20px 45px -12px rgba(0, 126, 167, 0.16) !important;
+          }
+          [data-theme="light"] .vevo-cta-overlay {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.42) 50%, rgba(255, 255, 255, 0.80) 100%) !important;
+          }
+          [data-theme="light"] .vevo-cta-badge {
+            color: #0090af !important;
+            text-shadow: none !important;
+          }
+          [data-theme="light"] .vevo-cta-title {
+            color: #0F172A !important;
+            text-shadow: none !important;
+          }
+
+          @media (max-width: 768px) {
+            .vevo-cta-card {
+              padding: 38px 24px !important;
+            }
+          }
+        `}</style>
       </section>
     </div>
   );
