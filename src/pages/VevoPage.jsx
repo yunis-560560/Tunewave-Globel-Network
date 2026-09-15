@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Film, Video, Play, ArrowRight, CheckCircle2, ChevronDown,
   Sparkles, Globe2, ShieldCheck, DollarSign, Users, Award,
@@ -8,6 +8,27 @@ import {
 export default function VevoPage({ onNavigate, theme }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const stepsSectionRef = useRef(null);
+  const [stepsInView, setStepsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStepsInView(true);
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    if (stepsSectionRef.current) {
+      observer.observe(stepsSectionRef.current);
+    }
+
+    return () => {
+      if (stepsSectionRef.current) observer.unobserve(stepsSectionRef.current);
+    };
+  }, []);
 
   const VEVO_FAQS = [
     {
@@ -353,13 +374,93 @@ export default function VevoPage({ onNavigate, theme }) {
       </section>
 
       {/* 2. GETTING STARTED: 5 STEPS */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
+      <section
+        ref={stepsSectionRef}
+        style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)', position: 'relative', overflow: 'hidden' }}
+      >
+        <style>{`
+          /* ── Header Text Animation On Scroll ───────────────────────── */
+          .vevo-steps-header {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+          }
+          .vevo-steps-header.in-view {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          /* ── 3D Card Top-to-Bottom Flipping Animation ────────────────── */
+          @keyframes cardFlipTopToBottom {
+            0% {
+              opacity: 0;
+              transform: perspective(1200px) rotateX(-90deg) translateY(-30px);
+              transform-origin: top center;
+            }
+            55% {
+              opacity: 1;
+              transform: perspective(1200px) rotateX(16deg) translateY(0);
+              transform-origin: top center;
+            }
+            75% {
+              transform: perspective(1200px) rotateX(-6deg);
+              transform-origin: top center;
+            }
+            100% {
+              opacity: 1;
+              transform: perspective(1200px) rotateX(0deg) translateY(0);
+              transform-origin: top center;
+            }
+          }
+
+          .step-card-flip {
+            opacity: 0;
+            transform: perspective(1200px) rotateX(-90deg);
+            transform-origin: top center;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+          }
+
+          .step-card-flip.in-view {
+            animation: cardFlipTopToBottom 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          }
+
+          .step-card-flip:hover {
+            transform: translateY(-4px) scale(1.01) !important;
+            border-color: rgba(0, 229, 255, 0.45) !important;
+            box-shadow: 0 14px 32px rgba(0, 229, 255, 0.15) !important;
+          }
+
+          /* Light mode styling */
+          [data-theme="light"] .vevo-steps-title {
+            color: #0f172a !important;
+          }
+          [data-theme="light"] .vevo-steps-subtitle {
+            color: #475569 !important;
+          }
+          [data-theme="light"] .step-card-flip {
+            background: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+          }
+          [data-theme="light"] .step-card-text {
+            color: #0f172a !important;
+          }
+          [data-theme="light"] .step-card-badge {
+            background: rgba(0, 163, 255, 0.12) !important;
+            border: 1px solid rgba(0, 163, 255, 0.28) !important;
+            color: #0284c7 !important;
+          }
+        `}</style>
+
         <div className="container">
-          <div className="reveal-up" style={{ textAlign: 'center', marginBottom: 60 }}>
+          <div className={`vevo-steps-header ${stepsInView ? 'in-view' : ''}`} style={{ textAlign: 'center', marginBottom: 50 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>01 · GETTING STARTED</span>
             </div>
-            <h2 style={{
+            <h2 className="vevo-steps-title" style={{
               fontSize: 'clamp(2rem, 4vw, 3.2rem)',
               fontWeight: 800,
               marginBottom: 16,
@@ -367,7 +468,7 @@ export default function VevoPage({ onNavigate, theme }) {
             }}>
               How to Get Your Music on <span className="text-cyan-gradient">VEVO</span>
             </h2>
-            <p style={{
+            <p className="vevo-steps-subtitle" style={{
               fontSize: '1.15rem',
               color: 'var(--tw-text-dim)',
               maxWidth: '680px',
@@ -378,7 +479,7 @@ export default function VevoPage({ onNavigate, theme }) {
             </p>
           </div>
 
-          <div style={{ maxWidth: '860px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16, perspective: 1200 }}>
             {[
               "Create a free TuneWave account.",
               "Set up an official Vevo artist channel.",
@@ -386,36 +487,44 @@ export default function VevoPage({ onNavigate, theme }) {
               "Add credits and any collaborators to be paid by Vevo automatically.",
               "Keep 100% of the royalties your videos earn."
             ].map((step, idx) => (
-              <div key={idx} className="glass-panel card-shimmer-sweep" style={{
-                padding: '24px 30px',
-                borderRadius: 16,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 20
-              }}>
-                <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 12,
-                  background: 'rgba(0, 229, 255, 0.12)',
-                  border: '1px solid rgba(0, 229, 255, 0.3)',
-                  color: 'var(--tw-cyan)',
-                  fontSize: '1.1rem',
-                  fontWeight: 900,
+              <div
+                key={idx}
+                className={`glass-panel card-shimmer-sweep step-card-flip ${stepsInView ? 'in-view' : ''}`}
+                style={{
+                  padding: '24px 30px',
+                  borderRadius: 16,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0
-                }}>
+                  gap: 20,
+                  animationDelay: `${0.12 + idx * 0.15}s`
+                }}
+              >
+                <div
+                  className="step-card-badge"
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: 'rgba(0, 229, 255, 0.12)',
+                    border: '1px solid rgba(0, 229, 255, 0.3)',
+                    color: 'var(--tw-cyan)',
+                    fontSize: '1.1rem',
+                    fontWeight: 900,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0
+                  }}
+                >
                   {idx + 1}
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--tw-text-white)' }}>
+                <div className="step-card-text" style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--tw-text-white)' }}>
                   {step}
                 </div>
               </div>
             ))}
 
-            <div style={{ textAlign: 'center', marginTop: 24 }}>
+            <div style={{ textAlign: 'center', marginTop: 28 }}>
               <button
                 onClick={() => onNavigate('/signup')}
                 className="btn-cyan"
