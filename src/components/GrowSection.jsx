@@ -11,9 +11,7 @@ import {
   Tv,
   Film,
   ChevronLeft,
-  ChevronRight,
-  Play,
-  Pause
+  ChevronRight
 } from 'lucide-react';
 
 export default function GrowSection({ onNavigate, lang = 'en' }) {
@@ -35,8 +33,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
   // 2x2 Grid View Page state (Page 0: Tools 1-4, Page 1: Tools 5-8)
   const [activePage, setActivePage] = useState(0);
 
-  // Auto-scroll options and states
-  const [isAutoScroll, setIsAutoScroll] = useState(true);
+  // Auto-scroll states (always active, pauses on hover)
   const [isPaused, setIsPaused] = useState(false);
   const [autoProgress, setAutoProgress] = useState(0); // 0 to 100%
   const SLIDE_DURATION = 5000; // 5 seconds per view
@@ -47,9 +44,9 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
     setAutoProgress(0);
   };
 
-  // Auto-scroll timer effect
+  // Auto-scroll timer effect (always on)
   useEffect(() => {
-    if (!isAutoScroll || isPaused) return;
+    if (isPaused) return;
 
     const intervalStep = 50; // ms
     const increment = (intervalStep / SLIDE_DURATION) * 100;
@@ -65,7 +62,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
     }, intervalStep);
 
     return () => clearInterval(timer);
-  }, [isAutoScroll, isPaused, activePage]);
+  }, [isPaused, activePage]);
 
   // 9 isolated 3D singer frames extracted directly from user's "all singers.png"
   const SINGER_FRAMES = [
@@ -489,131 +486,72 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
                 </button>
               </div>
 
-              {/* Center: Auto-Scroll Toggle & Visual Progress Scroll Track */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 140, maxWidth: 280, margin: '0 4px' }}>
-                {/* Auto-Scroll Option Toggle */}
-                <button
-                  onClick={() => {
-                    setIsAutoScroll(prev => !prev);
-                    setAutoProgress(0);
-                  }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 5,
-                    padding: '5px 10px',
-                    borderRadius: 20,
-                    fontSize: '0.73rem',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    flexShrink: 0,
-                    transition: 'all 0.2s ease',
-                    background: isAutoScroll ? 'rgba(0, 229, 255, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-                    color: isAutoScroll ? 'var(--tw-cyan)' : 'var(--tw-text-muted)',
-                    border: isAutoScroll ? '1px solid rgba(0, 229, 255, 0.35)' : '1px solid var(--tw-line)',
-                    boxShadow: isAutoScroll && !isPaused ? '0 0 8px rgba(0, 229, 255, 0.15)' : 'none',
-                    whiteSpace: 'nowrap'
-                  }}
-                  title={isAutoScroll ? "Auto-scroll is ON. Click to pause or turn OFF" : "Click to enable auto-scroll"}
-                >
-                  {isAutoScroll ? (
-                    isPaused ? (
-                      <>
-                        <Pause size={11} style={{ color: '#FBBF24' }} />
-                        <span style={{ color: '#FBBF24' }}>Paused</span>
-                      </>
-                    ) : (
-                      <>
-                        <span style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: '50%',
-                          background: 'var(--tw-cyan)',
-                          boxShadow: '0 0 6px var(--tw-cyan)',
-                          display: 'inline-block'
-                        }} />
-                        <span>Auto</span>
-                      </>
-                    )
-                  ) : (
-                    <>
-                      <Play size={11} />
-                      <span>Auto: Off</span>
-                    </>
-                  )}
-                </button>
-
-                {/* Progress Track */}
+              {/* Center: Visual Progress Scroll Track with Smooth Auto-Scroll Animation */}
+              <div 
+                style={{
+                  flex: 1,
+                  minWidth: 90,
+                  maxWidth: 240,
+                  height: 6,
+                  display: 'flex',
+                  gap: 4,
+                  cursor: 'pointer',
+                  padding: '4px 0',
+                  boxSizing: 'content-box',
+                  margin: '0 8px'
+                }}
+                title="Click to switch tool views"
+              >
+                {/* Segment 1: Page 1 */}
                 <div 
+                  onClick={() => switchPage(0)}
                   style={{
                     flex: 1,
-                    minWidth: 70,
                     height: 6,
-                    display: 'flex',
-                    gap: 4,
-                    cursor: 'pointer',
-                    padding: '4px 0',
-                    boxSizing: 'content-box'
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    borderRadius: 9999,
+                    overflow: 'hidden',
+                    position: 'relative'
                   }}
-                  title="Click to switch tool views"
+                  title="View 01 · Audience & Promotion"
                 >
-                  {/* Segment 1: Page 1 */}
                   <div 
-                    onClick={() => switchPage(0)}
                     style={{
-                      flex: 1,
-                      height: 6,
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      borderRadius: 9999,
-                      overflow: 'hidden',
-                      position: 'relative'
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      width: activePage === 0 ? `${autoProgress}%` : '0%',
+                      background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
+                      borderRadius: 9999
                     }}
-                    title="View 01 · Audience & Promotion"
-                  >
-                    <div 
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        width: activePage === 0 
-                          ? (isAutoScroll ? `${autoProgress}%` : '100%') 
-                          : '0%',
-                        background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
-                        borderRadius: 9999,
-                        transition: isAutoScroll ? 'none' : 'width 0.25s ease'
-                      }}
-                    />
-                  </div>
+                  />
+                </div>
 
-                  {/* Segment 2: Page 2 */}
+                {/* Segment 2: Page 2 */}
+                <div 
+                  onClick={() => switchPage(1)}
+                  style={{
+                    flex: 1,
+                    height: 6,
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    borderRadius: 9999,
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}
+                  title="View 02 · Studio, Vevo & Sync"
+                >
                   <div 
-                    onClick={() => switchPage(1)}
                     style={{
-                      flex: 1,
-                      height: 6,
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      borderRadius: 9999,
-                      overflow: 'hidden',
-                      position: 'relative'
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      width: activePage === 1 ? `${autoProgress}%` : '0%',
+                      background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
+                      borderRadius: 9999
                     }}
-                    title="View 02 · Studio, Vevo & Sync"
-                  >
-                    <div 
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        width: activePage === 1 
-                          ? (isAutoScroll ? `${autoProgress}%` : '100%') 
-                          : '0%',
-                        background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
-                        borderRadius: 9999,
-                        transition: isAutoScroll ? 'none' : 'width 0.25s ease'
-                      }}
-                    />
-                  </div>
+                  />
                 </div>
               </div>
 
