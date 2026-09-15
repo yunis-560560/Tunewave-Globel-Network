@@ -180,7 +180,7 @@ export default function VevoPage({ onNavigate, theme }) {
               }}>
                 Get Your Music <br />
                 Videos <br />
-                <span style={{ color: '#0090FF' }}>
+                <span style={{ color: '#000000' }}>
                   on VEVO.
                 </span>
               </h1>
