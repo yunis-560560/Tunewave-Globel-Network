@@ -129,50 +129,69 @@ export default function VevoPage({ onNavigate, theme }) {
   ];
 
   return (
-    <div style={{ paddingTop: 30, paddingBottom: 100 }}>
+    <div style={{ paddingTop: 0, paddingBottom: 100 }}>
       {/* 1. HERO COVER SECTION */}
-      <section style={{ position: 'relative', padding: '40px 0 80px', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute',
-          top: '-15%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '100%',
-          maxWidth: 1100,
-          height: '100%',
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(0, 229, 255, 0.12) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%)',
-          pointerEvents: 'none',
-          zIndex: 0
-        }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+      <section
+        className="vevo-hero-cover-section"
+        style={{
+          position: 'relative',
+          padding: '70px 0 100px',
+          overflow: 'hidden',
+          backgroundImage: 'url("/Get%20Your%20Music%20Videos%20background%20image.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat',
+          minHeight: 580,
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 48, alignItems: 'center' }}>
             <div className="reveal-up">
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-                <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
-                  <Film size={13} style={{ marginRight: 4 }} />
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 14px',
+                    borderRadius: 30,
+                    fontSize: '0.78rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.08em',
+                    color: '#0284C7',
+                    background: 'rgba(2, 132, 199, 0.12)',
+                    border: '1px solid rgba(2, 132, 199, 0.28)'
+                  }}
+                >
+                  <Film size={13} />
                   OFFICIAL VEVO PARTNER
                 </span>
               </div>
 
               <h1 style={{
-                fontSize: 'clamp(2.4rem, 5.5vw, 4.2rem)',
-                fontWeight: 800,
+                fontSize: 'clamp(2.5rem, 5vw, 4.4rem)',
+                fontWeight: 900,
                 lineHeight: 1.1,
                 marginBottom: 20,
-                color: 'var(--tw-text-white)'
+                color: '#0F172A',
+                letterSpacing: '-0.03em'
               }}>
-                Get Your Music Videos <br />
-                <span className="text-cyan-gradient">
+                Get Your Music <br />
+                Videos <br />
+                <span style={{ color: '#0090FF' }}>
                   on VEVO.
                 </span>
               </h1>
 
               <p style={{
-                fontSize: '1.15rem',
-                color: 'var(--tw-text-dim)',
-                lineHeight: 1.6,
+                fontSize: '1.08rem',
+                color: '#334155',
+                lineHeight: 1.65,
                 marginBottom: 32,
-                maxWidth: '560px'
+                maxWidth: '520px',
+                fontWeight: 500
               }}>
                 Set up an Official Vevo Channel, upload all of your music videos and keep 100% of the royalties you generate. With TuneWave, it's cheap and easy to get your visuals live on Vevo and start earning even more from your music.
               </p>
@@ -180,45 +199,76 @@ export default function VevoPage({ onNavigate, theme }) {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
                 <button
                   onClick={() => onNavigate('/signup')}
-                  className="btn-cyan"
                   style={{
-                    padding: '16px 36px',
-                    fontSize: '1rem',
-                    fontWeight: 700
+                    padding: '15px 32px',
+                    fontSize: '0.98rem',
+                    fontWeight: 700,
+                    borderRadius: 30,
+                    background: '#0084B4',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    cursor: 'pointer',
+                    boxShadow: '0 8px 24px rgba(0, 132, 180, 0.35)',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 132, 180, 0.45)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 132, 180, 0.35)';
                   }}
                 >
                   <span>Upload Your Music</span>
-                  <ArrowRight size={18} className="btn-icon-hover" />
+                  <ArrowRight size={18} />
                 </button>
                 <button
                   onClick={() => onNavigate('/pricing')}
-                  className="btn-glass"
-                  style={{ padding: '16px 32px', fontSize: '1rem', fontWeight: 700 }}
+                  style={{
+                    padding: '15px 30px',
+                    fontSize: '0.98rem',
+                    fontWeight: 700,
+                    borderRadius: 30,
+                    background: 'rgba(255, 255, 255, 0.75)',
+                    color: '#0F172A',
+                    border: '1px solid rgba(15, 23, 42, 0.16)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.04)',
+                    transition: 'transform 0.2s ease, background 0.2s ease'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.75)';
+                  }}
                 >
                   <span>View Video Plans</span>
-                  <ArrowRight size={18} className="btn-icon-hover" />
+                  <ArrowRight size={18} />
                 </button>
               </div>
             </div>
 
-            {/* Right 4K Video Player Mockup */}
-            <div className="reveal-scale" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-              <div style={{
-                position: 'absolute',
-                inset: -20,
-                background: 'radial-gradient(circle at center, rgba(0, 229, 255, 0.22) 0%, rgba(14, 165, 233, 0.12) 60%, transparent 80%)',
-                filter: 'blur(40px)',
-                pointerEvents: 'none'
-              }} />
-
-              <div className="glass-panel card-shimmer-sweep dark-inverted-section" style={{
+            {/* Right 4K Video Player Mockup on Podium */}
+            <div className="reveal-scale" style={{ display: 'flex', justifyContent: 'center', position: 'relative', marginBottom: -10 }}>
+              <div className="card-shimmer-sweep" style={{
                 borderRadius: 24,
                 overflow: 'hidden',
                 width: '100%',
-                maxWidth: 480,
+                maxWidth: 490,
                 background: '#090D15',
-                border: '1px solid rgba(0, 229, 255, 0.3)',
-                boxShadow: '0 25px 50px rgba(0,0,0,0.8)'
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                boxShadow: '0 25px 60px -15px rgba(0, 20, 50, 0.45)'
               }}>
                 {/* 16:9 Video Canvas Frame */}
                 <div style={{
