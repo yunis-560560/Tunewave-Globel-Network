@@ -1424,9 +1424,9 @@ export default function DistributePage({ onNavigate, theme }) {
       </section>
 
       {/* 6. TRUSTPILOT REVIEWS */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
+      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)', overflow: 'hidden' }}>
         <div className="container">
-          <div className="reveal-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>
+          <div className="reveal-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24, marginBottom: 40 }}>
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <span className="pill-badge" style={{ color: 'var(--tw-cyan)' }}>TRUSTED</span>
@@ -1440,7 +1440,7 @@ export default function DistributePage({ onNavigate, theme }) {
               </h2>
             </div>
 
-            <div style={{
+            <div className="trustpilot-badge-box" style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: 16,
@@ -1455,43 +1455,105 @@ export default function DistributePage({ onNavigate, theme }) {
                     <Star key={i} size={16} fill="#00B67A" color="#00B67A" />
                   ))}
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--tw-text-white)' }}>
+                <div className="trustpilot-badge-text" style={{ fontSize: '0.85rem', color: 'var(--tw-text-white)' }}>
                   <strong>Great</strong> · 6,257 artist reviews
                 </div>
               </div>
               <div style={{ height: 32, width: 1, background: 'rgba(255,255,255,0.1)' }} />
-              <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--tw-text-white)' }}>
+              <div className="trustpilot-badge-score" style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--tw-text-white)' }}>
                 4.2 <span style={{ fontSize: '0.85rem', color: 'var(--tw-text-dim)' }}>/ 5</span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="reveal-stagger" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-            gap: 24
-          }}>
-            {REVIEWS.map((rev, idx) => (
-              <div key={idx} className="glass-panel card-shimmer-sweep" style={{
-                padding: 28,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                borderRadius: 18
-              }}>
+        {/* Continuous Right-to-Left Slow Motion Infinite Marquee */}
+        <div className="reviews-marquee-container" style={{
+          position: 'relative',
+          width: '100%',
+          overflow: 'hidden',
+          padding: '12px 0 24px'
+        }}>
+          <style>{`
+            .reviews-marquee-track {
+              display: flex;
+              gap: 24px;
+              width: max-content;
+              animation: reviewsScrollRTL 42s linear infinite;
+              will-change: transform;
+            }
+            .reviews-marquee-track:hover {
+              animation-play-state: paused;
+            }
+            @keyframes reviewsScrollRTL {
+              0% {
+                transform: translateX(0);
+              }
+              100% {
+                transform: translateX(-50%);
+              }
+            }
+            .review-marquee-card {
+              width: 360px;
+              min-width: 360px;
+              max-width: 360px;
+              flex-shrink: 0;
+              padding: 26px 24px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              border-radius: 20px;
+              cursor: pointer;
+              transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.35s ease, border-color 0.35s ease;
+            }
+            .review-marquee-card:hover {
+              transform: translateY(-6px) scale(1.02);
+              border-color: rgba(0, 229, 255, 0.45) !important;
+              box-shadow: 0 16px 36px -8px rgba(0, 229, 255, 0.2) !important;
+            }
+            
+            /* Light mode overrides */
+            [data-theme="light"] .review-marquee-card {
+              background: #ffffff !important;
+              border: 1px solid rgba(0, 0, 0, 0.08) !important;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+            }
+            [data-theme="light"] .trustpilot-badge-box {
+              background: #ffffff !important;
+              border: 1px solid rgba(0, 0, 0, 0.08) !important;
+              box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+            }
+            [data-theme="light"] .trustpilot-badge-text,
+            [data-theme="light"] .trustpilot-badge-score {
+              color: #0f172a !important;
+            }
+            [data-theme="light"] .review-card-name {
+              color: #0f172a !important;
+            }
+            [data-theme="light"] .review-card-text {
+              color: #334155 !important;
+            }
+            [data-theme="light"] .review-card-meta {
+              color: #64748b !important;
+            }
+          `}</style>
+
+          <div className="reviews-marquee-track">
+            {[...REVIEWS, ...REVIEWS, ...REVIEWS, ...REVIEWS].map((rev, idx) => (
+              <div key={idx} className="glass-panel card-shimmer-sweep review-marquee-card">
                 <div>
                   <div style={{ display: 'flex', gap: 3, color: '#00B67A', marginBottom: 14 }}>
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} fill="#00B67A" color="#00B67A" />
+                      <Star key={i} size={15} fill="#00B67A" color="#00B67A" />
                     ))}
                   </div>
-                  <p style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.6, fontStyle: 'italic', marginBottom: 20 }}>
+                  <p className="review-card-text" style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.62, fontStyle: 'italic', marginBottom: 20 }}>
                     "{rev.text}"
                   </p>
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>{rev.name}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--tw-text-muted)' }}>{rev.meta}</div>
+                  <div className="review-card-name" style={{ fontSize: '0.94rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>{rev.name}</div>
+                  <div className="review-card-meta" style={{ fontSize: '0.76rem', color: 'var(--tw-text-muted)', marginTop: 2 }}>{rev.meta}</div>
                 </div>
               </div>
             ))}
