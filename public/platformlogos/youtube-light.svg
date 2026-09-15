@@ -2,5 +2,5 @@
   <circle cx="18" cy="18" r="16" fill="#FF0000"/>
   <circle cx="18" cy="18" r="10" stroke="#FFFFFF" stroke-width="2" fill="none"/>
   <polygon points="16,13 23,18 16,23" fill="#FFFFFF"/>
-  <text x="42" y="24.5" fill="#FFFFFF" font-family="'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="17" letter-spacing="-0.03em">YouTube <tspan font-weight="500">Music</tspan></text>
+  <text x="42" y="24.5" fill="currentColor" font-family="'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="17" letter-spacing="-0.03em">YouTube <tspan font-weight="500">Music</tspan></text>
 </svg>

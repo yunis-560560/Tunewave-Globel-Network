@@ -30,6 +30,21 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
   const hasTriggeredExpansionRef = useRef(false);
   const showcaseRef = useRef(null);
 
+  // Theme detection for marquee logo wordmarks
+  const [isLightMode, setIsLightMode] = useState(() => {
+    return typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light';
+  });
+
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsLightMode(document.documentElement.getAttribute('data-theme') === 'light');
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
   // Track scroll position for floating badges & trigger entrance expansion when fully visible
   useEffect(() => {
     let ticking = false;
@@ -393,36 +408,36 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
           <div className="a3-logo-marquee-mask">
             <div className="a3-logo-track">
               {[
-                { name: "Spotify", src: "/platformlogos/Spotify.svg" },
-                { name: "Apple Music", src: "/platformlogos/applemusic.svg" },
-                { name: "YouTube Music", src: "/platformlogos/youtube.svg" },
-                { name: "TikTok", src: "/platformlogos/Tiktok.svg" },
-                { name: "Instagram", src: "/platformlogos/instagram.svg" },
-                { name: "Deezer", src: "/platformlogos/Deezer.svg" },
-                { name: "Amazon Music", src: "/platformlogos/amazonmusic.svg" },
-                { name: "JioSaavn", src: "/platformlogos/jiosaavan.svg" },
-                { name: "Gaana", src: "/platformlogos/gaana.svg" },
-                { name: "150+ Stores", src: "/platformlogos/150plus.svg" },
-                { name: "Spotify", src: "/platformlogos/Spotify.svg" },
-                { name: "Apple Music", src: "/platformlogos/applemusic.svg" },
-                { name: "YouTube Music", src: "/platformlogos/youtube.svg" },
-                { name: "TikTok", src: "/platformlogos/Tiktok.svg" },
-                { name: "Instagram", src: "/platformlogos/instagram.svg" },
-                { name: "Deezer", src: "/platformlogos/Deezer.svg" },
-                { name: "Amazon Music", src: "/platformlogos/amazonmusic.svg" },
-                { name: "JioSaavn", src: "/platformlogos/jiosaavan.svg" },
-                { name: "Gaana", src: "/platformlogos/gaana.svg" },
-                { name: "150+ Stores", src: "/platformlogos/150plus.svg" },
-                { name: "Spotify", src: "/platformlogos/Spotify.svg" },
-                { name: "Apple Music", src: "/platformlogos/applemusic.svg" },
-                { name: "YouTube Music", src: "/platformlogos/youtube.svg" },
-                { name: "TikTok", src: "/platformlogos/Tiktok.svg" },
-                { name: "Instagram", src: "/platformlogos/instagram.svg" },
-                { name: "Deezer", src: "/platformlogos/Deezer.svg" },
-                { name: "Amazon Music", src: "/platformlogos/amazonmusic.svg" },
-                { name: "JioSaavn", src: "/platformlogos/jiosaavan.svg" },
-                { name: "Gaana", src: "/platformlogos/gaana.svg" },
-                { name: "150+ Stores", src: "/platformlogos/150plus.svg" }
+                { name: "Spotify", file: "Spotify" },
+                { name: "Apple Music", file: "applemusic" },
+                { name: "YouTube Music", file: "youtube" },
+                { name: "TikTok", file: "Tiktok" },
+                { name: "Instagram", file: "instagram" },
+                { name: "Deezer", file: "Deezer" },
+                { name: "Amazon Music", file: "amazonmusic" },
+                { name: "JioSaavn", file: "jiosaavan" },
+                { name: "Gaana", file: "gaana" },
+                { name: "150+ Stores", file: "150plus" },
+                { name: "Spotify", file: "Spotify" },
+                { name: "Apple Music", file: "applemusic" },
+                { name: "YouTube Music", file: "youtube" },
+                { name: "TikTok", file: "Tiktok" },
+                { name: "Instagram", file: "instagram" },
+                { name: "Deezer", file: "Deezer" },
+                { name: "Amazon Music", file: "amazonmusic" },
+                { name: "JioSaavn", file: "jiosaavan" },
+                { name: "Gaana", file: "gaana" },
+                { name: "150+ Stores", file: "150plus" },
+                { name: "Spotify", file: "Spotify" },
+                { name: "Apple Music", file: "applemusic" },
+                { name: "YouTube Music", file: "youtube" },
+                { name: "TikTok", file: "Tiktok" },
+                { name: "Instagram", file: "instagram" },
+                { name: "Deezer", file: "Deezer" },
+                { name: "Amazon Music", file: "amazonmusic" },
+                { name: "JioSaavn", file: "jiosaavan" },
+                { name: "Gaana", file: "gaana" },
+                { name: "150+ Stores", file: "150plus" }
               ].map((logo, i) => (
                 <div 
                   key={`a3logo-${i}`} 
@@ -430,7 +445,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                   title={`Delivered to ${logo.name}`}
                 >
                   <img 
-                    src={logo.src} 
+                    src={`/platformlogos/${logo.file}${isLightMode ? '-light' : ''}.svg`} 
                     alt={logo.name} 
                     className="a3-logo-img" 
                     loading="lazy" 
