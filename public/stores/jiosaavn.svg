@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+    <defs>
+      <linearGradient id="jioGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00D285"/>
+        <stop offset="100%" stop-color="#00A86B"/>
+      </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="14" fill="url(#jioGrad3)"/>
+    <circle cx="24" cy="24" r="6" fill="#FFFFFF"/>
+    <path d="M24 6v9M24 33v9M6 24h9M33 24h9M11.3 11.3l6.4 6.4M30.3 30.3l6.4 6.4M11.3 36.7l6.4-6.4M30.3 17.7l6.4-6.4" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  </svg>

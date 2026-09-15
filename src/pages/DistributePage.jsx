@@ -70,7 +70,7 @@ export default function DistributePage({ onNavigate, theme }) {
     { name: "WhatsApp",           category: "Messaging",       color: "#25D366", icon: "whatsapp" },
     { name: "iHeartRadio",        category: "Radio & Podcast", color: "#C60000", icon: "iheartradio" },
     { name: "Peloton",            category: "Fitness Audio",   color: "#DF1A22", icon: "peloton" },
-    { name: "YouTube Shorts",     category: "Short Video",     color: "#FF0000", icon: "youtube" },
+    { name: "YouTube Shorts",     category: "Short Video",     color: "#FF0000", icon: "youtubeshorts" },
     { name: "Tencent Music",      category: "China / Asia",    color: "#0052D9", icon: "tencentqq" },
     { name: "NetEase Cloud",      category: "China / Asia",    color: "#C20C0C", icon: "neteasecloudmusic" },
     { name: "JioSaavn",           category: "India / Global",  color: "#2BC5B4", icon: "jiosaavn" },
@@ -713,13 +713,11 @@ export default function DistributePage({ onNavigate, theme }) {
                 placeholder="Search 150+ stores..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                className="store-search-input"
                 style={{
                   width: '100%',
                   padding: '12px 16px 12px 42px',
                   borderRadius: 12,
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  color: "var(--tw-text-white)",
                   fontSize: '0.92rem',
                   outline: 'none'
                 }}
@@ -729,30 +727,40 @@ export default function DistributePage({ onNavigate, theme }) {
 
           {/* Stores Grid */}
           <style>{`
-            /* ── Light mode ─────────────────────────────── */
-            :root .store-card,
-            [data-theme="light"] .store-card,
-            body:not(.dark) .store-card {
-              background: #ffffff;
-              border: 1px solid rgba(0,0,0,0.07);
-              box-shadow: 0 2px 14px rgba(0,0,0,0.06);
-            }
-            :root .store-card-name,
-            [data-theme="light"] .store-card-name,
-            body:not(.dark) .store-card-name { color: #1a1a2e; }
-
-            /* ── Dark mode ──────────────────────────────── */
-            .dark .store-card {
-              background: rgba(255,255,255,0.04);
-              border: 1px solid rgba(255,255,255,0.08);
-              box-shadow: none;
-            }
-            .dark .store-card-name { color: #ffffff; }
-
-            /* ── Shared ─────────────────────────────────── */
+            /* ── Dark mode (default & explicit) ─────────── */
             .store-card {
-              border-radius: 18px;
-              padding: 22px 18px 18px;
+              background: rgba(255, 255, 255, 0.035);
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            }
+            .store-card-name {
+              color: #f1f5f9;
+            }
+            .store-search-input {
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              color: #ffffff;
+            }
+
+            /* ── Light mode override ─────────────────────── */
+            [data-theme="light"] .store-card {
+              background: #ffffff !important;
+              border: 1px solid rgba(0, 0, 0, 0.08) !important;
+              box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+            }
+            [data-theme="light"] .store-card-name {
+              color: #0f172a !important;
+            }
+            [data-theme="light"] .store-search-input {
+              background: #ffffff !important;
+              border: 1px solid rgba(0, 0, 0, 0.12) !important;
+              color: #0f172a !important;
+            }
+
+            /* ── Shared Card & Hover Animation ─────────── */
+            .store-card {
+              border-radius: 20px;
+              padding: 22px 16px 18px;
               display: flex;
               flex-direction: column;
               align-items: center;
@@ -769,7 +777,7 @@ export default function DistributePage({ onNavigate, theme }) {
               content: '';
               position: absolute;
               inset: 0;
-              border-radius: 18px;
+              border-radius: 20px;
               background: radial-gradient(circle at 50% 0%, var(--card-glow, transparent) 0%, transparent 70%);
               opacity: 0;
               transition: opacity 0.35s ease;
@@ -783,39 +791,34 @@ export default function DistributePage({ onNavigate, theme }) {
             .store-card:hover::before { opacity: 1; }
             .store-card:hover .store-logo-wrap {
               transform: scale(1.15) rotate(-6deg);
-              box-shadow: 0 8px 24px var(--card-shadow, rgba(0,229,255,0.4));
+              filter: drop-shadow(0 8px 20px var(--card-shadow, rgba(0,229,255,0.4)));
             }
             .store-card:hover .store-arrow { opacity: 1; transform: translate(3px, -3px); }
+
             .store-logo-wrap {
               width: 58px;
               height: 58px;
-              border-radius: 16px;
               display: flex;
               align-items: center;
               justify-content: center;
-              transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s ease;
+              transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), filter 0.4s ease;
               position: relative;
-              /* solid brand colour – always vivid */
-              background: var(--card-logo-bg);
             }
             .store-logo-wrap img {
-              width: 30px;
-              height: 30px;
+              width: 54px;
+              height: 54px;
+              border-radius: 14px;
               object-fit: contain;
-              /* always white icon on coloured bg */
-              filter: brightness(0) invert(1);
+              display: block;
+              filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12));
               transition: filter 0.3s ease;
             }
-            .store-logo-wrap .store-fallback-letter {
-              font-size: 1.5rem;
-              font-weight: 800;
-              color: #fff;
-            }
             .store-card-name {
-              font-size: 0.82rem;
+              font-size: 0.84rem;
               font-weight: 700;
               text-align: center;
               line-height: 1.3;
+              transition: color 0.25s ease;
             }
             .store-card-category {
               font-size: 0.65rem;
@@ -878,20 +881,11 @@ export default function DistributePage({ onNavigate, theme }) {
                   <ArrowRight size={12} color={accent} className="store-arrow" />
 
                   {/* Logo */}
-                  <div
-                    className="store-logo-wrap"
-                    style={{ '--card-logo-bg': accent }}
-                  >
+                  <div className="store-logo-wrap">
                     <img
-                      src={`https://cdn.simpleicons.org/${st.icon}/ffffff`}
+                      src={`/stores/${st.icon}.svg`}
                       alt={st.name}
-                      onError={e => {
-                        e.target.style.display = 'none';
-                        const span = document.createElement('span');
-                        span.className = 'store-fallback-letter';
-                        span.textContent = st.name.charAt(0);
-                        e.target.parentElement.appendChild(span);
-                      }}
+                      loading="lazy"
                     />
                   </div>
 
