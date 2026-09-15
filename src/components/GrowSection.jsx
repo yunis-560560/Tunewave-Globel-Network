@@ -11,7 +11,9 @@ import {
   Tv,
   Film,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Play,
+  Pause
 } from 'lucide-react';
 
 export default function GrowSection({ onNavigate, lang = 'en' }) {
@@ -32,6 +34,38 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
 
   // 2x2 Grid View Page state (Page 0: Tools 1-4, Page 1: Tools 5-8)
   const [activePage, setActivePage] = useState(0);
+
+  // Auto-scroll options and states
+  const [isAutoScroll, setIsAutoScroll] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [autoProgress, setAutoProgress] = useState(0); // 0 to 100%
+  const SLIDE_DURATION = 5000; // 5 seconds per view
+
+  // Manual page switcher helper
+  const switchPage = (pageIndex) => {
+    setActivePage(pageIndex);
+    setAutoProgress(0);
+  };
+
+  // Auto-scroll timer effect
+  useEffect(() => {
+    if (!isAutoScroll || isPaused) return;
+
+    const intervalStep = 50; // ms
+    const increment = (intervalStep / SLIDE_DURATION) * 100;
+
+    const timer = setInterval(() => {
+      setAutoProgress((prev) => {
+        if (prev + increment >= 100) {
+          setActivePage((curr) => (curr === 0 ? 1 : 0));
+          return 0;
+        }
+        return prev + increment;
+      });
+    }, intervalStep);
+
+    return () => clearInterval(timer);
+  }, [isAutoScroll, isPaused, activePage]);
 
   // 9 isolated 3D singer frames extracted directly from user's "all singers.png"
   const SINGER_FRAMES = [
@@ -359,7 +393,11 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0 }}>
             
             {/* Overflow viewport container for 2x2 slides */}
-            <div style={{ overflow: 'hidden', width: '100%', borderRadius: 18 }}>
+            <div 
+              style={{ overflow: 'hidden', width: '100%', borderRadius: 18 }}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
               <div 
                 style={{
                   display: 'flex',
@@ -395,23 +433,28 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
               </div>
             </div>
 
-            {/* BELOW SCROLL OPTION: Interactive Navigation & Scroll Track */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: 12,
-              padding: '12px 18px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--tw-line)',
-              borderRadius: 14,
-              marginTop: 4
-            }}>
+            {/* BELOW SCROLL OPTION: Interactive Navigation, Auto-Scroll & Progress Track */}
+            <div 
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'nowrap',
+                gap: 12,
+                padding: '10px 16px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid var(--tw-line)',
+                borderRadius: 14,
+                marginTop: 6,
+                overflowX: 'auto'
+              }}
+            >
               {/* Left: View Selection Tabs */}
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                 <button
-                  onClick={() => setActivePage(0)}
+                  onClick={() => switchPage(0)}
                   style={{
                     padding: '6px 14px',
                     borderRadius: 20,
@@ -421,13 +464,14 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
                     transition: 'all 0.2s ease',
                     background: activePage === 0 ? 'var(--tw-cyan)' : 'rgba(255, 255, 255, 0.05)',
                     color: activePage === 0 ? '#080B11' : 'var(--tw-text-white)',
-                    border: activePage === 0 ? '1px solid var(--tw-cyan)' : '1px solid var(--tw-line)'
+                    border: activePage === 0 ? '1px solid var(--tw-cyan)' : '1px solid var(--tw-line)',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   01 · Audience & Promotion (4 Tools)
                 </button>
                 <button
-                  onClick={() => setActivePage(1)}
+                  onClick={() => switchPage(1)}
                   style={{
                     padding: '6px 14px',
                     borderRadius: 20,
@@ -437,81 +481,180 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
                     transition: 'all 0.2s ease',
                     background: activePage === 1 ? 'var(--tw-cyan)' : 'rgba(255, 255, 255, 0.05)',
                     color: activePage === 1 ? '#080B11' : 'var(--tw-text-white)',
-                    border: activePage === 1 ? '1px solid var(--tw-cyan)' : '1px solid var(--tw-line)'
+                    border: activePage === 1 ? '1px solid var(--tw-cyan)' : '1px solid var(--tw-line)',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   02 · Studio, Vevo & Sync (4 Tools)
                 </button>
               </div>
 
-              {/* Center: Visual Progress Scroll Track */}
-              <div 
-                style={{
-                  flex: 1,
-                  minWidth: 100,
-                  maxWidth: 220,
-                  height: 6,
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  borderRadius: 9999,
-                  position: 'relative',
-                  overflow: 'hidden',
-                  cursor: 'pointer'
-                }}
-                onClick={() => setActivePage(activePage === 0 ? 1 : 0)}
-                title="Click to switch tool views"
-              >
+              {/* Center: Auto-Scroll Toggle & Visual Progress Scroll Track */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 140, maxWidth: 280, margin: '0 4px' }}>
+                {/* Auto-Scroll Option Toggle */}
+                <button
+                  onClick={() => {
+                    setIsAutoScroll(prev => !prev);
+                    setAutoProgress(0);
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '5px 10px',
+                    borderRadius: 20,
+                    fontSize: '0.73rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    transition: 'all 0.2s ease',
+                    background: isAutoScroll ? 'rgba(0, 229, 255, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+                    color: isAutoScroll ? 'var(--tw-cyan)' : 'var(--tw-text-muted)',
+                    border: isAutoScroll ? '1px solid rgba(0, 229, 255, 0.35)' : '1px solid var(--tw-line)',
+                    boxShadow: isAutoScroll && !isPaused ? '0 0 8px rgba(0, 229, 255, 0.15)' : 'none',
+                    whiteSpace: 'nowrap'
+                  }}
+                  title={isAutoScroll ? "Auto-scroll is ON. Click to pause or turn OFF" : "Click to enable auto-scroll"}
+                >
+                  {isAutoScroll ? (
+                    isPaused ? (
+                      <>
+                        <Pause size={11} style={{ color: '#FBBF24' }} />
+                        <span style={{ color: '#FBBF24' }}>Paused</span>
+                      </>
+                    ) : (
+                      <>
+                        <span style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: '50%',
+                          background: 'var(--tw-cyan)',
+                          boxShadow: '0 0 6px var(--tw-cyan)',
+                          display: 'inline-block'
+                        }} />
+                        <span>Auto</span>
+                      </>
+                    )
+                  ) : (
+                    <>
+                      <Play size={11} />
+                      <span>Auto: Off</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Progress Track */}
                 <div 
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    bottom: 0,
-                    left: activePage === 0 ? '0%' : '50%',
-                    width: '50%',
-                    background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
-                    borderRadius: 9999,
-                    transition: 'left 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+                    flex: 1,
+                    minWidth: 70,
+                    height: 6,
+                    display: 'flex',
+                    gap: 4,
+                    cursor: 'pointer',
+                    padding: '4px 0',
+                    boxSizing: 'content-box'
                   }}
-                />
+                  title="Click to switch tool views"
+                >
+                  {/* Segment 1: Page 1 */}
+                  <div 
+                    onClick={() => switchPage(0)}
+                    style={{
+                      flex: 1,
+                      height: 6,
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      borderRadius: 9999,
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}
+                    title="View 01 · Audience & Promotion"
+                  >
+                    <div 
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        width: activePage === 0 
+                          ? (isAutoScroll ? `${autoProgress}%` : '100%') 
+                          : '0%',
+                        background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
+                        borderRadius: 9999,
+                        transition: isAutoScroll ? 'none' : 'width 0.25s ease'
+                      }}
+                    />
+                  </div>
+
+                  {/* Segment 2: Page 2 */}
+                  <div 
+                    onClick={() => switchPage(1)}
+                    style={{
+                      flex: 1,
+                      height: 6,
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      borderRadius: 9999,
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}
+                    title="View 02 · Studio, Vevo & Sync"
+                  >
+                    <div 
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        width: activePage === 1 
+                          ? (isAutoScroll ? `${autoProgress}%` : '100%') 
+                          : '0%',
+                        background: 'linear-gradient(90deg, var(--tw-cyan), var(--tw-cyan-bright))',
+                        borderRadius: 9999,
+                        transition: isAutoScroll ? 'none' : 'width 0.25s ease'
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Right: Next / Prev Arrows */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--tw-text-muted)', marginRight: 4 }}>
+              {/* Right: Next / Prev Arrows & Page Indicator */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--tw-text-muted)', marginRight: 2 }}>
                   {activePage + 1} / 2
                 </span>
                 <button
-                  onClick={() => setActivePage(0)}
-                  disabled={activePage === 0}
+                  onClick={() => switchPage(activePage === 0 ? 1 : 0)}
                   style={{
                     width: 32,
                     height: 32,
                     borderRadius: 8,
                     border: '1px solid var(--tw-line)',
-                    background: activePage === 0 ? 'rgba(255, 255, 255, 0.02)' : 'rgba(255, 255, 255, 0.08)',
-                    color: activePage === 0 ? 'var(--tw-text-muted)' : 'var(--tw-text-white)',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    color: 'var(--tw-text-white)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    cursor: activePage === 0 ? 'not-allowed' : 'pointer'
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease, border-color 0.2s ease'
                   }}
                   title="Previous tools"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button
-                  onClick={() => setActivePage(1)}
-                  disabled={activePage === 1}
+                  onClick={() => switchPage(activePage === 1 ? 0 : 1)}
                   style={{
                     width: 32,
                     height: 32,
                     borderRadius: 8,
                     border: '1px solid var(--tw-line)',
-                    background: activePage === 1 ? 'rgba(255, 255, 255, 0.02)' : 'rgba(255, 255, 255, 0.08)',
-                    color: activePage === 1 ? 'var(--tw-text-muted)' : 'var(--tw-text-white)',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    color: 'var(--tw-text-white)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    cursor: activePage === 1 ? 'not-allowed' : 'pointer'
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease, border-color 0.2s ease'
                   }}
                   title="Next tools"
                 >
