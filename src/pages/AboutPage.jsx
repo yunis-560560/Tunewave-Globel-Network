@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Building2, Mail, Clock, MapPin, Globe, ShieldCheck, 
   Sparkles, Award, Users, ArrowRight, CheckCircle2, 
@@ -13,6 +13,29 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
   const [contactEmail, setContactEmail] = useState('');
   const [contactTopic, setContactTopic] = useState('distribution');
   const [contactMessage, setContactMessage] = useState('');
+
+  const [heroTilt, setHeroTilt] = useState({ rotX: 0, rotY: 0, posX: 0, posY: 0 });
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const heroRef = useRef(null);
+
+  const handleHeroMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+    setHeroTilt({
+      rotX: -y * 14,
+      rotY: x * 16,
+      posX: -x * 32,
+      posY: -y * 22,
+    });
+    setIsHeroHovered(true);
+  };
+
+  const handleHeroMouseLeave = () => {
+    setIsHeroHovered(false);
+    setHeroTilt({ rotX: 0, rotY: 0, posX: 0, posY: 0 });
+  };
 
   const isLight = theme === 'light';
 
@@ -70,25 +93,63 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
 
   return (
     <div style={{ paddingTop: 30, paddingBottom: 100 }}>
-      {/* ── 1. HERO SECTION ────────────────────────────────────────── */}
-      <section style={{ position: 'relative', padding: '50px 0 70px', overflow: 'hidden' }}>
-        <div style={{
+      {/* ── 1. HERO SECTION WITH 3D BACKGROUND ────────────────────────── */}
+      <section 
+        ref={heroRef}
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        className="about-hero-section"
+        style={{ 
+          position: 'relative', 
+          padding: '60px 0 85px', 
+          overflow: 'hidden',
+          perspective: 1200
+        }}
+      >
+        {/* 3D Background Image Canvas with Parallax Tilt + Ambient Wave Float */}
+        <div 
+          className={`about-bg-canvas ${!isHeroHovered ? 'about-bg-ambient-float' : ''}`}
+          style={{
+            position: 'absolute',
+            inset: '-8%',
+            width: '116%',
+            height: '116%',
+            pointerEvents: 'none',
+            zIndex: 0,
+            transformStyle: 'preserve-3d',
+            transform: isHeroHovered 
+              ? `perspective(1200px) rotateX(${heroTilt.rotX}deg) rotateY(${heroTilt.rotY}deg) translate3d(${heroTilt.posX}px, ${heroTilt.posY}px, 0) scale(1.12)`
+              : undefined,
+            transition: isHeroHovered ? 'transform 0.12s ease-out' : 'transform 0.85s cubic-bezier(0.2, 0.8, 0.3, 1)',
+            willChange: 'transform'
+          }}
+        >
+          <img 
+            src="/about_image_background.png" 
+            alt="TuneWave Global Network World Stage" 
+            aria-hidden="true"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center 45%',
+              display: 'block'
+            }}
+          />
+        </div>
+
+        {/* Ambient Overlays for Depth, Contrast, and Seamless Theme Integration */}
+        <div className="about-hero-overlay" style={{
           position: 'absolute',
-          top: '-20%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '100%',
-          maxWidth: 1200,
-          height: '100%',
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(0, 229, 255, 0.12) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%)',
+          inset: 0,
           pointerEvents: 'none',
-          zIndex: 0
+          zIndex: 1
         }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div style={{ textAlign: 'center', maxWidth: 860, margin: '0 auto' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
-              <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
+              <span className="pill-badge about-pill" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
                 <Building2 size={13} style={{ marginRight: 4 }} />
                 OFFICIAL COMPANY PROFILE
               </span>
@@ -113,7 +174,8 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
               lineHeight: 1.7,
               marginBottom: 36,
               maxWidth: 720,
-              margin: '0 auto 36px'
+              margin: '0 auto 36px',
+              fontWeight: 500
             }}>
               Tunewave Global Network is an independent digital music distribution and rights management ecosystem. 
               We build next-generation technology to empower creators, recording artists, and independent record labels 
@@ -143,7 +205,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
             </div>
           </div>
 
-          {/* Quick Stats Grid */}
+          {/* Quick Stats Grid with Frosted 3D Glass Cards */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -151,25 +213,98 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
             marginTop: 64
           }}>
             {STATS.map((stat, i) => (
-              <div key={i} className="glass-panel card-shimmer-sweep" style={{
+              <div key={i} className="glass-panel card-shimmer-sweep about-stat-card" style={{
                 padding: '24px 20px',
                 borderRadius: 18,
-                textAlign: 'center',
-                border: '1px solid var(--tw-line-bright)'
+                textAlign: 'center'
               }}>
                 <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--tw-cyan)', marginBottom: 6 }}>
                   {stat.value}
                 </div>
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--tw-text-white)', marginBottom: 4 }}>
+                <div className="about-stat-label" style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--tw-text-white)', marginBottom: 4 }}>
                   {stat.label}
                 </div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--tw-text-dim)' }}>
+                <div className="about-stat-desc" style={{ fontSize: '0.82rem', color: 'var(--tw-text-dim)' }}>
                   {stat.desc}
                 </div>
               </div>
             ))}
           </div>
         </div>
+
+        <style>{`
+          @keyframes about3dAmbientFloat {
+            0% {
+              transform: perspective(1200px) scale(1.08) translate3d(0px, 0px, 0px) rotate3d(1, 1, 0, 0deg);
+            }
+            25% {
+              transform: perspective(1200px) scale(1.11) translate3d(-14px, -10px, 15px) rotate3d(1, -1, 0, 1.4deg);
+            }
+            50% {
+              transform: perspective(1200px) scale(1.1) translate3d(12px, -14px, 25px) rotate3d(-1, 1, 0, 1.8deg);
+            }
+            75% {
+              transform: perspective(1200px) scale(1.11) translate3d(14px, 8px, 15px) rotate3d(-1, -1, 0, 1.2deg);
+            }
+            100% {
+              transform: perspective(1200px) scale(1.08) translate3d(0px, 0px, 0px) rotate3d(1, 1, 0, 0deg);
+            }
+          }
+
+          .about-bg-ambient-float {
+            animation: about3dAmbientFloat 18s ease-in-out infinite alternate;
+          }
+
+          /* Dark Mode Overlay */
+          .about-hero-overlay {
+            background: 
+              radial-gradient(ellipse at 50% 35%, rgba(7, 11, 20, 0.65) 0%, rgba(8, 13, 24, 0.80) 55%, rgba(6, 10, 19, 0.95) 90%),
+              linear-gradient(to bottom, rgba(6, 10, 19, 0.35) 0%, transparent 25%, transparent 68%, var(--tw-bg-dark) 100%);
+          }
+
+          .about-stat-card {
+            background: rgba(9, 14, 26, 0.68) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(0, 229, 255, 0.28) !important;
+            box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), 0 0 20px -5px rgba(0, 229, 255, 0.15) !important;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+          }
+          .about-stat-card:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            border-color: rgba(0, 229, 255, 0.5) !important;
+            box-shadow: 0 22px 50px -10px rgba(0, 229, 255, 0.25) !important;
+          }
+
+          /* Light Mode Overrides */
+          [data-theme="light"] .about-hero-overlay {
+            background: 
+              radial-gradient(ellipse at 50% 35%, rgba(255, 255, 255, 0.76) 0%, rgba(245, 248, 252, 0.62) 55%, rgba(240, 245, 250, 0.92) 90%),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, transparent 25%, transparent 68%, var(--tw-bg-dark) 100%) !important;
+          }
+          [data-theme="light"] .about-pill {
+            background: rgba(0, 126, 167, 0.08) !important;
+            border-color: rgba(0, 126, 167, 0.25) !important;
+          }
+          [data-theme="light"] .about-stat-card {
+            background: rgba(255, 255, 255, 0.82) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(0, 163, 196, 0.22) !important;
+            box-shadow: 0 16px 36px -10px rgba(0, 126, 167, 0.12) !important;
+          }
+          [data-theme="light"] .about-stat-card:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            border-color: rgba(0, 163, 196, 0.45) !important;
+            box-shadow: 0 22px 45px -10px rgba(0, 163, 196, 0.2) !important;
+          }
+          [data-theme="light"] .about-stat-label {
+            color: #0F172A !important;
+          }
+          [data-theme="light"] .about-stat-desc {
+            color: #475569 !important;
+          }
+        `}</style>
       </section>
 
       {/* ── 2. OFFICIAL COMPANY PROFILE CARD ──────────────────────── */}
