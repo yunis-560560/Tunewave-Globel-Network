@@ -671,6 +671,61 @@ export default function VevoPage({ onNavigate, theme }) {
           [data-theme="light"] .toolkit-subtitle {
             color: #475569 !important;
           }
+
+          /* ── 3D Card Left-to-Right Flipping Animation ─────────────── */
+          @keyframes cardFlipLeftToRight {
+            0% {
+              opacity: 0;
+              transform: perspective(1200px) rotateY(-85deg) translateX(-35px);
+              transform-origin: center left;
+            }
+            55% {
+              opacity: 1;
+              transform: perspective(1200px) rotateY(14deg) translateX(0);
+              transform-origin: center left;
+            }
+            75% {
+              transform: perspective(1200px) rotateY(-5deg);
+              transform-origin: center left;
+            }
+            100% {
+              opacity: 1;
+              transform: perspective(1200px) rotateY(0deg) translateX(0);
+              transform-origin: center left;
+            }
+          }
+
+          .toolkit-card-flip {
+            opacity: 0;
+            transform: perspective(1200px) rotateY(-85deg);
+            transform-origin: center left;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+          }
+
+          .toolkit-card-flip.in-view {
+            animation: cardFlipLeftToRight 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          }
+
+          .toolkit-card-flip:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            border-color: rgba(0, 229, 255, 0.45) !important;
+            box-shadow: 0 16px 36px rgba(0, 229, 255, 0.15) !important;
+          }
+
+          /* Light mode card adaptations */
+          [data-theme="light"] .toolkit-card-flip {
+            background: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+          }
+          [data-theme="light"] .toolkit-card-title {
+            color: #0f172a !important;
+          }
+          [data-theme="light"] .toolkit-card-desc {
+            color: #475569 !important;
+          }
         `}</style>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 60 }}>
@@ -733,21 +788,27 @@ export default function VevoPage({ onNavigate, theme }) {
             </div>
           </div>
 
-          <div className="reveal-stagger" style={{
+          <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 24
+            gap: 24,
+            perspective: 1400
           }}>
             {TOOLKIT_ITEMS.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="glass-panel card-shimmer-sweep" style={{
-                  padding: 32,
-                  borderRadius: 20,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 14
-                }}>
+                <div
+                  key={i}
+                  className={`glass-panel card-shimmer-sweep toolkit-card-flip ${toolkitInView ? 'in-view' : ''}`}
+                  style={{
+                    padding: 32,
+                    borderRadius: 20,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 14,
+                    animationDelay: `${0.2 + (i % 3) * 0.15 + Math.floor(i / 3) * 0.18}s`
+                  }}
+                >
                   <div style={{
                     width: 46,
                     height: 46,
@@ -761,10 +822,10 @@ export default function VevoPage({ onNavigate, theme }) {
                   }}>
                     <Icon size={22} />
                   </div>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
+                  <h3 className="toolkit-card-title" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.6 }}>
+                  <p className="toolkit-card-desc" style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.6 }}>
                     {item.desc}
                   </p>
                 </div>
