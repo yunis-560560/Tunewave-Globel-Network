@@ -18,7 +18,7 @@ export const TRANSLATIONS = {
       subtitle: "Unlimited global distribution to 150+ stores. Keep 100% of your earnings, rights, and royalties.",
       startBtn: "Start Releasing",
       exploreBtn: "Explore Distribution",
-      trustedBy: "Trusted by 25,000+ creators",
+      trustedBy: "Trusted by 7,000+ creators",
       statsLine: "Over 1.8 Billion streams tracked with 100% royalty retention",
       liveBadge: "LIVE NETWORK"
     },

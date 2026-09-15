@@ -91,98 +91,98 @@ export default function HallOfFame() {
 
       {/* Main Artists Horizontal Scroll Section */}
       <section ref={sectionRef} className="madverse-artists-section" id="artists-hall-of-fame">
-      <div className="madverse-artists-sticky">
-        {/* Top Header - Exact Referral Style from Madverse */}
-        <div className="madverse-artists-header reveal-up">
-          <div className="madverse-artists-kicker">
-            <span
-              className="pulse-dot"
-              style={{
-                backgroundColor: '#00FF66',
-                boxShadow: '0 0 10px #00FF66',
-                width: 7,
-                height: 7
-              }}
-            />
-            <span>OUR ARTISTS · 04 HALL OF FAME</span>
+        <div className="madverse-artists-sticky">
+          {/* Top Header - Exact Referral Style from Madverse */}
+          <div className="madverse-artists-header reveal-up">
+            <div className="madverse-artists-kicker">
+              <span
+                className="pulse-dot"
+                style={{
+                  backgroundColor: '#00FF66',
+                  boxShadow: '0 0 10px #00FF66',
+                  width: 7,
+                  height: 7
+                }}
+              />
+              <span>OUR ARTISTS · 04 HALL OF FAME</span>
+            </div>
+
+            <h2 className="madverse-artists-title">
+              TRUSTED BY 7,000+ ARTISTS TO<br />
+              DISTRIBUTE, MONETISE &amp; GROW
+            </h2>
+
+            <p className="madverse-artists-sub">
+              From bedroom uploads to <strong>Grammy stages</strong>. Breakout independent stars, chart toppers, and viral innovators scale with TuneWave.
+            </p>
           </div>
 
-          <h2 className="madverse-artists-title">
-            TRUSTED BY 25,000+ ARTISTS TO<br />
-            DISTRIBUTE, MONETISE &amp; GROW
-          </h2>
+          {/* Edge-to-Edge Cards Viewport */}
+          <div
+            ref={viewportRef}
+            className="madverse-artists-viewport"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            <div ref={trackRef} className="madverse-artists-track">
+              {HALL_OF_FAME.map((artist, idx) => (
+                <div key={idx} className="madverse-artist-card card-shimmer-sweep">
+                  {/* Artist Photo */}
+                  <img
+                    src={artist.avatar}
+                    alt={artist.name}
+                    className="madverse-artist-img"
+                    loading="lazy"
+                  />
 
-          <p className="madverse-artists-sub">
-            From bedroom uploads to <strong>Grammy stages</strong>. Breakout independent stars, chart toppers, and viral innovators scale with TuneWave.
-          </p>
-        </div>
+                  {/* Default Bottom Scrim */}
+                  <div className="madverse-artist-base-scrim" />
 
-        {/* Edge-to-Edge Cards Viewport */}
-        <div
-          ref={viewportRef}
-          className="madverse-artists-viewport"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        >
-          <div ref={trackRef} className="madverse-artists-track">
-            {HALL_OF_FAME.map((artist, idx) => (
-              <div key={idx} className="madverse-artist-card card-shimmer-sweep">
-                {/* Artist Photo */}
-                <img
-                  src={artist.avatar}
-                  alt={artist.name}
-                  className="madverse-artist-img"
-                  loading="lazy"
-                />
+                  {/* Default Visible Meta Info */}
+                  <div className="madverse-artist-meta-default">
+                    <div>
+                      <div className="madverse-artist-default-name">{artist.name}</div>
+                      <div style={{ fontSize: '0.78rem', color: '#00FF66', fontWeight: 700, marginTop: 3 }}>
+                        {artist.stats}
+                      </div>
+                    </div>
+                    <span className="madverse-artist-badge">{artist.genre}</span>
+                  </div>
 
-                {/* Default Bottom Scrim */}
-                <div className="madverse-artist-base-scrim" />
-
-                {/* Default Visible Meta Info */}
-                <div className="madverse-artist-meta-default">
-                  <div>
-                    <div className="madverse-artist-default-name">{artist.name}</div>
-                    <div style={{ fontSize: '0.78rem', color: '#00FF66', fontWeight: 700, marginTop: 3 }}>
-                      {artist.stats}
+                  {/* Full-bleed Hover Overlay (Matching Madverse Nucleya / Arpit Bala) */}
+                  <div className="madverse-artist-hover-overlay">
+                    <div className="madverse-artist-hover-name">{artist.name}</div>
+                    <div className="madverse-artist-hover-info">
+                      <span className="madverse-artist-hover-stats">{artist.stats}</span>
+                      <span className="madverse-artist-hover-dot">"¢</span>
+                      <span className="madverse-artist-hover-genre">{artist.genre}</span>
+                    </div>
+                    <div className="madverse-artist-hover-accolade">
+                      {artist.accolade}
                     </div>
                   </div>
-                  <span className="madverse-artist-badge">{artist.genre}</span>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Full-bleed Hover Overlay (Matching Madverse Nucleya / Arpit Bala) */}
-                <div className="madverse-artist-hover-overlay">
-                  <div className="madverse-artist-hover-name">{artist.name}</div>
-                  <div className="madverse-artist-hover-info">
-                    <span className="madverse-artist-hover-stats">{artist.stats}</span>
-                    <span className="madverse-artist-hover-dot">"¢</span>
-                    <span className="madverse-artist-hover-genre">{artist.genre}</span>
-                  </div>
-                  <div className="madverse-artist-hover-accolade">
-                    {artist.accolade}
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Footer Bar with Progress Track & Scroll Prompt */}
+          <div className="madverse-artists-footer-bar">
+            <div className="madverse-progress-track">
+              <div
+                className="madverse-progress-fill"
+                style={{ width: `${Math.round(progress * 100)}%` }}
+              />
+            </div>
+            <div className="madverse-scroll-indicator">
+              <span>SCROLL DOWN TO EXPLORE</span>
+              <span className="madverse-indicator-arrow">→</span>
+            </div>
           </div>
         </div>
-
-        {/* Footer Bar with Progress Track & Scroll Prompt */}
-        <div className="madverse-artists-footer-bar">
-          <div className="madverse-progress-track">
-            <div
-              className="madverse-progress-fill"
-              style={{ width: `${Math.round(progress * 100)}%` }}
-            />
-          </div>
-          <div className="madverse-scroll-indicator">
-            <span>SCROLL DOWN TO EXPLORE</span>
-            <span className="madverse-indicator-arrow">→</span>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }

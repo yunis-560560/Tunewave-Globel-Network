@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TRANSLATIONS } from '../data/content';
-import { DollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles } from 'lucide-react';
+import { DollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles, Globe, Landmark, CreditCard, Banknote } from 'lucide-react';
 
 // Custom hook for smooth numerical count-up on scroll reveal
 function useCountUp(target, startAnimation, duration = 1500) {
@@ -607,8 +607,9 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                 </div>
               </div>
 
-              {/* BACK FACE: TuneWave Direct Deposit & Royalty Vault Certificate */}
+              {/* BACK FACE: TuneWave Global International Bank & Royalty Vault */}
               <div 
+                className="card-shimmer-sweep"
                 style={{
                   position: 'absolute',
                   inset: 0,
@@ -618,7 +619,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                   background: 'linear-gradient(145deg, var(--tw-bg-surface) 0%, rgba(0, 229, 255, 0.08) 50%, var(--tw-bg-surface) 100%)',
                   border: '1px solid var(--tw-cyan)',
                   borderRadius: 24,
-                  padding: 32,
+                  padding: '22px 24px',
                   boxShadow: '0 20px 50px rgba(0, 229, 255, 0.2)',
                   display: 'flex',
                   flexDirection: 'column',
@@ -639,46 +640,46 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                   zIndex: 3
                 }} />
 
-                {/* Header with dots and Secure Vault Badge */}
+                {/* Header with dots and 180+ Countries Badge */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  paddingBottom: 16,
+                  paddingBottom: 12,
                   borderBottom: '1px solid var(--tw-line-bright)'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />
-                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#F59E0B' }} />
-                    <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#00E5FF' }} />
-                    <span style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.08em', marginLeft: 8 }}>
+                    <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#EF4444' }} />
+                    <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#F59E0B' }} />
+                    <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#00E5FF' }} />
+                    <span style={{ fontSize: '0.76rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.08em', marginLeft: 6 }}>
                       ENCRYPTED ARTIST VAULT
                     </span>
                   </div>
                   <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 6,
-                    padding: '4px 10px',
+                    gap: 5,
+                    padding: '3px 8px',
                     borderRadius: 12,
-                    background: 'rgba(0, 229, 255, 0.12)',
-                    border: '1px solid rgba(0, 229, 255, 0.35)',
-                    fontSize: '0.7rem',
+                    background: 'rgba(16, 185, 129, 0.12)',
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    fontSize: '0.68rem',
                     fontWeight: 800,
-                    color: 'var(--tw-cyan)'
+                    color: '#10B981'
                   }}>
-                    <Check size={12} />
-                    VERIFIED DIRECT ROUTE
+                    <Globe size={11} />
+                    <span>180+ COUNTRIES</span>
                   </div>
                 </div>
 
-                {/* EMV Holographic Chip & Card Info */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '14px 0' }}>
+                {/* EMV Holographic Chip & International Bank Acceptance Notice */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '8px 0 6px' }}>
                   {/* Microchip graphic */}
                   <div style={{
-                    width: 46,
-                    height: 36,
-                    borderRadius: 8,
+                    width: 44,
+                    height: 34,
+                    borderRadius: 7,
                     background: 'linear-gradient(135deg, #ffd700 0%, #b8860b 50%, #ffd700 100%)',
                     boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.8), 0 2px 8px rgba(0,0,0,0.3)',
                     border: '1px solid rgba(255,215,0,0.6)',
@@ -688,75 +689,153 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                     <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: 'rgba(0,0,0,0.3)' }} />
                     <div style={{ position: 'absolute', top: 0, bottom: 0, left: '33%', width: 1, background: 'rgba(0,0,0,0.3)' }} />
                     <div style={{ position: 'absolute', top: 0, bottom: 0, right: '33%', width: 1, background: 'rgba(0,0,0,0.3)' }} />
-                    <div style={{ position: 'absolute', inset: 6, borderRadius: 3, border: '1px solid rgba(0,0,0,0.25)' }} />
+                    <div style={{ position: 'absolute', inset: 5, borderRadius: 3, border: '1px solid rgba(0,0,0,0.25)' }} />
                   </div>
 
-                  {/* Wireless Waveform NFC icon */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--tw-cyan)' }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      <path d="M5 12.55a11 11 0 0 1 14.08 0" />
-                      <path d="M1.42 9a16 16 0 0 1 21.16 0" />
-                      <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
-                      <line x1="12" y1="20" x2="12.01" y2="20" />
-                    </svg>
-                    <span style={{ fontSize: '0.74rem', fontWeight: 800, letterSpacing: '0.1em' }}>DIRECT WIRE</span>
+                  {/* High-visibility International Bank Payments Tag */}
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '5px 12px',
+                    borderRadius: 20,
+                    background: 'rgba(0, 229, 255, 0.08)',
+                    border: '1px solid rgba(0, 229, 255, 0.3)'
+                  }}>
+                    <Landmark size={13} color="var(--tw-cyan)" />
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.03em' }}>
+                      ALL INTERNATIONAL BANK PAYMENTS ACCEPTED
+                    </span>
+                  </div>
+                </div>
+
+                {/* Direct Global Settlement Rails & Currency Grid */}
+                <div style={{
+                  background: 'rgba(0, 0, 0, 0.22)',
+                  border: '1px solid var(--tw-line-bright)',
+                  borderRadius: 14,
+                  padding: '12px 14px',
+                  marginBottom: 8
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      Instant Direct Settlement Rails
+                    </div>
+                    <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#10B981' }}>
+                      0% FX Fee · 100% Retained
+                    </div>
+                  </div>
+
+                  {/* 6 Core Global Payment Rails */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 6,
+                    marginBottom: 8
+                  }}>
+                    {[
+                      { code: 'SWIFT / BIC', label: 'Global Wire' },
+                      { code: 'SEPA / IBAN', label: 'Eurozone €' },
+                      { code: 'ACH / FedNow', label: 'US Direct $' },
+                      { code: 'Faster Pay', label: 'UK Instant £' },
+                      { code: 'UPI / IMPS', label: 'India Bank ₹' },
+                      { code: 'Wise · Stripe', label: 'Multi-Currency' },
+                    ].map((rail, rIdx) => (
+                      <div key={rIdx} style={{
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid var(--tw-line)',
+                        borderRadius: 7,
+                        padding: '5px 4px',
+                        textAlign: 'center'
+                      }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--tw-text-white)', letterSpacing: '0.02em' }}>
+                          {rail.code}
+                        </div>
+                        <div style={{ fontSize: '0.58rem', color: 'var(--tw-text-dim)' }}>
+                          {rail.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Multi-Currency Badges */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: 7,
+                    borderTop: '1px solid var(--tw-line)',
+                    fontSize: '0.68rem'
+                  }}>
+                    <span style={{ color: 'var(--tw-text-dim)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <Banknote size={12} color="var(--tw-cyan)" /> Currencies:
+                    </span>
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                      {['USD $', 'EUR €', 'GBP £', 'INR ₹', 'CAD $', 'AUD $', 'JPY ¥'].map((curr, cIdx) => (
+                        <span key={cIdx} style={{
+                          fontSize: '0.6rem',
+                          fontWeight: 700,
+                          padding: '1px 5px',
+                          borderRadius: 4,
+                          background: 'rgba(0, 229, 255, 0.07)',
+                          color: 'var(--tw-cyan)',
+                          border: '1px solid rgba(0, 229, 255, 0.18)'
+                        }}>
+                          {curr}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 {/* Direct Routing Credentials */}
                 <div style={{
-                  background: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid var(--tw-line-bright)',
-                  borderRadius: 14,
-                  padding: '16px 20px',
-                  marginBottom: 16
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'rgba(0, 229, 255, 0.04)',
+                  border: '1px dashed rgba(0, 229, 255, 0.25)',
+                  borderRadius: 10,
+                  padding: '8px 12px',
+                  marginBottom: 8
                 }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-                    Instant Payout Destination
+                  <div>
+                    <div style={{ fontSize: '0.64rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase' }}>
+                      Payout Destination
+                    </div>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 800, color: 'var(--tw-text-white)', fontFamily: "'Space Grotesk', sans-serif" }}>
+                      TW-VAULT •••• •••• 4829
+                    </div>
                   </div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--tw-text-white)', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
-                    TW-VAULT •••• •••• 4829
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, paddingTop: 10, borderTop: '1px solid var(--tw-line)' }}>
-                    <span style={{ fontSize: '0.74rem', color: 'var(--tw-text-dim)' }}>Royalty Retained</span>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#10B981' }}>100% Zero Cut</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-                    <span style={{ fontSize: '0.74rem', color: 'var(--tw-text-dim)' }}>Settlement Rails</span>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--tw-cyan)' }}>Stripe · Wise · ACH · SEPA</span>
-                  </div>
-                </div>
-
-                {/* Security and Compliance Badges */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
-                  <div style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.2)', borderRadius: 8, border: '1px solid var(--tw-line)' }}>
-                    <div style={{ fontSize: '0.68rem', color: 'var(--tw-text-dim)' }}>Settlement Velocity</div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>&lt; 60 Seconds Instant</div>
-                  </div>
-                  <div style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.2)', borderRadius: 8, border: '1px solid var(--tw-line)' }}>
-                    <div style={{ fontSize: '0.68rem', color: 'var(--tw-text-dim)' }}>Security Protocol</div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>256-Bit Ledger · SOC2</div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.64rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase' }}>
+                      Settlement Velocity
+                    </div>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#10B981' }}>
+                      &lt; 60s Instant
+                    </div>
                   </div>
                 </div>
 
                 {/* Back Face Footer Balance */}
                 <div style={{
-                  paddingTop: 16,
+                  paddingTop: 8,
                   borderTop: '1px solid var(--tw-line-bright)',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  marginBottom: 10
                 }}>
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--tw-text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                       Total Verified Payout
                     </div>
-                    <div style={{ fontSize: '0.82rem', color: 'var(--tw-cyan)', fontWeight: 600 }}>
+                    <div style={{ fontSize: '0.74rem', color: 'var(--tw-cyan)', fontWeight: 600 }}>
                       ✓ 150+ Digital Storefronts
                     </div>
                   </div>
                   <div style={{ 
-                    fontSize: '1.9rem', 
+                    fontSize: '1.75rem', 
                     fontWeight: 900, 
                     color: 'var(--tw-cyan)', 
                     fontFamily: "'Space Grotesk', sans-serif",
@@ -765,6 +844,38 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                     {formatCurrency(animatedTotal)}
                   </div>
                 </div>
+
+                {/* Beautiful Button to Payment / Pricing Page */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNavigate('/pricing');
+                  }}
+                  className="btn-cyan global-payout-btn"
+                  style={{
+                    width: '100%',
+                    padding: '13px 20px',
+                    fontSize: '0.92rem',
+                    fontWeight: 800,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    borderRadius: 12,
+                    cursor: 'pointer',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #00E5FF 0%, #00B4D8 50%, #0284C7 100%)',
+                    color: '#080B11',
+                    boxShadow: '0 8px 24px -4px rgba(0, 229, 255, 0.45)',
+                    transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    position: 'relative',
+                    zIndex: 4
+                  }}
+                >
+                  <CreditCard size={17} />
+                  <span>Go to Payment &amp; Pricing Page</span>
+                  <ArrowRight size={17} className="btn-icon-hover" />
+                </button>
               </div>
             </div>
           </div>
