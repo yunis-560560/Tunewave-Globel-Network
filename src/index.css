@@ -1615,25 +1615,27 @@ button {
 }
 
 .a3-logo-img {
-  height: 28px;
+  height: 32px;
   width: auto;
-  max-width: 140px;
+  max-width: 160px;
   object-fit: contain;
   display: block;
-  transition: filter 0.25s ease;
+  filter: none !important;
+  transition: transform 0.25s ease;
 }
 
-/* Light Mode: exact crisp black logos matching Image 2 */
+/* Show authentic, vibrant brand colors in both light and dark modes */
 [data-theme="light"] .a3-logo-img {
-  filter: brightness(0) !important;
-  opacity: 0.9 !important;
+  color: #0F172A;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
-/* Dark Mode: exact crisp white logos */
 html:not([data-theme="light"]) .a3-logo-img,
 [data-theme="dark"] .a3-logo-img {
-  filter: brightness(0) invert(1) !important;
-  opacity: 0.9 !important;
+  color: #FFFFFF;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
 /* ==========================================================================

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 36" fill="none">
+  <circle cx="18" cy="18" r="16" fill="#E72C30"/>
+  <path d="M14 10v12.5c-.8-.5-1.8-.8-3-.8-2.8 0-5 1.8-5 4.1s2.2 4.2 5 4.2 5-1.9 5-4.2V15.8l9-2.2v7.9c-.8-.5-1.8-.8-3-.8-2.8 0-5 1.9-5 4.2s2.2 4.1 5 4.1 5-1.8 5-4.1V9l-13 2.5z" transform="scale(0.8) translate(3, 2)" fill="#FFFFFF"/>
+  <text x="42" y="25.5" fill="#E72C30" font-family="'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="21" letter-spacing="-0.04em">gaana</text>
+</svg>
