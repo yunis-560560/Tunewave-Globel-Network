@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { HALL_OF_FAME } from '../data/content';
+import ClienteleSection from './ClienteleSection';
 
 export default function HallOfFame() {
   const sectionRef = useRef(null);
@@ -84,7 +85,12 @@ export default function HallOfFame() {
   };
 
   return (
-    <section ref={sectionRef} className="madverse-artists-section" id="artists-hall-of-fame">
+    <>
+      {/* Top Selection: CLIENTELE Section with authentic logos and animation from a3labels.in */}
+      <ClienteleSection />
+
+      {/* Main Artists Horizontal Scroll Section */}
+      <section ref={sectionRef} className="madverse-artists-section" id="artists-hall-of-fame">
       <div className="madverse-artists-sticky">
         {/* Top Header - Exact Referral Style from Madverse */}
         <div className="madverse-artists-header reveal-up">
@@ -177,5 +183,6 @@ export default function HallOfFame() {
         </div>
       </div>
     </section>
+    </>
   );
 }
