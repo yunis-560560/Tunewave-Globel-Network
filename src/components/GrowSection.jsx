@@ -11,8 +11,7 @@ import {
   Tv,
   Film,
   ChevronLeft,
-  ChevronRight,
-  Sparkles
+  ChevronRight
 } from 'lucide-react';
 
 export default function GrowSection({ onNavigate, lang = 'en' }) {
@@ -548,31 +547,6 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
               filter: 'blur(45px)',
               zIndex: 0
             }} />
-
-            {/* Live Interactive 360 Badge */}
-            <div style={{
-              position: 'absolute',
-              top: 10,
-              right: 14,
-              zIndex: 4,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              background: 'rgba(19, 27, 42, 0.85)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(0, 229, 255, 0.35)',
-              padding: '6px 12px',
-              borderRadius: 20,
-              fontSize: '0.72rem',
-              fontWeight: 800,
-              color: 'var(--tw-cyan)',
-              letterSpacing: '0.06em',
-              userSelect: 'none',
-              pointerEvents: 'none'
-            }}>
-              <Sparkles size={13} />
-              <span>360° MOUSE INTERACTION</span>
-            </div>
 
             {/* Singer Container: Direct Mouse-Controlled Rotation + 3D Tilt */}
             <div style={{
