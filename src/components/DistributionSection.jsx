@@ -401,26 +401,26 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
             <div className="a3-logo-track">
               {[
                 { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
-                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
-                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/new instagram logo.png" },
+                { name: "Deezer", icon: "/logos of all apps/new deezer icon.png" },
                 { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
-                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/new jio saavn.png" },
                 { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
                 { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
                 { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" },
                 { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
-                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
-                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/new instagram logo.png" },
+                { name: "Deezer", icon: "/logos of all apps/new deezer icon.png" },
                 { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
-                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/new jio saavn.png" },
                 { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
                 { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
                 { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" },
                 { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
-                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
-                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/new instagram logo.png" },
+                { name: "Deezer", icon: "/logos of all apps/new deezer icon.png" },
                 { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
-                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/new jio saavn.png" },
                 { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
                 { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
                 { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" }
@@ -438,9 +438,9 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                       width: 28, 
                       height: 28, 
                       borderRadius: 7, 
-                      objectFit: 'contain',
+                      objectFit: 'contain', 
                       display: 'block',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                      filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.18))'
                     }} 
                     loading="lazy" 
                   />
