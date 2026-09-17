@@ -1949,6 +1949,43 @@ html:not([data-theme="light"]) .a3-logo-img,
   color: #007EA7;
 }
 
+/* Interactive Next / Prev Arrow Buttons */
+.madverse-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--tw-line-bright);
+  color: var(--tw-text-white);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.madverse-nav-btn:hover {
+  background: var(--tw-cyan);
+  color: #040D1A;
+  border-color: var(--tw-cyan);
+  box-shadow: 0 0 16px var(--tw-cyan-glow);
+  transform: scale(1.08);
+}
+
+[data-theme="light"] .madverse-nav-btn {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0F172A;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .madverse-nav-btn:hover {
+  background: #007EA7;
+  color: #FFFFFF;
+  border-color: #007EA7;
+  box-shadow: 0 4px 14px rgba(0, 126, 167, 0.35);
+}
+
 @keyframes arrowBounce {
 
   0%,
@@ -1961,36 +1998,65 @@ html:not([data-theme="light"]) .a3-logo-img,
   }
 }
 
+.madverse-artists-viewport {
+  width: 100%;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  position: relative;
+  margin: auto 0;
+  cursor: grab;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.madverse-artists-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.madverse-artist-card {
+  scroll-snap-align: center;
+  scroll-snap-stop: normal;
+}
+
 @media (max-width: 768px) {
   .madverse-artists-section {
-    height: auto;
-    padding: 60px 0;
+    height: auto !important;
+    padding: 44px 0 32px !important;
   }
 
   .madverse-artists-sticky {
-    position: static;
-    height: auto;
-    padding: 0;
+    position: static !important;
+    height: auto !important;
+    padding: 0 !important;
   }
 
-  .madverse-artists-viewport {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .madverse-artists-header {
+    padding: 0 16px !important;
+    margin-bottom: 16px !important;
   }
 
-  .madverse-artists-viewport::-webkit-scrollbar {
-    display: none;
+  .madverse-artists-title {
+    font-size: clamp(1.5rem, 6.2vw, 2.2rem) !important;
+    line-height: 1.12 !important;
   }
 
   .madverse-artists-track {
     transform: none !important;
-    padding: 0 16px;
+    padding: 0 16px !important;
+    gap: 12px !important;
   }
 
   .madverse-artist-card {
-    width: 260px;
-    height: 380px;
+    width: 250px !important;
+    height: 360px !important;
+  }
+
+  .madverse-artists-footer-bar {
+    padding: 16px 16px 0 !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
   }
 }
 

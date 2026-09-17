@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { HALL_OF_FAME } from '../data/content';
 import ClienteleSection from './ClienteleSection';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function HallOfFame() {
   const sectionRef = useRef(null);
@@ -8,16 +9,28 @@ export default function HallOfFame() {
   const viewportRef = useRef(null);
   const [progress, setProgress] = useState(0);
 
-  // Mouse drag support
+  // Mouse drag state
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
 
+  // Keep progress indicator in sync with viewport scrollLeft
+  const handleViewportScroll = () => {
+    if (!viewportRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = viewportRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    if (maxScroll > 0) {
+      const pct = Math.max(0, Math.min(1, scrollLeft / maxScroll));
+      setProgress(pct);
+    }
+  };
+
+  // Desktop vertical scroll translates viewport scrollLeft
   const calculateTranslation = useCallback(() => {
-    if (!sectionRef.current || !trackRef.current) return;
+    if (!sectionRef.current || !viewportRef.current) return;
+    if (window.innerWidth <= 768) return; // Allow native swipe/touch on mobile
 
     const sectionEl = sectionRef.current;
-    const trackEl = trackRef.current;
     const rect = sectionEl.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     const navbarHeight = 76;
@@ -25,19 +38,15 @@ export default function HallOfFame() {
 
     if (totalScrollableDistance <= 0) return;
 
-    // Calculate how much we've scrolled inside the section after pinning below navbar
     const scrolled = navbarHeight - rect.top;
     const rawProgress = scrolled / totalScrollableDistance;
     const clampedProgress = Math.max(0, Math.min(1, rawProgress));
 
-    setProgress(clampedProgress);
-
-    const trackWidth = trackEl.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    const maxTranslate = Math.max(0, trackWidth - viewportWidth + 48);
-
-    const targetX = clampedProgress * maxTranslate;
-    trackEl.style.transform = `translate3d(-${targetX}px, 0, 0)`;
+    const maxScroll = viewportRef.current.scrollWidth - viewportRef.current.clientWidth;
+    if (maxScroll > 0) {
+      viewportRef.current.scrollLeft = clampedProgress * maxScroll;
+      setProgress(clampedProgress);
+    }
   }, []);
 
   useEffect(() => {
@@ -51,7 +60,6 @@ export default function HallOfFame() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
 
-    // Initial calculation
     calculateTranslation();
 
     return () => {
@@ -61,27 +69,34 @@ export default function HallOfFame() {
     };
   }, [calculateTranslation]);
 
-  // Optional mouse drag panning
+  // Mouse drag support for smooth horizontal panning
   const handleMouseDown = (e) => {
+    if (!viewportRef.current) return;
     isDraggingRef.current = true;
-    startXRef.current = e.pageX;
-    const style = window.getComputedStyle(trackRef.current);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    scrollLeftRef.current = -matrix.m41;
+    startXRef.current = e.pageX - viewportRef.current.offsetLeft;
+    scrollLeftRef.current = viewportRef.current.scrollLeft;
   };
 
   const handleMouseMove = (e) => {
-    if (!isDraggingRef.current) return;
+    if (!isDraggingRef.current || !viewportRef.current) return;
     e.preventDefault();
-    const deltaX = e.pageX - startXRef.current;
-    const maxTranslate = Math.max(0, trackRef.current.scrollWidth - window.innerWidth + 48);
-    const newX = Math.max(0, Math.min(maxTranslate, scrollLeftRef.current - deltaX));
-    trackRef.current.style.transform = `translate3d(-${newX}px, 0, 0)`;
-    setProgress(maxTranslate > 0 ? newX / maxTranslate : 0);
+    const x = e.pageX - viewportRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    viewportRef.current.scrollLeft = scrollLeftRef.current - walk;
   };
 
   const handleMouseUp = () => {
     isDraggingRef.current = false;
+  };
+
+  // Interactive Next / Prev Arrow Navigation
+  const scrollByDirection = (dir) => {
+    if (!viewportRef.current) return;
+    const cardWidth = window.innerWidth <= 768 ? 280 : 360;
+    viewportRef.current.scrollBy({
+      left: dir * cardWidth,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -121,6 +136,7 @@ export default function HallOfFame() {
           <div
             ref={viewportRef}
             className="madverse-artists-viewport"
+            onScroll={handleViewportScroll}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -135,6 +151,7 @@ export default function HallOfFame() {
                     alt={artist.name}
                     className="madverse-artist-img"
                     loading="lazy"
+                    draggable="false"
                   />
 
                   {/* Default Bottom Scrim */}
@@ -156,7 +173,7 @@ export default function HallOfFame() {
                     <div className="madverse-artist-hover-name">{artist.name}</div>
                     <div className="madverse-artist-hover-info">
                       <span className="madverse-artist-hover-stats">{artist.stats}</span>
-                      <span className="madverse-artist-hover-dot">"¢</span>
+                      <span className="madverse-artist-hover-dot">·</span>
                       <span className="madverse-artist-hover-genre">{artist.genre}</span>
                     </div>
                     <div className="madverse-artist-hover-accolade">
@@ -168,7 +185,7 @@ export default function HallOfFame() {
             </div>
           </div>
 
-          {/* Footer Bar with Progress Track & Scroll Prompt */}
+          {/* Footer Bar with Progress Track & Interactive Navigation Controls */}
           <div className="madverse-artists-footer-bar">
             <div className="madverse-progress-track">
               <div
@@ -176,9 +193,32 @@ export default function HallOfFame() {
                 style={{ width: `${Math.round(progress * 100)}%` }}
               />
             </div>
-            <div className="madverse-scroll-indicator">
-              <span>SCROLL DOWN TO EXPLORE</span>
-              <span className="madverse-indicator-arrow">→</span>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div className="madverse-scroll-indicator">
+                <span>SWIPE OR EXPLORE</span>
+                <span className="madverse-indicator-arrow">→</span>
+              </div>
+
+              {/* Next & Previous Arrow Buttons */}
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button
+                  onClick={() => scrollByDirection(-1)}
+                  className="madverse-nav-btn"
+                  title="Previous artist"
+                  aria-label="Previous artist"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={() => scrollByDirection(1)}
+                  className="madverse-nav-btn"
+                  title="Next artist"
+                  aria-label="Next artist"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
