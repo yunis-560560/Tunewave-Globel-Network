@@ -125,15 +125,15 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
 
   return (
     <section style={{
-      padding: '100px 0',
+      padding: 'clamp(48px, 6vw, 100px) 0',
       position: 'relative',
       background: 'var(--tw-bg-surface)',
       borderTop: '1px solid var(--tw-line)',
       borderBottom: '1px solid var(--tw-line)',
       transition: 'background 0.25s ease',
-      overflow: 'visible'
+      overflow: 'hidden'
     }}>
-      <div className="container" style={{ overflow: 'visible', maxWidth: '100%', width: '100%', padding: '0 clamp(16px, 3vw, 48px)' }}>
+      <div className="container" style={{ overflow: 'hidden', maxWidth: '100%', width: '100%', padding: '0 clamp(10px, 2.5vw, 36px)', boxSizing: 'border-box' }}>
 
         {/* ============================================================
             REFERRAL SHOWCASE DESIGN: 3-PANEL CARD WITH 9 FLOATING BADGES
@@ -141,7 +141,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
         <div className="dist-showcase-container reveal-up" ref={showcaseRef}>
           
           {/* Central 3-Panel Showcase Card */}
-          <div className="dist-showcase-card card-shimmer-sweep" style={{ overflow: 'visible' }}>
+          <div className="dist-showcase-card card-shimmer-sweep">
 
             {/* Desktop Floating Badges: Move outside dynamically as user scrolls */}
             {floatingBadges.map((b) => {
@@ -157,7 +157,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
               return (
                 <div
                   key={b.id}
-                  className={`dist-floating-badge ${scrollProgress > 0.35 ? 'expanded' : ''}`}
+                  className={`dist-floating-badge dist-desktop-badge ${scrollProgress > 0.35 ? 'expanded' : ''}`}
                   style={{
                     top: b.top,
                     bottom: b.bottom,
@@ -218,17 +218,17 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
               </p>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="dist-showcase-actions" style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => onNavigate('/signup')}
-                  className="btn-cyan"
+                  className="btn-cyan dist-showcase-btn"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
                   <span>{t.ctaPrimary}</span>
                 </button>
                 <button
                   onClick={() => onNavigate('/distribute')}
-                  className="btn-glass"
+                  className="btn-glass dist-showcase-btn"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
                   <span>{t.ctaSecondary}</span>
