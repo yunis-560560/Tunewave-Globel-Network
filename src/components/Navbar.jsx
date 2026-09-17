@@ -74,8 +74,9 @@ export default function Navbar({
   });
 
   return (
-    <header
-      className="header-wrapper"
+    <>
+      <header
+        className="header-wrapper"
       style={{
         background: isLight
           ? 'rgba(255, 255, 255, 0.96)'
@@ -108,13 +109,13 @@ export default function Navbar({
         {/* Brand Logo on Left */}
         <div
           onClick={() => onNavigate('/')}
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', flexShrink: 0 }}
         >
           <Logo theme={theme} />
         </div>
 
         {/* Right-aligned Navigation Links & Actions (Matches reference format and spacing) */}
-        <div className="tw-nav-right-wrap" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 2vw, 32px)', marginLeft: 'auto' }}>
+        <div className="tw-nav-right-wrap" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 2vw, 32px)', marginLeft: 'auto', flexShrink: 0 }}>
           <nav
             style={{
               display: 'none',
@@ -510,26 +511,27 @@ export default function Navbar({
           }}
         />
       )}
+    </header>
 
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 64,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: isLight ? 'rgba(255, 255, 255, 0.98)' : '#080B11',
-            backdropFilter: 'blur(30px)',
-            zIndex: 999,
-            padding: '20px 24px 32px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 16,
-            overflowY: 'auto'
-          }}
-        >
+    {/* Mobile Drawer Navigation */}
+    {mobileMenuOpen && (
+      <div
+        className="tw-mobile-drawer"
+        style={{
+          position: 'fixed',
+          top: 64,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: isLight ? '#FFFFFF' : '#080B11',
+          zIndex: 99999,
+          padding: '20px 24px 32px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          overflowY: 'auto'
+        }}
+      >
           {/* Quick Utility Row inside Drawer: Theme & Language */}
           <div style={{
             display: 'flex',
@@ -692,61 +694,80 @@ export default function Navbar({
             display: inline-flex !important;
           }
         }
-        @media (max-width: 640px) {
-          .tw-nav-right-wrap {
-            gap: 6px !important;
-          }
-          .tw-nav-actions-wrap {
-            gap: 6px !important;
-          }
-          .tw-nav-utility-group {
-            gap: 4px !important;
-            padding-left: 4px !important;
-          }
-        }
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
           .header-wrapper .container {
-            padding: 0 12px !important;
+            padding: 0 16px !important;
             height: 64px !important;
           }
-          .tw-nav-cta-btn {
-            padding: 7px 11px !important;
-            font-size: 0.78rem !important;
-            border-radius: 8px !important;
+          .tw-brand-logo {
+            gap: 8px !important;
           }
           .tw-brand-logo .tw-logo-emblem {
-            height: 28px !important;
+            height: 30px !important;
           }
           .tw-brand-logo .tw-logo-wordmark-wrap {
-            width: 125px !important;
+            width: 130px !important;
           }
           .tw-brand-logo .tw-logo-wordmark-img {
-            height: 12px !important;
+            height: 13px !important;
           }
           .tw-brand-logo .tw-logo-subtitle {
-            font-size: 0.40rem !important;
+            font-size: 0.42rem !important;
+            margin-top: 2px !important;
+          }
+          .tw-nav-right-wrap {
+            gap: 8px !important;
+          }
+          .tw-nav-actions-wrap {
+            gap: 8px !important;
+          }
+          .tw-nav-cta-btn {
+            padding: 7px 13px !important;
+            font-size: 0.80rem !important;
+            border-radius: 8px !important;
+          }
+          .tw-nav-utility-group {
+            border-left: none !important;
+            padding-left: 0 !important;
+            gap: 0 !important;
+          }
+          .tw-nav-utility-group .tw-nav-lang-btn,
+          .tw-nav-utility-group .tw-nav-theme-btn {
+            display: none !important;
+          }
+          .mobile-toggle {
+            padding: 6px !important;
           }
         }
         @media (max-width: 360px) {
           .header-wrapper .container {
-            padding: 0 8px !important;
+            padding: 0 10px !important;
+            height: 60px !important;
+          }
+          .tw-brand-logo {
+            gap: 6px !important;
           }
           .tw-brand-logo .tw-logo-emblem {
-            height: 24px !important;
+            height: 25px !important;
           }
           .tw-brand-logo .tw-logo-wordmark-wrap {
-            width: 105px !important;
+            width: 108px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-img {
+            height: 11px !important;
+          }
+          .tw-brand-logo .tw-logo-subtitle {
+            font-size: 0.36rem !important;
           }
           .tw-nav-cta-btn {
-            padding: 6px 8px !important;
-            font-size: 0.72rem !important;
+            padding: 6px 9px !important;
+            font-size: 0.74rem !important;
           }
-          .tw-nav-lang-btn {
-            font-size: 0.75rem !important;
-            padding: 4px 1px !important;
+          .tw-nav-right-wrap {
+            gap: 6px !important;
           }
         }
       `}</style>
-    </header>
+    </>
   );
 }
