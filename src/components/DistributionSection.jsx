@@ -124,16 +124,15 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
   ];
 
   return (
-    <section style={{
+    <section className="dist-section-wrapper" style={{
       padding: 'clamp(48px, 6vw, 100px) 0',
       position: 'relative',
       background: 'var(--tw-bg-surface)',
       borderTop: '1px solid var(--tw-line)',
       borderBottom: '1px solid var(--tw-line)',
-      transition: 'background 0.25s ease',
-      overflow: 'hidden'
+      transition: 'background 0.25s ease'
     }}>
-      <div className="container" style={{ overflow: 'hidden', maxWidth: '100%', width: '100%', padding: '0 clamp(10px, 2.5vw, 36px)', boxSizing: 'border-box' }}>
+      <div className="container dist-container-outer" style={{ maxWidth: '100%', width: '100%', padding: '0 clamp(16px, 3vw, 48px)', boxSizing: 'border-box' }}>
 
         {/* ============================================================
             REFERRAL SHOWCASE DESIGN: 3-PANEL CARD WITH 9 FLOATING BADGES

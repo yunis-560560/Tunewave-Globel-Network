@@ -1051,6 +1051,7 @@ button {
   min-height: 520px;
   transition: all 0.3s ease;
   perspective: 1200px;
+  overflow: visible !important;
 }
 
 [data-theme="light"] .dist-showcase-card {
@@ -3912,6 +3913,15 @@ img, video, iframe {
 @media (max-width: 768px) {
   .dist-desktop-badge {
     display: none !important;
+  }
+
+  .dist-section-wrapper {
+    overflow: hidden !important;
+  }
+
+  .dist-container-outer {
+    overflow: hidden !important;
+    padding: 0 12px !important;
   }
 
   .dist-showcase-container {
