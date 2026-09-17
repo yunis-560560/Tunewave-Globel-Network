@@ -1,5 +1,5 @@
-﻿import React from 'react';
-import { DollarSign, Clapperboard, Video, Split, Globe2, ShieldCheck, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { DollarSign, CircleDollarSign, Clapperboard, Video, Split, Globe2, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function MonetizePage({ onNavigate }) {
   return (
@@ -47,15 +47,28 @@ export default function MonetizePage({ onNavigate }) {
             onClick={() => onNavigate('/publishing')}
           >
             <div>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(21, 128, 61, 0.12)', color: 'var(--tw-lime)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                <Globe2 size={22} />
+              <div style={{
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.22) 0%, rgba(16, 185, 129, 0.12) 100%)',
+                border: '1px solid rgba(0, 229, 255, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(0, 229, 255, 0.30)',
+                color: '#00E5FF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 22,
+                transition: 'transform 0.3s ease'
+              }}>
+                <Globe2 size={24} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 10, color: 'var(--tw-text-white)' }}>Global Publishing Administration</h3>
               <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6 }}>
                 We register your compositions across 60+ global collection societies (PRS, ASCAP, BMI, GEMA, SACEM, APRA AMCOS) so international broadcast royalties never get lost in black boxes.
               </p>
             </div>
-            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: 'var(--tw-lime)', fontWeight: 700, fontSize: '0.9rem' }}>
+            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: '#00E5FF', fontWeight: 700, fontSize: '0.9rem' }}>
               Explore Publishing Page →
             </div>
           </div>
@@ -66,15 +79,28 @@ export default function MonetizePage({ onNavigate }) {
             onClick={() => onNavigate('/sync')}
           >
             <div>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(109, 40, 217, 0.12)', color: 'var(--tw-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                <Clapperboard size={22} />
+              <div style={{
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.24) 0%, rgba(139, 92, 246, 0.10) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(168, 85, 247, 0.30)',
+                color: '#C084FC',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 22,
+                transition: 'transform 0.3s ease'
+              }}>
+                <Clapperboard size={24} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 10, color: 'var(--tw-text-white)' }}>Exclusive Sync Licensing Briefs</h3>
               <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6 }}>
                 Our sync team receives daily music briefs from advertising agencies, Hollywood studios, Netflix creators, and indie game developers seeking tracks across all genres.
               </p>
             </div>
-            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: 'var(--tw-purple)', fontWeight: 700, fontSize: '0.9rem' }}>
+            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: '#C084FC', fontWeight: 700, fontSize: '0.9rem' }}>
               Explore Sync Licensing Page →
             </div>
           </div>
@@ -85,15 +111,28 @@ export default function MonetizePage({ onNavigate }) {
             onClick={() => onNavigate('/tools/youtube-content-id')}
           >
             <div>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(239, 68, 68, 0.12)', color: '#EF4444', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                <Video size={22} />
+              <div style={{
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.24) 0%, rgba(244, 63, 94, 0.10) 100%)',
+                border: '1px solid rgba(239, 68, 68, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(239, 68, 68, 0.30)',
+                color: '#F87171',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 22,
+                transition: 'transform 0.3s ease'
+              }}>
+                <Video size={24} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 10, color: 'var(--tw-text-white)' }}>YouTube Content ID & Shorts</h3>
               <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6 }}>
                 Monetize fan-made cover videos, tutorials, dance challenges, and background tracks using your music. Automated fingerprinting protects and monetizes your audio.
               </p>
             </div>
-            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: '#EF4444', fontWeight: 700, fontSize: '0.9rem' }}>
+            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: '#F87171', fontWeight: 700, fontSize: '0.9rem' }}>
               Explore YouTube Content ID Page →
             </div>
           </div>
@@ -103,15 +142,28 @@ export default function MonetizePage({ onNavigate }) {
             style={{ padding: 36, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
             <div>
-              <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(0, 229, 255, 0.12)', color: 'var(--tw-cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-                <Split size={22} />
+              <div style={{
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.24) 0%, rgba(20, 184, 166, 0.10) 100%)',
+                border: '1px solid rgba(16, 185, 129, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(16, 185, 129, 0.30)',
+                color: '#34D399',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 22,
+                transition: 'transform 0.3s ease'
+              }}>
+                <Split size={24} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 10, color: 'var(--tw-text-white)' }}>Frictionless Auto-Splits</h3>
               <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6 }}>
                 Collaborating on a song? Input your producer's and co-writer's emails and percentages. Our backend splits payouts automatically upon receipt, with zero transfer fees.
               </p>
             </div>
-            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: 'var(--tw-cyan)', fontWeight: 700, fontSize: '0.9rem' }}>
+            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 6, color: '#34D399', fontWeight: 700, fontSize: '0.9rem' }}>
               Zero-fee automated payouts ✓
             </div>
           </div>

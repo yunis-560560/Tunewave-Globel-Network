@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Logo from '../components/Logo';
 import { 
   BarChart3, Upload, Disc, Play, Pause, DollarSign, ArrowUpRight, 
@@ -100,11 +100,11 @@ export default function ArtistDashboard({ artistName = 'Nova Luna', onNavigate }
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--tw-text-white)' }}>{artistName}</h1>
                 <span className="pill-badge live" style={{ padding: '2px 8px', fontSize: '0.68rem' }}>
-                  ✓ VERIFIED ARTIST
+                  ? VERIFIED ARTIST
                 </span>
               </div>
               <div style={{ fontSize: '0.82rem', color: 'var(--tw-text-muted)', marginTop: 2 }}>
-                TuneWave Global Network ID: TW-8842-GL · Pro Distribution Active
+                Tunewave Global Network ID: TW-8842-GL � Pro Distribution Active
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function ArtistDashboard({ artistName = 'Nova Luna', onNavigate }
           <div className="glass-panel card-shimmer-sweep" style={{ padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--tw-text-muted)' }}>TOTAL STREAMS</span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--tw-cyan)', fontWeight: 700 }}>+24.8% ↑</span>
+              <span style={{ fontSize: '0.75rem', color: 'var(--tw-cyan)', fontWeight: 700 }}>+24.8% ?</span>
             </div>
             <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--tw-text-white)', fontFamily: "'Space Grotesk', sans-serif" }}>
               1,842,910
@@ -229,7 +229,7 @@ export default function ArtistDashboard({ artistName = 'Nova Luna', onNavigate }
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
             <div>
               <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--tw-text-white)' }}>Active Discography & Releases</h2>
-              <p style={{ fontSize: '0.82rem', color: 'var(--tw-text-dim)' }}>All catalog masters distributed through TuneWave Global Network</p>
+              <p style={{ fontSize: '0.82rem', color: 'var(--tw-text-dim)' }}>All catalog masters distributed through Tunewave Global Network</p>
             </div>
 
             {/* Audio Waveform Simulator */}

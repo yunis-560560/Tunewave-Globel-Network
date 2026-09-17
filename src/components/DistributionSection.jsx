@@ -184,7 +184,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
             <div className={`dist-showcase-left-panel dist-expand-subcard ${isSubcardsExpanded ? 'is-expanded' : ''}`}>
               <img 
                 src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80" 
-                alt="Featured TuneWave Music Creator" 
+                alt="Featured Tunewave Music Creator" 
                 loading="lazy"
               />
               <div className="dist-strip-overlay-tag">
@@ -192,7 +192,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
               </div>
             </div>
 
-            {/* Center Column: Real TuneWave Editorial Content */}
+            {/* Center Column: Real Tunewave Editorial Content */}
             <div className="dist-showcase-center-panel">
               
               {/* Kicker Badge */}
@@ -408,48 +408,59 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
           <div className="a3-logo-marquee-mask">
             <div className="a3-logo-track">
               {[
-                { name: "Spotify", file: "Spotify" },
-                { name: "Apple Music", file: "applemusic" },
-                { name: "YouTube Music", file: "youtube" },
-                { name: "TikTok", file: "Tiktok" },
-                { name: "Instagram", file: "instagram" },
-                { name: "Deezer", file: "Deezer" },
-                { name: "Amazon Music", file: "amazonmusic" },
-                { name: "JioSaavn", file: "jiosaavan" },
-                { name: "Gaana", file: "gaana" },
-                { name: "150+ Stores", file: "150plus" },
-                { name: "Spotify", file: "Spotify" },
-                { name: "Apple Music", file: "applemusic" },
-                { name: "YouTube Music", file: "youtube" },
-                { name: "TikTok", file: "Tiktok" },
-                { name: "Instagram", file: "instagram" },
-                { name: "Deezer", file: "Deezer" },
-                { name: "Amazon Music", file: "amazonmusic" },
-                { name: "JioSaavn", file: "jiosaavan" },
-                { name: "Gaana", file: "gaana" },
-                { name: "150+ Stores", file: "150plus" },
-                { name: "Spotify", file: "Spotify" },
-                { name: "Apple Music", file: "applemusic" },
-                { name: "YouTube Music", file: "youtube" },
-                { name: "TikTok", file: "Tiktok" },
-                { name: "Instagram", file: "instagram" },
-                { name: "Deezer", file: "Deezer" },
-                { name: "Amazon Music", file: "amazonmusic" },
-                { name: "JioSaavn", file: "jiosaavan" },
-                { name: "Gaana", file: "gaana" },
-                { name: "150+ Stores", file: "150plus" }
+                { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
+                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
+                { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
+                { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" },
+                { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
+                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
+                { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
+                { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" },
+                { name: "TikTok", icon: "/logos of all apps/TikTok logo.png" },
+                { name: "Instagram", icon: "/logos of all apps/instagram logo.jpg" },
+                { name: "Deezer", icon: "/logos of all apps/deezer logo.png" },
+                { name: "Amazon Music", icon: "/logos of all apps/amazon music logo.jpg" },
+                { name: "JioSaavn", icon: "/logos of all apps/jio saavn logo.jpg" },
+                { name: "Apple Music", icon: "/logos of all apps/Apple Music logo.jpg" },
+                { name: "YouTube Music", icon: "/logos of all apps/YouTube Music logo.png" },
+                { name: "Spotify", icon: "/logos of all apps/Spotify logo.png" }
               ].map((logo, i) => (
                 <div 
                   key={`a3logo-${i}`} 
                   className="a3-logo-item"
                   title={`Delivered to ${logo.name}`}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 18px', textDecoration: 'none' }}
                 >
                   <img 
-                    src={`/platformlogos/${logo.file}${isLightMode ? '-light' : ''}.svg`} 
+                    src={logo.icon} 
                     alt={logo.name} 
-                    className="a3-logo-img" 
+                    style={{ 
+                      width: 28, 
+                      height: 28, 
+                      borderRadius: 7, 
+                      objectFit: 'contain',
+                      display: 'block',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                    }} 
                     loading="lazy" 
                   />
+                  <span style={{ 
+                    fontWeight: 800, 
+                    fontSize: '0.92rem', 
+                    color: isLightMode ? '#0F172A' : '#FFFFFF', 
+                    letterSpacing: '-0.01em', 
+                    whiteSpace: 'nowrap' 
+                  }}>
+                    {logo.name}
+                  </span>
                 </div>
               ))}
             </div>

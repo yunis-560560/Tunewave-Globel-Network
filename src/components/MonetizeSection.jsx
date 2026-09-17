@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TRANSLATIONS } from '../data/content';
-import { DollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles, Globe, Landmark, CreditCard, Banknote } from 'lucide-react';
+import { DollarSign, CircleDollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles, Globe, Landmark, CreditCard, Banknote } from 'lucide-react';
 
 // Custom hook for smooth numerical count-up on scroll reveal
 function useCountUp(target, startAnimation, duration = 1500) {
@@ -607,7 +607,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                 </div>
               </div>
 
-              {/* BACK FACE: TuneWave Global International Bank & Royalty Vault */}
+              {/* BACK FACE: Tunewave Global International Bank & Royalty Vault */}
               <div 
                 className="card-shimmer-sweep"
                 style={{
@@ -900,19 +900,23 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
               onClick={() => onNavigate('/publishing')}
             >
               <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(21, 128, 61, 0.12)',
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.22) 0%, rgba(16, 185, 129, 0.12) 100%)',
+                border: '1px solid rgba(0, 229, 255, 0.38)',
+                boxShadow: hoveredCard === 1 
+                  ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3), 0 14px 30px -4px rgba(0, 229, 255, 0.55)'
+                  : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(0, 229, 255, 0.30)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--tw-cyan)',
+                color: '#00E5FF',
                 flexShrink: 0,
-                transform: hoveredCard === 1 ? 'scale(1.08)' : 'scale(1)',
-                transition: 'transform 0.25s ease'
+                transform: hoveredCard === 1 ? 'translateY(-3px) scale(1.08) rotate(-3deg)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}>
-                <DollarSign size={24} />
+                <CircleDollarSign size={24} strokeWidth={2.2} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -945,26 +949,30 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                 transitionDelay: '270ms',
                 transform: hoveredCard === 2 ? 'translateY(-4px) scale(1.01)' : (isInView ? 'translateX(0)' : 'translateX(36px)'),
                 borderColor: hoveredCard === 2 ? 'var(--tw-purple)' : 'var(--tw-line)',
-                boxShadow: hoveredCard === 2 ? '0 12px 30px -8px rgba(14, 165, 233, 0.25)' : 'none'
+                boxShadow: hoveredCard === 2 ? '0 12px 30px -8px rgba(168, 85, 247, 0.25)' : 'none'
               }}
               onMouseEnter={() => setHoveredCard(2)}
               onMouseLeave={() => setHoveredCard(null)}
               onClick={() => onNavigate('/sync')}
             >
               <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(139, 92, 246, 0.12)',
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.24) 0%, rgba(139, 92, 246, 0.10) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.38)',
+                boxShadow: hoveredCard === 2 
+                  ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3), 0 14px 30px -4px rgba(168, 85, 247, 0.55)'
+                  : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(168, 85, 247, 0.30)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--tw-purple)',
+                color: '#C084FC',
                 flexShrink: 0,
-                transform: hoveredCard === 2 ? 'scale(1.08)' : 'scale(1)',
-                transition: 'transform 0.25s ease'
+                transform: hoveredCard === 2 ? 'translateY(-3px) scale(1.08) rotate(-3deg)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}>
-                <Clapperboard size={24} />
+                <Clapperboard size={24} strokeWidth={2.2} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -1004,19 +1012,23 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
               onClick={() => onNavigate('/tools/youtube-content-id')}
             >
               <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(239, 68, 68, 0.12)',
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.24) 0%, rgba(244, 63, 94, 0.10) 100%)',
+                border: '1px solid rgba(239, 68, 68, 0.38)',
+                boxShadow: hoveredCard === 3 
+                  ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3), 0 14px 30px -4px rgba(239, 68, 68, 0.55)'
+                  : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(239, 68, 68, 0.30)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#EF4444',
+                color: '#F87171',
                 flexShrink: 0,
-                transform: hoveredCard === 3 ? 'scale(1.08)' : 'scale(1)',
-                transition: 'transform 0.25s ease'
+                transform: hoveredCard === 3 ? 'translateY(-3px) scale(1.08) rotate(-3deg)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}>
-                <Video size={24} />
+                <Video size={24} strokeWidth={2.2} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -1056,19 +1068,23 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
               onClick={() => onNavigate('/monetize')}
             >
               <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(16, 185, 129, 0.12)',
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.24) 0%, rgba(20, 184, 166, 0.10) 100%)',
+                border: '1px solid rgba(16, 185, 129, 0.38)',
+                boxShadow: hoveredCard === 4 
+                  ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3), 0 14px 30px -4px rgba(16, 185, 129, 0.55)'
+                  : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 8px 20px -4px rgba(16, 185, 129, 0.30)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#10B981',
+                color: '#34D399',
                 flexShrink: 0,
-                transform: hoveredCard === 4 ? 'scale(1.08)' : 'scale(1)',
-                transition: 'transform 0.25s ease'
+                transform: hoveredCard === 4 ? 'translateY(-3px) scale(1.08) rotate(-3deg)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}>
-                <Split size={24} />
+                <Split size={24} strokeWidth={2.2} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

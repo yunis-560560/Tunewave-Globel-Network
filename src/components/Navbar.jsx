@@ -54,7 +54,7 @@ export default function Navbar({
 
   const isLight = theme === 'light';
 
-  // TuneWave Music clean nav item style: pure text, no box, smooth hover
+  // Tunewave Music clean nav item style: pure text, no box, smooth hover
   const navItemStyle = (isActive) => ({
     background: 'transparent',
     border: 'none',
@@ -293,7 +293,7 @@ export default function Navbar({
             </button>
           </nav>
 
-          {/* Action Buttons: Login (Bordered Box) + Try For Free (TuneWave Cyan Brand Button) */}
+          {/* Action Buttons: Login (Bordered Box) + Try For Free (Tunewave Cyan Brand Button) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             {/* Login Button (clean bordered container matching screenshot) */}
             <button
@@ -327,7 +327,7 @@ export default function Navbar({
               {t.login}
             </button>
 
-            {/* Try For Free Button (TuneWave Cyan Gradient Matching Brand) */}
+            {/* Try For Free Button (Tunewave Cyan Gradient Matching Brand) */}
             <button
               onClick={() => onNavigate('/signup')}
               style={{

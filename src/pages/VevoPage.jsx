@@ -9,42 +9,141 @@ export default function VevoPage({ onNavigate, theme }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const stepsSectionRef = useRef(null);
+  const stepsCardsRef = useRef(null);
   const [stepsInView, setStepsInView] = useState(false);
   const toolkitSectionRef = useRef(null);
   const [toolkitInView, setToolkitInView] = useState(false);
+  const faqSectionRef = useRef(null);
+  const faqListRef = useRef(null);
+  const [faqInView, setFaqInView] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
+    const checkStepsVisibility = () => {
+      const target = stepsCardsRef.current || stepsSectionRef.current;
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // When user is at the top hero cover (scroll < 50px),
+      // ensure the steps cards are NOT in-view so they don't animate prematurely
+      if (window.scrollY < 50) {
+        setStepsInView(prev => (prev ? false : prev));
+        return;
+      }
+
+      // Enter into view: cards top is inside viewport and bottom is still visible
+      const isEntering = rect.top < vh * 0.82 && rect.bottom > 80;
+
+      if (isEntering) {
+        setStepsInView(prev => (!prev ? true : prev));
+      } else if (rect.top > vh + 60 || rect.bottom < -60) {
+        // Leaving the section completely (above or below)
+        setStepsInView(prev => (prev ? false : prev));
+      }
+    };
+
+    const checkFaqVisibility = () => {
+      const target = faqListRef.current || faqSectionRef.current;
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Enter into view: FAQ cards top enters viewport and bottom is still visible
+      const isEntering = rect.top < vh * 0.85 && rect.bottom > 80;
+
+      if (isEntering) {
+        setFaqInView(prev => (!prev ? true : prev));
+      } else if (rect.top > vh + 60 || rect.bottom < -60) {
+        setFaqInView(prev => (prev ? false : prev));
+      }
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkStepsVisibility();
+          checkFaqVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // IntersectionObserver with negative bottom margin to ensure user actually scrolls into the section
     const stepsObserver = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && window.scrollY >= 50) {
           setStepsInView(true);
+        } else if (!entry.isIntersecting || window.scrollY < 50) {
+          setStepsInView(false);
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -80px 0px' }
     );
 
     const toolkitObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setToolkitInView(true);
+        } else {
+          setToolkitInView(false);
         }
       },
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
 
-    if (stepsSectionRef.current) stepsObserver.observe(stepsSectionRef.current);
+    const faqObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setFaqInView(true);
+        } else {
+          setFaqInView(false);
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    if (stepsCardsRef.current) {
+      stepsObserver.observe(stepsCardsRef.current);
+    } else if (stepsSectionRef.current) {
+      stepsObserver.observe(stepsSectionRef.current);
+    }
+
     if (toolkitSectionRef.current) toolkitObserver.observe(toolkitSectionRef.current);
 
+    if (faqListRef.current) {
+      faqObserver.observe(faqListRef.current);
+    } else if (faqSectionRef.current) {
+      faqObserver.observe(faqSectionRef.current);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    // Initial check
+    checkStepsVisibility();
+    checkFaqVisibility();
+
     return () => {
+      if (stepsCardsRef.current) stepsObserver.unobserve(stepsCardsRef.current);
       if (stepsSectionRef.current) stepsObserver.unobserve(stepsSectionRef.current);
       if (toolkitSectionRef.current) toolkitObserver.unobserve(toolkitSectionRef.current);
+      if (faqListRef.current) faqObserver.unobserve(faqListRef.current);
+      if (faqSectionRef.current) faqObserver.unobserve(faqSectionRef.current);
+      stepsObserver.disconnect();
+      toolkitObserver.disconnect();
+      faqObserver.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
   const VEVO_FAQS = [
     {
       q: "Can I get my music video on Vevo?",
-      a: "Yes! When you sign up for a free account with TuneWave, we'll get you set up with an official Artist channel on Vevo that you can populate with all your previous and/or upcoming music videos for fans to watch. Make sure to read our music video guidelines to ensure your video meets Vevo's specific content requirements."
+      a: "Yes! When you sign up for a free account with Tunewave, we'll get you set up with an official Artist channel on Vevo that you can populate with all your previous and/or upcoming music videos for fans to watch. Make sure to read our music video guidelines to ensure your video meets Vevo's specific content requirements."
     },
     {
       q: "How much money will I make from Vevo?",
@@ -52,7 +151,7 @@ export default function VevoPage({ onNavigate, theme }) {
     },
     {
       q: "When will I get paid by Vevo?",
-      a: "When you release to Vevo through TuneWave, you'll receive 100% of the royalties you're owed directly into your TuneWave account. There can be a wait time of up to two months between uploading your videos to the platform and your royalties arriving."
+      a: "When you release to Vevo through Tunewave, you'll receive 100% of the royalties you're owed directly into your Tunewave account. There can be a wait time of up to two months between uploading your videos to the platform and your royalties arriving."
     },
     {
       q: "How do I get more views on Vevo music videos?",
@@ -60,7 +159,7 @@ export default function VevoPage({ onNavigate, theme }) {
     },
     {
       q: "How do I start putting music videos on Vevo?",
-      a: "You can start right now. When you create a free account with TuneWave, you'll be able to set up and upload videos to your official Vevo artist channel. Once your videos are live, you can start earning royalties from views and streams. Simple as that!"
+      a: "You can start right now. When you create a free account with Tunewave, you'll be able to set up and upload videos to your official Vevo artist channel. Once your videos are live, you can start earning royalties from views and streams. Simple as that!"
     }
   ];
 
@@ -91,7 +190,7 @@ export default function VevoPage({ onNavigate, theme }) {
     },
     {
       title: "Advanced Analytics",
-      desc: "Explore streaming insights, download numbers and listener demographic data. Get the TuneWave app to track stats from your phone.",
+      desc: "Explore streaming insights, download numbers and listener demographic data directly from your verified artist dashboard.",
       icon: BarChart3,
       color: "var(--tw-cyan)"
     },
@@ -144,7 +243,7 @@ export default function VevoPage({ onNavigate, theme }) {
       name: "Chance the Rapper",
       stat: "3Bn+ Streams",
       badge: "3x Grammy Award Winner",
-      img: "https://images.unsplash.com/photo-1520523839898-507127043818?w=500&auto=format&fit=crop&q=80"
+      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80"
     },
     {
       name: "Dave",
@@ -225,7 +324,7 @@ export default function VevoPage({ onNavigate, theme }) {
                 maxWidth: '520px',
                 fontWeight: 500
               }}>
-                Set up an Official Vevo Channel, upload all of your music videos and keep 100% of the royalties you generate. With TuneWave, it's cheap and easy to get your visuals live on Vevo and start earning even more from your music.
+                Set up an Official Vevo Channel, upload all of your music videos and keep 100% of the royalties you generate. With Tunewave, it's cheap and easy to get your visuals live on Vevo and start earning even more from your music.
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
@@ -490,9 +589,12 @@ export default function VevoPage({ onNavigate, theme }) {
             </p>
           </div>
 
-          <div style={{ maxWidth: '860px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16, perspective: 1200 }}>
+          <div
+            ref={stepsCardsRef}
+            style={{ maxWidth: '860px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16, perspective: 1200 }}
+          >
             {[
-              "Create a free TuneWave account.",
+              "Create a free Tunewave account.",
               "Set up an official Vevo artist channel.",
               "Upload your music videos to Vevo.",
               "Add credits and any collaborators to be paid by Vevo automatically.",
@@ -613,7 +715,7 @@ export default function VevoPage({ onNavigate, theme }) {
                   Putting your music videos on Vevo will help you find new fans, generate more engagement, and increase the money you make from streaming royalties compared to uploading to YouTube alone.
                 </p>
                 <p>
-                  As one of Vevo's official partners, when you distribute your music through TuneWave, you can guarantee you'll get paid every single time someone views your videos on the platform.
+                  As one of Vevo's official partners, when you distribute your music through Tunewave, you can guarantee you'll get paid every single time someone views your videos on the platform.
                 </p>
               </div>
             </div>
@@ -643,7 +745,7 @@ export default function VevoPage({ onNavigate, theme }) {
         </div>
       </section>
 
-      {/* 4. THE TUNEWAVE TOOLKIT: 9 FEATURES */}
+      {/* 4. THE Tunewave TOOLKIT: 9 FEATURES */}
       <section
         ref={toolkitSectionRef}
         style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)', position: 'relative', overflow: 'hidden' }}
@@ -735,11 +837,11 @@ export default function VevoPage({ onNavigate, theme }) {
                 className={`toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
                 style={{ transitionDelay: '0.1s', display: 'inline-flex', alignItems: 'center', gap: 8 }}
               >
-                <span className="pill-badge" style={{ color: 'var(--tw-cyan)' }}>03 · THE TUNEWAVE TOOLKIT</span>
+                <span className="pill-badge" style={{ color: 'var(--tw-cyan)' }}>03 · THE Tunewave TOOLKIT</span>
               </div>
             </div>
 
-            {/* Line 1: Why use TuneWave. */}
+            {/* Line 1: Why use Tunewave. */}
             <div className="toolkit-line-wrap" style={{ marginBottom: 16 }}>
               <h2
                 className={`toolkit-title toolkit-line-item ${toolkitInView ? 'in-view' : ''}`}
@@ -751,7 +853,7 @@ export default function VevoPage({ onNavigate, theme }) {
                   margin: 0
                 }}
               >
-                Why use <span className="text-cyan-gradient">TuneWave.</span>
+                Why use <span className="text-cyan-gradient">Tunewave.</span>
               </h2>
             </div>
 
@@ -857,7 +959,7 @@ export default function VevoPage({ onNavigate, theme }) {
               margin: '0 auto',
               lineHeight: 1.6
             }}>
-              Supporting over 2 million artists worldwide. Independents, breakout stars and household names. All started with TuneWave.
+              Supporting over 2 million artists worldwide. Independents, breakout stars and household names. All started with Tunewave.
             </p>
           </div>
 
@@ -878,6 +980,10 @@ export default function VevoPage({ onNavigate, theme }) {
                   <img
                     src={art.img}
                     alt={art.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80";
+                    }}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                   <div style={{
@@ -904,7 +1010,62 @@ export default function VevoPage({ onNavigate, theme }) {
       </section>
 
       {/* 6. VEVO EXPLAINED & FAQS */}
-      <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
+      <section ref={faqSectionRef} style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)', position: 'relative', overflow: 'hidden' }}>
+        <style>{`
+          @keyframes faqFlipTopToBottom {
+            0% {
+              opacity: 0;
+              transform: perspective(1200px) rotateX(-90deg) translateY(-25px);
+              transform-origin: top center;
+            }
+            55% {
+              opacity: 1;
+              transform: perspective(1200px) rotateX(15deg) translateY(0);
+              transform-origin: top center;
+            }
+            75% {
+              transform: perspective(1200px) rotateX(-5deg);
+              transform-origin: top center;
+            }
+            100% {
+              opacity: 1;
+              transform: perspective(1200px) rotateX(0deg) translateY(0);
+              transform-origin: top center;
+            }
+          }
+
+          .faq-card-flip {
+            opacity: 0;
+            transform: perspective(1200px) rotateX(-90deg);
+            transform-origin: top center;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+          }
+
+          .faq-card-flip.in-view {
+            animation: faqFlipTopToBottom 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          }
+
+          .faq-card-flip:hover {
+            transform: translateY(-3px) !important;
+            border-color: rgba(0, 229, 255, 0.45) !important;
+            box-shadow: 0 10px 28px -6px rgba(0, 229, 255, 0.18) !important;
+          }
+
+          /* Light mode adaptation */
+          [data-theme="light"] .faq-card-flip {
+            background: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+          }
+          [data-theme="light"] .faq-card-flip h3 {
+            color: #0f172a !important;
+          }
+          [data-theme="light"] .faq-card-flip p {
+            color: #475569 !important;
+          }
+        `}</style>
         <div className="container">
           <div className="reveal-up" style={{ maxWidth: '820px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -924,18 +1085,21 @@ export default function VevoPage({ onNavigate, theme }) {
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div 
+              ref={faqListRef} 
+              style={{ display: 'flex', flexDirection: 'column', gap: 14, perspective: 1200 }}
+            >
               {VEVO_FAQS.map((faq, i) => (
                 <div
                   key={i}
-                  className="glass-panel"
+                  className={`glass-panel card-shimmer-sweep faq-card-flip ${faqInView ? 'in-view' : ''}`}
                   style={{
                     padding: '22px 26px',
                     cursor: 'pointer',
                     borderRadius: 16,
                     border: openFaq === i ? '1px solid rgba(0, 229, 255, 0.35)' : '1px solid var(--tw-line)',
                     boxShadow: openFaq === i ? '0 8px 24px -6px rgba(0, 229, 255, 0.12)' : 'none',
-                    transition: 'all 0.2s ease'
+                    animationDelay: `${0.1 + i * 0.14}s`
                   }}
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
@@ -1013,7 +1177,7 @@ export default function VevoPage({ onNavigate, theme }) {
                 margin: 0,
                 lineHeight: 1.2
               }}>
-                Distribute to Vevo with TuneWave.
+                Distribute to Vevo with Tunewave.
               </h3>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { 
-  Building2, Mail, Clock, MapPin, Globe, ShieldCheck, 
-  Sparkles, Award, Users, ArrowRight, CheckCircle2, 
+import {
+  Building2, Mail, Clock, MapPin, Globe, ShieldCheck,
+  Sparkles, Award, Users, ArrowRight, CheckCircle2,
   Send, Headphones, Music, Compass, HeartHandshake, Copy, Check
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/content';
@@ -37,6 +37,29 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
     setHeroTilt({ rotX: 0, rotY: 0, posX: 0, posY: 0 });
   };
 
+  const ctaRef = useRef(null);
+
+  const handleCtaMouseMove = (e) => {
+    if (!ctaRef.current) return;
+    const rect = ctaRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) - 0.5) * 2;
+    const normY = ((y / rect.height) - 0.5) * 2;
+    ctaRef.current.style.setProperty('--cta-tilt-x', normX.toFixed(3));
+    ctaRef.current.style.setProperty('--cta-tilt-y', normY.toFixed(3));
+    ctaRef.current.style.setProperty('--cta-cursor-x', `${((x / rect.width) * 100).toFixed(1)}%`);
+    ctaRef.current.style.setProperty('--cta-cursor-y', `${((y / rect.height) * 100).toFixed(1)}%`);
+  };
+
+  const handleCtaMouseLeave = () => {
+    if (!ctaRef.current) return;
+    ctaRef.current.style.setProperty('--cta-tilt-x', '0');
+    ctaRef.current.style.setProperty('--cta-tilt-y', '0');
+    ctaRef.current.style.setProperty('--cta-cursor-x', '50%');
+    ctaRef.current.style.setProperty('--cta-cursor-y', '50%');
+  };
+
   const isLight = theme === 'light';
 
   const copyEmail = () => {
@@ -60,7 +83,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
   const STATS = [
     { value: "150+", label: "Digital Store Destinations", desc: "Global reach to all major DSPs" },
     { value: "100%", label: "Royalty Retention", desc: "Creators keep everything they earn" },
-    { value: "2M+", label: "Tracks Distributed", desc: "Powering independent musicians" },
+    { value: "25,000", label: "Tracks Distributed", desc: "Powering independent musicians" },
     { value: "Mon-Fri", label: "Dedicated Support", desc: "11:00 AM - 6:00 PM IST" }
   ];
 
@@ -94,20 +117,20 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
   return (
     <div style={{ paddingTop: 30, paddingBottom: 100 }}>
       {/* ── 1. HERO SECTION WITH 3D BACKGROUND ────────────────────────── */}
-      <section 
+      <section
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
         className="about-hero-section"
-        style={{ 
-          position: 'relative', 
-          padding: '60px 0 85px', 
+        style={{
+          position: 'relative',
+          padding: '60px 0 85px',
           overflow: 'hidden',
           perspective: 1200
         }}
       >
         {/* 3D Background Image Canvas with Parallax Tilt + Ambient Wave Float */}
-        <div 
+        <div
           className={`about-bg-canvas ${!isHeroHovered ? 'about-bg-ambient-float' : ''}`}
           style={{
             position: 'absolute',
@@ -117,16 +140,16 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
             pointerEvents: 'none',
             zIndex: 0,
             transformStyle: 'preserve-3d',
-            transform: isHeroHovered 
+            transform: isHeroHovered
               ? `perspective(1200px) rotateX(${heroTilt.rotX}deg) rotateY(${heroTilt.rotY}deg) translate3d(${heroTilt.posX}px, ${heroTilt.posY}px, 0) scale(1.12)`
               : undefined,
             transition: isHeroHovered ? 'transform 0.12s ease-out' : 'transform 0.85s cubic-bezier(0.2, 0.8, 0.3, 1)',
             willChange: 'transform'
           }}
         >
-          <img 
-            src="/about_image_background.png" 
-            alt="TuneWave Global Network World Stage" 
+          <img
+            src="/about_image_background.png"
+            alt="Tunewave Global Network World Stage"
             aria-hidden="true"
             style={{
               width: '100%',
@@ -177,13 +200,13 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
               margin: '0 auto 36px',
               fontWeight: 500
             }}>
-              Tunewave Global Network is an independent digital music distribution and rights management ecosystem. 
-              We build next-generation technology to empower creators, recording artists, and independent record labels 
+              Tunewave Global Network is an independent digital music distribution and rights management ecosystem.
+              We build next-generation technology to empower creators, recording artists, and independent record labels
               to release music globally, protect their intellectual property, and maximize their streaming royalties.
             </p>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <button 
+              <button
                 onClick={() => onNavigate('/signup')}
                 className="btn-cyan"
                 style={{ padding: '16px 36px', fontSize: '1rem', fontWeight: 700 }}
@@ -191,7 +214,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                 <span>Start Distributing Free</span>
                 <ArrowRight size={18} className="btn-icon-hover" />
               </button>
-              <button 
+              <button
                 onClick={() => {
                   const el = document.getElementById('company-details-card');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -370,7 +393,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                 </div>
 
                 <p style={{ color: 'var(--tw-text-dim)', lineHeight: 1.65, fontSize: '0.96rem', marginBottom: 28 }}>
-                  Tunewave Global Network operates as a specialized music technology provider enabling creators 
+                  Tunewave Global Network operates as a specialized music technology provider enabling creators
                   across India and internationally to distribute, protect, and monetize music catalog on global DSPs.
                 </p>
 
@@ -417,8 +440,8 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                         <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--tw-cyan)', textTransform: 'uppercase', marginBottom: 2 }}>
                           Official Email
                         </div>
-                        <a 
-                          href={`mailto:${COMPANY_INFO.email}`} 
+                        <a
+                          href={`mailto:${COMPANY_INFO.email}`}
                           style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--tw-text-white)', textDecoration: 'none' }}
                           className="hover-underline"
                         >
@@ -427,7 +450,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       onClick={copyEmail}
                       title="Copy email to clipboard"
                       style={{
@@ -488,8 +511,8 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                   <span className="pulse-dot" />
                   <span>Support Status: Active &amp; Accepting Inquiries</span>
                 </div>
-                <a 
-                  href={`mailto:${COMPANY_INFO.email}`} 
+                <a
+                  href={`mailto:${COMPANY_INFO.email}`}
                   className="btn-cyan"
                   style={{ padding: '10px 20px', fontSize: '0.85rem', fontWeight: 700 }}
                 >
@@ -517,7 +540,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                   Send an Inquiry
                 </h3>
                 <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: 24 }}>
-                  Have questions about song delivery, copyright claims, or label enterprise partnerships? 
+                  Have questions about song delivery, copyright claims, or label enterprise partnerships?
                   Our team is ready to assist you during business hours ({COMPANY_INFO.supportHours}).
                 </p>
 
@@ -544,7 +567,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--tw-text-dim)', marginBottom: 6 }}>
                         YOUR NAME / ARTIST NAME
                       </label>
-                      <input 
+                      <input
                         type="text"
                         required
                         value={contactName}
@@ -568,7 +591,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--tw-text-dim)', marginBottom: 6 }}>
                         EMAIL ADDRESS
                       </label>
-                      <input 
+                      <input
                         type="email"
                         required
                         value={contactEmail}
@@ -592,7 +615,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--tw-text-dim)', marginBottom: 6 }}>
                         TOPIC
                       </label>
-                      <select 
+                      <select
                         value={contactTopic}
                         onChange={e => setContactTopic(e.target.value)}
                         style={{
@@ -620,7 +643,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--tw-text-dim)', marginBottom: 6 }}>
                         MESSAGE
                       </label>
-                      <textarea 
+                      <textarea
                         required
                         rows={3}
                         value={contactMessage}
@@ -641,7 +664,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                       />
                     </div>
 
-                    <button 
+                    <button
                       type="submit"
                       className="btn-cyan"
                       style={{ padding: '14px 28px', fontSize: '0.95rem', fontWeight: 700, marginTop: 6 }}
@@ -743,7 +766,7 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                 Based in Hyderabad's Technology Hub.
               </h3>
               <p style={{ color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.7, fontSize: '1.02rem', marginBottom: 24 }}>
-                Located in Madhapur, Jubilee Enclave — the vibrant innovation epicentre of Hyderabad, Telangana. 
+                Located in Madhapur, Jubilee Enclave — the vibrant innovation epicentre of Hyderabad, Telangana.
                 Our distributed engineering and artist operations team powers music creators locally and globally.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, color: '#E2E8F0', fontSize: '0.9rem' }}>
@@ -784,9 +807,9 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
               </p>
 
               <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
-                <a 
-                  href={`mailto:${COMPANY_INFO.email}`} 
-                  className="btn-cyan" 
+                <a
+                  href={`mailto:${COMPANY_INFO.email}`}
+                  className="btn-cyan"
                   style={{ padding: '12px 24px', fontSize: '0.9rem', width: '100%', justifyContent: 'center' }}
                 >
                   <span>Contact {COMPANY_INFO.email}</span>
@@ -797,45 +820,76 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
         </div>
       </section>
 
-      {/* ── 5. BOTTOM CTA BANNER ────────────────────────────────────── */}
-      <section style={{ padding: '60px 0 20px' }}>
-        <div className="container">
-          <div className="glass-panel card-shimmer-sweep dark-inverted-section" style={{
-            padding: '54px 44px',
-            borderRadius: 28,
-            background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(14, 165, 233, 0.1) 40%, rgba(9, 13, 21, 0.95) 100%)',
-            border: '1px solid rgba(0, 229, 255, 0.35)',
-            boxShadow: '0 20px 50px -10px rgba(0, 229, 255, 0.15)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 24
-          }}>
-            <div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
-                Join Tunewave Global Network
-              </div>
-              <h3 style={{ fontSize: '2rem', fontWeight: 800, color: "#FFFFFF", margin: 0 }}>
-                Take your music to the world today.
-              </h3>
+      {/* ── 5. BOTTOM 3D CTA STAGE (about_join_background image.png) ────────────────── */}
+      <section style={{ padding: '60px 0 30px' }}>
+        <div className="container" style={{ maxWidth: 1080 }}>
+          <div 
+            ref={ctaRef}
+            onMouseMove={handleCtaMouseMove}
+            onMouseLeave={handleCtaMouseLeave}
+            className="glass-panel promo-cta-3d-card card-shimmer-sweep"
+            style={{
+              borderRadius: 28,
+              border: isLight ? '1px solid rgba(0, 126, 167, 0.25)' : '1px solid rgba(0, 229, 255, 0.35)',
+              boxShadow: isLight 
+                ? '0 25px 60px -15px rgba(0, 126, 167, 0.18)' 
+                : '0 30px 70px -20px rgba(0, 0, 0, 0.85), 0 0 35px -10px rgba(0, 229, 255, 0.25)'
+            }}
+          >
+            {/* 3D Background Stage */}
+            <div className="promo-cta-3d-stage">
+              <img 
+                src="/about_join_background%20image.png" 
+                alt="Join Tunewave 3D Stage" 
+                className="promo-cta-3d-art"
+                loading="lazy"
+              />
             </div>
-            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <button 
-                onClick={() => onNavigate('/signup')}
-                className="btn-cyan"
-                style={{ padding: '16px 36px', fontSize: '1rem', fontWeight: 700 }}
-              >
-                <span>Sign up free</span>
-                <ArrowRight size={18} className="btn-icon-hover" />
-              </button>
-              <button 
-                onClick={() => onNavigate('/pricing')}
-                className="btn-glass"
-                style={{ padding: '16px 30px', fontSize: '1rem', fontWeight: 600 }}
-              >
-                <span>View Plans</span>
-              </button>
+
+            {/* Atmospheric Depth Mask */}
+            <div className="promo-cta-3d-atmosphere" />
+
+            {/* Dynamic Cursor Spotlight */}
+            <div className="promo-cta-3d-spotlight" />
+
+            {/* Floating 3D Music Particles */}
+            <div className="promo-cta-float-note promo-cta-note-left">
+              <div className="promo-glyph-badge">♪</div>
+            </div>
+            <div className="promo-cta-float-note promo-cta-note-right">
+              <div className="promo-glyph-badge">♫</div>
+            </div>
+
+            {/* Foreground Content */}
+            <div className="promo-cta-content" style={{ padding: '56px 44px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+              <div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
+                  Join Tunewave Global Network
+                </div>
+                <h3 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 900, color: '#FFFFFF', margin: 0, lineHeight: 1.2 }}>
+                  Take your music to the world today.
+                </h3>
+                <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.75)', margin: '8px 0 0', maxWidth: 480 }}>
+                  Start releasing music with 100% royalty retention and direct store pitching.
+                </p>
+              </div>
+              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => onNavigate('/signup')}
+                  className="btn-cyan"
+                  style={{ padding: '16px 36px', fontSize: '1rem', fontWeight: 700 }}
+                >
+                  <span>Sign up free</span>
+                  <ArrowRight size={18} className="btn-icon-hover" />
+                </button>
+                <button
+                  onClick={() => onNavigate('/pricing')}
+                  className="btn-glass"
+                  style={{ padding: '16px 30px', fontSize: '1rem', fontWeight: 600 }}
+                >
+                  <span>View Plans</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

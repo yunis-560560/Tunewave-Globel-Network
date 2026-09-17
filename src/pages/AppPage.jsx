@@ -18,19 +18,19 @@ export default function AppPage({ onNavigate, theme }) {
 
   const FAQS = [
     {
-      q: "Is the TuneWave app free?",
-      a: "Yes. The app is free for everyone on any plan, whether that's Starter, Pro or Labels. No extra fees, no in-app upgrades. Just the perfect companion for TuneWave artists."
+      q: "Is the Tunewave app free?",
+      a: "Yes. The app is free for everyone on any plan, whether that's Starter, Pro or Labels. No extra fees, no in-app upgrades. Just the perfect companion for Tunewave artists."
     },
     {
-      q: "Where can I download the TuneWave app?",
+      q: "Where can I download the Tunewave app?",
       a: "It's available to download for both Apple and Android."
     },
     {
       q: "Can I release new music from the app?",
-      a: "Yes. Upload your audio and artwork, pick your stores and distribute to Spotify, Apple Music, YouTube, Amazon, TikTok and 150+ more platforms, directly from the TuneWave app."
+      a: "Yes. Upload your audio and artwork, pick your stores and distribute to Spotify, Apple Music, YouTube, Amazon, TikTok and 150+ more platforms, directly from the Tunewave app."
     },
     {
-      q: "What data is in the TuneWave app?",
+      q: "What data is in the Tunewave app?",
       a: "You'll find stats and real-time data covering streams, royalties and playlist placements."
     },
     {
@@ -47,22 +47,22 @@ export default function AppPage({ onNavigate, theme }) {
     {
       name: "Maurizio Fiordaliso",
       meta: "9 June 2026 · France",
-      text: "After dealing with frustrating account issues and poor support on a previous platform, making the switch to TuneWave has been a great move for my career."
+      text: "After dealing with frustrating account issues and poor support on a previous platform, making the switch to Tunewave has been a great move for my career."
     },
     {
       name: "rkdigitalmusik",
       meta: "30 May 2026 · UK",
-      text: "TuneWave support have been great to help sort out any issues I've had and the platform is good to use with lots of useful functionality. Would I recommend? Yes, definitely!"
+      text: "Tunewave support have been great to help sort out any issues I've had and the platform is good to use with lots of useful functionality. Would I recommend? Yes, definitely!"
     },
     {
       name: "Lighten Letsholo",
       meta: "28 May 2026 · South Africa",
-      text: "TuneWave are very friendly, reliable, and professional, with an incredible body of knowledge. You guys are my new home. Thank you TuneWave Team."
+      text: "Tunewave are very friendly, reliable, and professional, with an incredible body of knowledge. You guys are my new home. Thank you Tunewave Team."
     },
     {
       name: "Kyle Butler",
       meta: "14 May 2026 · USA",
-      text: "TuneWave made it possible for me to make my dreams a reality. I struggled to get music distributed because of such complex platforms. But not with TuneWave!"
+      text: "Tunewave made it possible for me to make my dreams a reality. I struggled to get music distributed because of such complex platforms. But not with Tunewave!"
     }
   ];
 
@@ -77,7 +77,7 @@ export default function AppPage({ onNavigate, theme }) {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                 <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
                   <Smartphone size={13} style={{ marginRight: 4 }} />
-                  TuneWave Music App
+                  Tunewave Music App
                 </span>
               </div>
 
@@ -99,7 +99,7 @@ export default function AppPage({ onNavigate, theme }) {
                 marginBottom: 28,
                 maxWidth: '560px'
               }}>
-                Unlimited releases, real-time music data, instant payouts, milestone alerts and artist tools, all in one app. Free for every TuneWave member. Available on iOS and Android.
+                Unlimited releases, real-time music data, instant payouts, milestone alerts and artist tools, all in one app. Free for every Tunewave member. Available on iOS and Android.
               </p>
 
               {/* Bullets */}
@@ -421,7 +421,7 @@ export default function AppPage({ onNavigate, theme }) {
               margin: '0 auto',
               lineHeight: 1.6
             }}>
-              Your music career moves fast. The TuneWave app moves with it. Check in any time, get notified when it matters, and never be tied to a desk again.
+              Your music career moves fast. The Tunewave app moves with it. Check in any time, get notified when it matters, and never be tied to a desk again.
             </p>
           </div>
 
@@ -524,7 +524,7 @@ export default function AppPage({ onNavigate, theme }) {
               margin: '0 auto',
               lineHeight: 1.6
             }}>
-              The TuneWave app is built for how artists actually work. Release from anywhere, check in for the latest data and learn exactly where your music is making an impact.
+              The Tunewave app is built for how artists actually work. Release from anywhere, check in for the latest data and learn exactly where your music is making an impact.
             </p>
           </div>
 
@@ -804,7 +804,7 @@ export default function AppPage({ onNavigate, theme }) {
               margin: '0 auto',
               lineHeight: 1.6
             }}>
-              Playlist tracking, pre-save SmartLinks, artist perks and access to your whole catalog. Everything else TuneWave does best, sized down for a quick check on the go.
+              Playlist tracking, pre-save SmartLinks, artist perks and access to your whole catalog. Everything else Tunewave does best, sized down for a quick check on the go.
             </p>
           </div>
 
@@ -815,8 +815,19 @@ export default function AppPage({ onNavigate, theme }) {
           }}>
             {/* Card 1 */}
             <div className="glass-panel card-shimmer-sweep" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(109, 40, 217, 0.15)', color: '#A78BFA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Radio size={22} />
+              <div style={{
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.24) 0%, rgba(139, 92, 246, 0.08) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -3px rgba(168, 85, 247, 0.30)',
+                color: '#C084FC',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Radio size={22} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
                 Playlist Tracker
@@ -828,8 +839,19 @@ export default function AppPage({ onNavigate, theme }) {
 
             {/* Card 2 */}
             <div className="glass-panel card-shimmer-sweep" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(0, 126, 167, 0.15)', color: 'var(--tw-cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Share2 size={22} />
+              <div style={{
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+                background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.22) 0%, rgba(14, 165, 233, 0.08) 100%)',
+                border: '1px solid rgba(0, 229, 255, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -3px rgba(0, 229, 255, 0.30)',
+                color: '#00E5FF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Share2 size={22} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
                 SmartLinks &amp; Pre-Saves
@@ -841,21 +863,43 @@ export default function AppPage({ onNavigate, theme }) {
 
             {/* Card 3 */}
             <div className="glass-panel card-shimmer-sweep" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(21, 128, 61, 0.15)', color: '#22C55E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Gift size={22} />
+              <div style={{
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.24) 0%, rgba(20, 184, 166, 0.08) 100%)',
+                border: '1px solid rgba(16, 185, 129, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -3px rgba(16, 185, 129, 0.30)',
+                color: '#34D399',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Gift size={22} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
-                TuneWave Perks
+                Tunewave Perks
               </h3>
               <p style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.6 }}>
-                Discounts, opportunities and industry tools, free with your TuneWave membership.
+                Discounts, opportunities and industry tools, free with your Tunewave membership.
               </p>
             </div>
 
             {/* Card 4 */}
             <div className="glass-panel card-shimmer-sweep" style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(234, 88, 12, 0.15)', color: '#FB923C', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Disc3 size={22} />
+              <div style={{
+                width: 50,
+                height: 50,
+                borderRadius: 15,
+                background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.24) 0%, rgba(234, 88, 12, 0.08) 100%)',
+                border: '1px solid rgba(249, 115, 22, 0.38)',
+                boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -3px rgba(249, 115, 22, 0.30)',
+                color: '#FB923C',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Disc3 size={22} strokeWidth={2.2} />
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tw-text-white)' }}>
                 Your Back Catalog
@@ -897,7 +941,7 @@ export default function AppPage({ onNavigate, theme }) {
               maxWidth: '620px',
               lineHeight: 1.6
             }}>
-              Every stream, every listener, every payout. Tap the app and watch it all happen live from your phone. Free for all TuneWave artists.
+              Every stream, every listener, every payout. Tap the app and watch it all happen live from your phone. Free for all Tunewave artists.
             </p>
             <button 
               onClick={scrollToDownload}
@@ -1009,7 +1053,7 @@ export default function AppPage({ onNavigate, theme }) {
                 Frequently asked questions.
               </h2>
               <p style={{ color: 'var(--tw-text-dim)' }}>
-                Everything you need to know about the TuneWave companion app.
+                Everything you need to know about the Tunewave companion app.
               </p>
             </div>
 
@@ -1086,7 +1130,7 @@ export default function AppPage({ onNavigate, theme }) {
                 lineHeight: 1.15,
                 margin: '12px 0 16px'
               }}>
-                Take TuneWave with you. <br />
+                Take Tunewave with you. <br />
                 <span className="text-cyan-gradient">Anywhere.</span>
               </h2>
               <p style={{
@@ -1096,7 +1140,7 @@ export default function AppPage({ onNavigate, theme }) {
                 marginBottom: 32,
                 maxWidth: '520px'
               }}>
-                Download the app now for free. Sign in with your existing TuneWave info and dive into your account straight from your phone.
+                Download the app now for free. Sign in with your existing Tunewave info and dive into your account straight from your phone.
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>

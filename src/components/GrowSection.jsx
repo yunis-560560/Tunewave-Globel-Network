@@ -32,6 +32,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
 
   // 2x2 Grid View Page state (Page 0: Tools 1-4, Page 1: Tools 5-8)
   const [activePage, setActivePage] = useState(0);
+  const [hoveredTool, setHoveredTool] = useState(null);
 
   // Auto-scroll states (always active, pauses on hover)
   const [isPaused, setIsPaused] = useState(false);
@@ -209,7 +210,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
       badge: "DIRECT ACCESS",
       badgeColor: "#00F2FE",
       title: "Editorial Playlist Pitching",
-      desc: "Pitch directly to TuneWave's in-house curators and secure priority review for verified Spotify editorial playlists.",
+      desc: "Pitch directly to Tunewave's in-house curators and secure priority review for verified Spotify editorial playlists.",
       cta: "SUBMIT TRACK →",
       path: "/playlists"
     }
@@ -227,14 +228,14 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
       path: "/distribute"
     },
     {
-      id: "app",
-      icon: Smartphone,
-      badge: "IOS & ANDROID",
+      id: "analytics",
+      icon: BarChart3,
+      badge: "LIVE DATA",
       badgeColor: "#00E5FF",
-      title: "The TuneWave Mobile App",
-      desc: "Manage releases, monitor real-time streaming notifications, and withdraw royalties straight to your bank account on the go.",
-      cta: "DOWNLOAD APP →",
-      path: "/app"
+      title: "Real-Time Artist Analytics",
+      desc: "Manage releases, monitor real-time streaming activity, and withdraw royalties straight to your bank account from your dashboard.",
+      cta: "VIEW DASHBOARD →",
+      path: "/dashboard"
     },
     {
       id: "vevo",
@@ -260,6 +261,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
 
   const renderCard = (tool) => {
     const Icon = tool.icon;
+    const isHovered = hoveredTool === tool.id;
     return (
       <div
         key={tool.id}
@@ -273,31 +275,39 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
           minHeight: 200,
           borderRadius: 16,
           background: 'var(--tw-bg-card)',
-          border: '1px solid var(--tw-line)',
-          transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease'
+          border: isHovered ? `1px solid ${tool.badgeColor}60` : '1px solid var(--tw-line)',
+          boxShadow: isHovered ? `0 12px 28px -6px ${tool.badgeColor}25` : 'none',
+          transform: isHovered ? 'translateY(-3px)' : 'none',
+          transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
         }}
+        onMouseEnter={() => setHoveredTool(tool.id)}
+        onMouseLeave={() => setHoveredTool(null)}
         onClick={() => onNavigate(tool.path)}
       >
         <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <div style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
-              background: 'rgba(0, 126, 167, 0.1)',
-              border: '1px solid var(--tw-line)',
+              width: 48,
+              height: 48,
+              borderRadius: 14,
+              background: `linear-gradient(135deg, ${tool.badgeColor}24 0%, ${tool.badgeColor}0A 100%)`,
+              border: `1px solid ${tool.badgeColor}40`,
+              boxShadow: isHovered
+                ? `inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 10px 24px -3px ${tool.badgeColor}50`
+                : `inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25), 0 4px 14px -2px ${tool.badgeColor}30`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--tw-cyan)',
-              transition: 'transform 0.3s ease'
+              color: tool.badgeColor,
+              transform: isHovered ? 'scale(1.08) rotate(-3deg)' : 'scale(1)',
+              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
             }}>
-              <Icon size={20} />
+              <Icon size={22} strokeWidth={2.2} />
             </div>
             <span style={{
               fontSize: '0.65rem',
               fontWeight: 800,
-              padding: '3px 9px',
+              padding: '4px 10px',
               borderRadius: 9999,
               background: `${tool.badgeColor}18`,
               color: tool.badgeColor,
@@ -322,9 +332,9 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
           gap: 6,
           fontSize: '0.8rem',
           fontWeight: 700,
-          color: 'var(--tw-cyan)'
+          color: tool.badgeColor
         }}>
-          <span className="grow-tool-arrow">{tool.cta}</span>
+          <span className="grow-tool-arrow" style={{ color: tool.badgeColor }}>{tool.cta}</span>
         </div>
       </div>
     );

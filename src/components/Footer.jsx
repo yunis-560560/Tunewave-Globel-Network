@@ -185,7 +185,7 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
           boxShadow: isLight ? '0 2px 20px rgba(0,0,0,0.06)' : 'none',
         }}>
           <div style={{ fontSize: '0.95rem', fontWeight: 700, color: headingClr, marginBottom: 6 }}>
-            Join the TuneWave Industry Dispatch
+            Join the Tunewave Industry Dispatch
           </div>
           <p style={{ fontSize: '0.8rem', color: bodyClr, marginBottom: 16, lineHeight: 1.6 }}>
             Get algorithm updates, playlist opportunities, and release strategies delivered weekly.

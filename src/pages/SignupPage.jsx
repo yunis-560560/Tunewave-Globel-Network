@@ -74,7 +74,7 @@ export default function SignupPage({
     setTimeout(() => {
       setLoading(false);
       if (onSignupSuccess) {
-        onSignupSuccess(email ? email.split('@')[0] : 'TuneWave Creator');
+        onSignupSuccess(email ? email.split('@')[0] : 'Tunewave Creator');
       }
       if (onNavigate) {
         onNavigate('/artist/dashboard');

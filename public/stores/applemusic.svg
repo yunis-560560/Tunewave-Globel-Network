@@ -1,10 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-    <defs>
-      <linearGradient id="amg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#FC3C44"/>
-        <stop offset="100%" stop-color="#FA243C"/>
-      </linearGradient>
-    </defs>
-    <rect width="48" height="48" rx="14" fill="url(#amg)"/>
-    <path d="M32.5 14v14.5c-.9-.6-2-.9-3.2-.9-3.2 0-5.8 2.1-5.8 4.7s2.6 4.7 5.8 4.7 5.8-2.1 5.8-4.7V20.2l-12 2.8v11.9c-.9-.6-2-.9-3.2-.9-3.2 0-5.8 2.1-5.8 4.7s2.6 4.7 5.8 4.7 5.8-2.1 5.8-4.7v-17l14.6-3.7z" fill="#FFFFFF"/>
-  </svg>
+  <defs>
+    <linearGradient id="amBgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FB5C74"/>
+      <stop offset="100%" stop-color="#FA233B"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="14" fill="url(#amBgGrad)"/>
+  <!-- Beamed double eighth note (two notes connected by beam at top) -->
+  <path d="M30 11.5v18.2c-0.8-0.5-1.8-0.8-2.9-0.8-2.8 0-5 1.8-5 4s2.2 4 5 4 5-1.8 5-4V17.5l-10.2 2.4v12.8c-0.8-0.5-1.8-0.8-2.9-0.8-2.8 0-5 1.8-5 4s2.2 4 5 4 5-1.8 5-4V22.5l10.2-2.5V11.5z" fill="#FFFFFF" fill-opacity="0.95"/>
+  <!-- Simplified beam connecting the two note stems -->
+  <path d="M19.1 22.5l13-3.1V14.2l-13 3.1z" fill="#FFFFFF" fill-opacity="0.95"/>
+</svg>

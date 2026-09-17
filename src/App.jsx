@@ -27,6 +27,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ArtistDashboard from './pages/ArtistDashboard';
 import AboutPage from './pages/AboutPage';
+import LegalPage from './pages/LegalPage';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
@@ -34,7 +35,7 @@ export default function App() {
   const [artistName, setArtistName] = useState('Nova Luna');
   const [theme, setTheme] = useState(() => {
     try {
-      return localStorage.getItem('tunewave_theme') || 'dark';
+      return localStorage.getItem('Tunewave_theme') || 'dark';
     } catch {
       return 'dark';
     }
@@ -44,7 +45,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     try {
-      localStorage.setItem('tunewave_theme', theme);
+      localStorage.setItem('Tunewave_theme', theme);
     } catch {
       // ignore
     }
@@ -126,7 +127,36 @@ export default function App() {
       case '/support':
         return <AboutPage onNavigate={navigate} theme={theme} />;
       case '/get-signed':
-        return <GetSignedPage onNavigate={navigate} />;
+        return <GetSignedPage onNavigate={navigate} theme={theme} />;
+      case '/terms':
+      case '/terms-and-conditions':
+      case '/legal':
+        return <LegalPage initialDoc="terms" onNavigate={navigate} theme={theme} />;
+      case '/privacy':
+      case '/privacy-policy':
+        return <LegalPage initialDoc="privacy" onNavigate={navigate} theme={theme} />;
+      case '/cookie':
+      case '/cookies':
+      case '/cookie-policy':
+        return <LegalPage initialDoc="cookie" onNavigate={navigate} theme={theme} />;
+      case '/refund':
+      case '/refunds':
+      case '/refund-policy':
+        return <LegalPage initialDoc="refund" onNavigate={navigate} theme={theme} />;
+      case '/community':
+      case '/community-guidelines':
+        return <LegalPage initialDoc="community" onNavigate={navigate} theme={theme} />;
+      case '/copyright':
+      case '/copyright-takedown':
+        return <LegalPage initialDoc="copyright" onNavigate={navigate} theme={theme} />;
+      case '/dist-agreement':
+      case '/distribution-agreement':
+      case '/music-distribution-agreement':
+        return <LegalPage initialDoc="dist-agreement" onNavigate={navigate} theme={theme} />;
+      case '/pub-agreement':
+      case '/publishing-agreement':
+      case '/publishing-administration-agreement':
+        return <LegalPage initialDoc="pub-agreement" onNavigate={navigate} theme={theme} />;
       case '/advice':
         return <AdvicePage onNavigate={navigate} theme={theme} />;
       case '/distribute':
@@ -159,7 +189,7 @@ export default function App() {
       case '/automated-ad-launcher':
         return <AdLauncherPage onNavigate={navigate} theme={theme} />;
       case '/app':
-        return <AppPage onNavigate={navigate} theme={theme} />;
+        return <DistributePage onNavigate={navigate} theme={theme} />;
       case '/login':
         return (
           <LoginPage

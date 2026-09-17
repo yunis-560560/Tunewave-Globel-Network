@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { REVIEWS_DATA } from "../data/content";
 import { Star, ShieldCheck, MessageSquare, ThumbsUp, Award, Users, X, Check } from "lucide-react";
 
@@ -7,7 +7,7 @@ const GENRES = ["All", "Electronic", "Hip Hop", "Indie", "Afrobeats"];
 const PLATFORMS = [
   { name: "Trustpilot", score: "4.8", stars: 5, count: "6,200+" },
   { name: "Google",     score: "4.9", stars: 5, count: "3,100+" },
-  { name: "App Store",  score: "4.7", stars: 5, count: "12,500+" },
+  { name: "Sitejabber", score: "4.9", stars: 5, count: "12,500+" },
 ];
 
 const STATS = [
@@ -25,6 +25,51 @@ export default function ReviewsPage({ onNavigate, theme = "dark" }) {
   const [hoverStar, setHoverStar] = useState(0);
 
   const isLight = theme === "light";
+  const heroRef = useRef(null);
+
+  const handleHeroMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) - 0.5) * 2;
+    const normY = ((y / rect.height) - 0.5) * 2;
+    heroRef.current.style.setProperty('--rev-tilt-x', normX.toFixed(3));
+    heroRef.current.style.setProperty('--rev-tilt-y', normY.toFixed(3));
+    heroRef.current.style.setProperty('--rev-cursor-x', `${((x / rect.width) * 100).toFixed(1)}%`);
+    heroRef.current.style.setProperty('--rev-cursor-y', `${((y / rect.height) * 100).toFixed(1)}%`);
+  };
+
+  const handleHeroMouseLeave = () => {
+    if (!heroRef.current) return;
+    heroRef.current.style.setProperty('--rev-tilt-x', '0');
+    heroRef.current.style.setProperty('--rev-tilt-y', '0');
+    heroRef.current.style.setProperty('--rev-cursor-x', '50%');
+    heroRef.current.style.setProperty('--rev-cursor-y', '45%');
+  };
+
+  const bottomCtaRef = useRef(null);
+
+  const handleBottomCtaMouseMove = (e) => {
+    if (!bottomCtaRef.current) return;
+    const rect = bottomCtaRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) - 0.5) * 2;
+    const normY = ((y / rect.height) - 0.5) * 2;
+    bottomCtaRef.current.style.setProperty('--cta-tilt-x', normX.toFixed(3));
+    bottomCtaRef.current.style.setProperty('--cta-tilt-y', normY.toFixed(3));
+    bottomCtaRef.current.style.setProperty('--cta-cursor-x', `${((x / rect.width) * 100).toFixed(1)}%`);
+    bottomCtaRef.current.style.setProperty('--cta-cursor-y', `${((y / rect.height) * 100).toFixed(1)}%`);
+  };
+
+  const handleBottomCtaMouseLeave = () => {
+    if (!bottomCtaRef.current) return;
+    bottomCtaRef.current.style.setProperty('--cta-tilt-x', '0');
+    bottomCtaRef.current.style.setProperty('--cta-tilt-y', '0');
+    bottomCtaRef.current.style.setProperty('--cta-cursor-x', '50%');
+    bottomCtaRef.current.style.setProperty('--cta-cursor-y', '50%');
+  };
 
   // Pre-generate starfield box-shadows for atmospheric cosmic depth
   const starFieldShadow = useMemo(() => {
@@ -223,54 +268,238 @@ export default function ReviewsPage({ onNavigate, theme = "dark" }) {
             ? '0 14px 30px -8px rgba(0, 126, 167, 0.2)' 
             : '0 16px 35px -10px rgba(0, 229, 255, 0.3)'};
         }
+
+        /* ── Reviews 3D Hero Stage & Parallax ── */
+        .reviews-hero-3d-section {
+          background: #020204;
+          border-bottom: 1px solid var(--tw-line);
+          transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] .reviews-hero-3d-section {
+          background: #f1f7fa;
+          border-bottom: 1px solid rgba(0, 126, 167, 0.16);
+        }
+
+        .reviews-hero-3d-stage {
+          position: absolute;
+          inset: -8%;
+          pointer-events: none;
+          z-index: 1;
+          transform-style: preserve-3d;
+          transform: translate3d(
+            calc(var(--rev-tilt-x, 0) * -28px),
+            calc(var(--rev-tilt-y, 0) * -18px),
+            -35px
+          ) rotateX(calc(var(--rev-tilt-y, 0) * 3.2deg)) rotateY(calc(var(--rev-tilt-x, 0) * -4.2deg));
+          transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: transform;
+        }
+
+        @keyframes reviewsHeroAmbientFloat {
+          0% {
+            transform: scale(1.05) translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: scale(1.07) translateY(-6px) rotate(0.35deg);
+          }
+          100% {
+            transform: scale(1.05) translateY(0px) rotate(0deg);
+          }
+        }
+
+        .reviews-hero-3d-art {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 55%;
+          transform: scale(1.06);
+          animation: reviewsHeroAmbientFloat 16s ease-in-out infinite alternate;
+          will-change: transform;
+        }
+
+        [data-theme="light"] .reviews-hero-3d-art {
+          filter: brightness(1.03) contrast(1.02) saturate(1.1);
+          opacity: 0.95;
+        }
+
+        [data-theme="dark"] .reviews-hero-3d-art {
+          filter: brightness(0.70) contrast(1.22) saturate(1.25) hue-rotate(-4deg);
+          opacity: 0.86;
+        }
+
+        .reviews-hero-3d-atmosphere {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 2;
+          transition: background 0.4s ease;
+        }
+
+        [data-theme="light"] .reviews-hero-3d-atmosphere {
+          background: 
+            radial-gradient(ellipse 70% 75% at 50% 48%, rgba(241, 247, 250, 0.92) 0%, rgba(241, 247, 250, 0.70) 45%, rgba(241, 247, 250, 0.12) 85%),
+            linear-gradient(180deg, rgba(241, 247, 250, 0.6) 0%, transparent 20%, transparent 80%, rgba(241, 247, 250, 0.95) 100%);
+        }
+
+        [data-theme="dark"] .reviews-hero-3d-atmosphere {
+          background: 
+            radial-gradient(ellipse 65% 72% at 50% 48%, rgba(2, 2, 4, 0.90) 0%, rgba(2, 2, 4, 0.68) 48%, rgba(2, 2, 4, 0.15) 85%),
+            linear-gradient(180deg, rgba(2, 2, 4, 0.7) 0%, transparent 20%, transparent 78%, rgba(2, 2, 4, 0.95) 100%);
+        }
+
+        .reviews-hero-3d-spotlight {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 3;
+          opacity: 0.65;
+          mix-blend-mode: screen;
+          background: radial-gradient(
+            650px circle at var(--rev-cursor-x, 50%) var(--rev-cursor-y, 45%),
+            rgba(0, 229, 255, 0.22),
+            rgba(14, 165, 233, 0.12) 40%,
+            transparent 75%
+          );
+          transition: opacity 0.3s ease;
+        }
+
+        [data-theme="light"] .reviews-hero-3d-spotlight {
+          mix-blend-mode: soft-light;
+          background: radial-gradient(
+            650px circle at var(--rev-cursor-x, 50%) var(--rev-cursor-y, 45%),
+            rgba(0, 126, 167, 0.25),
+            rgba(14, 165, 233, 0.15) 45%,
+            transparent 70%
+          );
+        }
+
+        /* Floating 3D Badges */
+        .reviews-hero-float-elem {
+          position: absolute;
+          pointer-events: none;
+          z-index: 4;
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+
+        .rev-float-1 {
+          top: 20%;
+          left: 6%;
+          transform: translate3d(
+            calc(var(--rev-tilt-x, 0) * -36px),
+            calc(var(--rev-tilt-y, 0) * -28px),
+            55px
+          );
+          animation: revFloatItem1 6.5s ease-in-out infinite;
+        }
+
+        .rev-float-2 {
+          top: 22%;
+          right: 7%;
+          transform: translate3d(
+            calc(var(--rev-tilt-x, 0) * 38px),
+            calc(var(--rev-tilt-y, 0) * 32px),
+            65px
+          );
+          animation: revFloatItem2 7.5s ease-in-out infinite 0.8s;
+        }
+
+        .rev-float-3 {
+          bottom: 22%;
+          left: 10%;
+          transform: translate3d(
+            calc(var(--rev-tilt-x, 0) * -26px),
+            calc(var(--rev-tilt-y, 0) * 24px),
+            45px
+          );
+          animation: revFloatItem1 8s ease-in-out infinite 1.4s;
+        }
+
+        .rev-float-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--tw-line-bright);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+        }
+
+        [data-theme="light"] .rev-float-badge {
+          background: rgba(255, 255, 255, 0.85);
+          border-color: rgba(0, 126, 167, 0.18);
+          box-shadow: 0 10px 25px -5px rgba(0, 126, 167, 0.15);
+        }
+
+        @keyframes revFloatItem1 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(4deg); }
+        }
+
+        @keyframes revFloatItem2 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(14px) rotate(-4deg); }
+        }
       `}</style>
 
       {/* =========================================================
-         REDESIGNED HERO / SELECTION (EXACT ORIGINAL CONTENT)
+         HERO SECTION WITH 3D HARDWARE-ACCELERATED STAGE & PARALLAX
+         (review page background image.png)
          ========================================================= */}
-      <section style={{ 
-        position: "relative", 
-        padding: "110px 0 80px", 
-        overflow: "hidden", 
-        borderBottom: isLight ? "1px solid rgba(0,0,0,0.08)" : "1px solid var(--tw-line)",
-        background: isLight
-          ? "radial-gradient(ellipse at 50% 0%, rgba(0, 126, 167, 0.08) 0%, transparent 70%)"
-          : `linear-gradient(180deg, rgba(25,127,255,0) 38%, rgba(25,127,255,.042) 54%, rgba(25,127,255,.052) 68%, rgba(25,127,255,.030) 100%), #020204`
-      }}>
-        {/* Ambient background glow & starfield particles */}
-        {!isLight && (
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-            zIndex: 0,
-            overflow: "hidden"
-          }}>
-            <div style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "1px",
-              height: "1px",
-              borderRadius: "50%",
-              background: "#fff",
-              boxShadow: starFieldShadow
-            }} />
-            <div style={{
-              position: "absolute",
-              top: "-20%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: 900,
-              height: 700,
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, rgba(25, 127, 255, 0.04) 45%, transparent 70%)",
-              filter: "blur(40px)"
-            }} />
-          </div>
-        )}
+      <section 
+        ref={heroRef}
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        className="reviews-hero-3d-section"
+        style={{ 
+          position: "relative", 
+          padding: "105px 0 85px", 
+          overflow: "hidden", 
+          perspective: 1200
+        }}
+      >
+        {/* 3D Hardware-Accelerated Stage */}
+        <div className="reviews-hero-3d-stage">
+          <img 
+            src="/review%20page%20background%20image.png" 
+            alt="Artist Reviews 3D Stage" 
+            className="reviews-hero-3d-art"
+            loading="eager"
+          />
+        </div>
 
-        <div className="container" style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+        {/* Atmospheric Readability & Lighting Depth Mask */}
+        <div className="reviews-hero-3d-atmosphere" />
+
+        {/* Dynamic Cursor Spotlight */}
+        <div className="reviews-hero-3d-spotlight" />
+
+        {/* Floating 3D Badges & Particles */}
+        <div className="reviews-hero-float-elem rev-float-1">
+          <div className="rev-float-badge">
+            <Star size={18} fill="#FFB800" stroke="#FFB800" />
+          </div>
+        </div>
+        <div className="reviews-hero-float-elem rev-float-2">
+          <div className="rev-float-badge">
+            <Award size={19} style={{ color: 'var(--tw-cyan)' }} />
+          </div>
+        </div>
+        <div className="reviews-hero-float-elem rev-float-3">
+          <div className="rev-float-badge">
+            <ThumbsUp size={18} style={{ color: isLight ? '#059669' : 'var(--tw-lime)' }} />
+          </div>
+        </div>
+
+        {/* Foreground Content */}
+        <div className="container reviews-hero-3d-content" style={{ textAlign: "center", position: "relative", zIndex: 10 }}>
           {/* 1. PIXEL CONTRACT A: FIXED BADGE */}
           <div style={{ display: "inline-flex", justifyContent: "center", marginBottom: 24 }}>
             <div className="contract-badge">
@@ -309,7 +538,7 @@ export default function ReviewsPage({ onNavigate, theme = "dark" }) {
             maxWidth: 580, 
             margin: "0 auto 52px" 
           }}>
-            Real reviews from thousands of charting, independent, and breakthrough artists who trust TuneWave to power their careers.
+            Real reviews from thousands of charting, independent, and breakthrough artists who trust Tunewave to power their careers.
           </p>
 
           {/* 4. PLATFORM SCORES ROW + PIXEL CONTRACT B GLOW BUTTON */}
@@ -580,36 +809,87 @@ export default function ReviewsPage({ onNavigate, theme = "dark" }) {
         </div>
       </section>
 
-      {/* CTA BANNER */}
-      <section style={{ padding: "80px 0", borderTop: isLight ? "1px solid rgba(0,0,0,0.08)" : "1px solid var(--tw-line)" }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2 style={{ 
-            fontSize: "clamp(2rem, 4vw, 3rem)", 
-            fontWeight: 900, 
-            color: isLight ? "#0F172A" : "var(--tw-text-white)", 
-            marginBottom: 16 
-          }}>
-            Join 25,000+ artists who{" "}
-            <span style={{ color: isLight ? "#007EA7" : "var(--tw-cyan)" }}>
-              chose TuneWave.
-            </span>
-          </h2>
-          <p style={{ 
-            fontSize: "1.05rem", 
-            color: isLight ? "#475569" : "var(--tw-text-dim)", 
-            marginBottom: 36, 
-            maxWidth: 480, 
-            margin: "0 auto 36px",
-            lineHeight: 1.6
-          }}>
-            Start releasing music today with 100% royalty retention and tools built for independent artists.
-          </p>
-          <button 
-            onClick={() => onNavigate && onNavigate("/signup")} 
-            className="btn-glow"
+      {/* 3D HARDWARE-ACCELERATED CTA STAGE (about_join_background image.png) */}
+      <section style={{ padding: "80px 0 50px" }}>
+        <div className="container" style={{ maxWidth: 1080 }}>
+          <div 
+            ref={bottomCtaRef}
+            onMouseMove={handleBottomCtaMouseMove}
+            onMouseLeave={handleBottomCtaMouseLeave}
+            className="glass-panel promo-cta-3d-card card-shimmer-sweep"
+            style={{
+              borderRadius: 28,
+              border: isLight ? '1px solid rgba(0, 126, 167, 0.25)' : '1px solid rgba(0, 229, 255, 0.35)',
+              boxShadow: isLight 
+                ? '0 25px 60px -15px rgba(0, 126, 167, 0.18)' 
+                : '0 30px 70px -20px rgba(0, 0, 0, 0.85), 0 0 35px -10px rgba(0, 229, 255, 0.25)'
+            }}
           >
-            <span>START FOR FREE</span>
-          </button>
+            {/* 3D Background Stage */}
+            <div className="promo-cta-3d-stage">
+              <img 
+                src="/about_join_background%20image.png" 
+                alt="Join 25,000+ Artists 3D Stage" 
+                className="promo-cta-3d-art"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Atmospheric Depth Mask */}
+            <div className="promo-cta-3d-atmosphere" />
+
+            {/* Dynamic Cursor Spotlight */}
+            <div className="promo-cta-3d-spotlight" />
+
+            {/* Floating 3D Music Particles */}
+            <div className="promo-cta-float-note promo-cta-note-left">
+              <div className="promo-glyph-badge">♪</div>
+            </div>
+            <div className="promo-cta-float-note promo-cta-note-right">
+              <div className="promo-glyph-badge">♫</div>
+            </div>
+
+            {/* Foreground Content */}
+            <div className="promo-cta-content" style={{ textAlign: "center", padding: "68px 32px" }}>
+              <h2 style={{ 
+                fontSize: "clamp(2.2rem, 5vw, 3.4rem)", 
+                fontWeight: 900, 
+                color: isLight ? "#0F172A" : "var(--tw-text-white)", 
+                marginBottom: 16,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.15
+              }}>
+                Join 25,000+ artists who{" "}
+                <span style={{ color: isLight ? "#007EA7" : "var(--tw-cyan)" }}>
+                  chose Tunewave.
+                </span>
+              </h2>
+
+              <p style={{ 
+                fontSize: "1.12rem", 
+                color: isLight ? "#334155" : "var(--tw-text-dim)", 
+                marginBottom: 36, 
+                maxWidth: 560, 
+                margin: "0 auto 36px",
+                lineHeight: 1.65
+              }}>
+                Start releasing music today with 100% royalty retention and tools built for independent artists.
+              </p>
+
+              <button 
+                onClick={() => onNavigate && onNavigate("/signup")} 
+                className="btn-glow"
+                style={{
+                  padding: "18px 44px",
+                  fontSize: "1rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.05em"
+                }}
+              >
+                <span>START FOR FREE</span>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -672,7 +952,7 @@ export default function ReviewsPage({ onNavigate, theme = "dark" }) {
                   color: isLight ? "#475569" : "var(--tw-text-dim)", 
                   marginBottom: 28 
                 }}>
-                  Share your experience releasing and monetizing on TuneWave Global Network.
+                  Share your experience releasing and monetizing on Tunewave Global Network.
                 </p>
 
                 {/* Star picker */}

@@ -1,13 +1,37 @@
-﻿import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Target, Sparkles, ArrowRight, CheckCircle2, ChevronDown, 
   BarChart3, Zap, Layers, Play, ExternalLink, HelpCircle, 
   Sliders, ShieldCheck, DollarSign, Users, Eye, TrendingUp,
-  Globe2, Music2, Share2, Compass, Check
+  Globe2, Music2, Share2, Compass, Check, Radio, Disc3, Music
 } from 'lucide-react';
 
-export default function AdLauncherPage({ onNavigate }) {
+export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
   const [openFaq, setOpenFaq] = useState(0);
+
+  const isLight = theme === 'light';
+  const heroRef = useRef(null);
+
+  const handleHeroMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) - 0.5) * 2;
+    const normY = ((y / rect.height) - 0.5) * 2;
+    heroRef.current.style.setProperty('--ad-tilt-x', normX.toFixed(3));
+    heroRef.current.style.setProperty('--ad-tilt-y', normY.toFixed(3));
+    heroRef.current.style.setProperty('--ad-cursor-x', `${((x / rect.width) * 100).toFixed(1)}%`);
+    heroRef.current.style.setProperty('--ad-cursor-y', `${((y / rect.height) * 100).toFixed(1)}%`);
+  };
+
+  const handleHeroMouseLeave = () => {
+    if (!heroRef.current) return;
+    heroRef.current.style.setProperty('--ad-tilt-x', '0');
+    heroRef.current.style.setProperty('--ad-tilt-y', '0');
+    heroRef.current.style.setProperty('--ad-cursor-x', '50%');
+    heroRef.current.style.setProperty('--ad-cursor-y', '45%');
+  };
 
   // Interactive Ad Builder State
   const [selectedPlatform, setSelectedPlatform] = useState('spotify');
@@ -29,7 +53,7 @@ export default function AdLauncherPage({ onNavigate }) {
     },
     {
       q: "Can I use Ad Launcher if my music is distributed elsewhere?",
-      a: "Yes! While TuneWave artists enjoy automatic catalog linking and streamlined one-click setup, Ad Launcher works with any public Spotify track, Apple Music pre-save link, or YouTube video URL regardless of your digital distributor."
+      a: "Yes! While Tunewave artists enjoy automatic catalog linking and streamlined one-click setup, Ad Launcher works with any public Spotify track, Apple Music pre-save link, or YouTube video URL regardless of your digital distributor."
     },
     {
       q: "Where will my ads appear?",
@@ -60,16 +84,56 @@ export default function AdLauncherPage({ onNavigate }) {
   return (
     <div className="ad-launcher-page" style={{ paddingTop: 30, paddingBottom: 100 }}>
       
-      {/* 1. HERO SECTION */}
-      <section style={{ position: 'relative', padding: '50px 0 80px', overflow: 'hidden' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
+      {/* 1. HERO SECTION WITH 3D HARDWARE-ACCELERATED STAGE & INTERACTIVE PARALLAX */}
+      <section 
+        ref={heroRef}
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        className="ad-hero-3d-section"
+        style={{ position: 'relative', padding: '65px 0 85px', overflow: 'hidden', perspective: 1200 }}
+      >
+        {/* 3D Hardware-Accelerated Stage (run_music background image.png) */}
+        <div className="ad-hero-3d-stage">
+          <img 
+            src="/run_music%20background%20image.png" 
+            alt="Run Music Ads 3D Stage" 
+            className="ad-hero-3d-art"
+            loading="eager"
+          />
+        </div>
+
+        {/* Atmospheric Depth & Lighting Mask */}
+        <div className="ad-hero-3d-atmosphere" />
+
+        {/* Dynamic Cursor Spotlight */}
+        <div className="ad-hero-3d-spotlight" />
+
+        {/* 3D Floating Particles & Badges */}
+        <div className="ad-hero-float-elem ad-float-1">
+          <div className="ad-float-badge">
+            <Radio size={20} style={{ color: 'var(--tw-cyan)' }} />
+          </div>
+        </div>
+        <div className="ad-hero-float-elem ad-float-2">
+          <div className="ad-float-badge">
+            <Sparkles size={18} style={{ color: isLight ? '#059669' : 'var(--tw-lime)' }} />
+          </div>
+        </div>
+        <div className="ad-hero-float-elem ad-float-3">
+          <div className="ad-float-badge">
+            <BarChart3 size={20} style={{ color: 'var(--tw-sky)' }} />
+          </div>
+        </div>
+
+        {/* Elevated 3D Foreground Content */}
+        <div className="container ad-hero-3d-content" style={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
           
           {/* Eyebrow badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 18 }}>
             <span className="pill-badge" style={{ 
               color: 'var(--tw-cyan)', 
-              background: 'rgba(0, 229, 255, 0.12)', 
-              border: '1px solid rgba(0, 229, 255, 0.3)' 
+              background: isLight ? 'rgba(0, 126, 167, 0.12)' : 'rgba(0, 229, 255, 0.12)', 
+              border: isLight ? '1px solid rgba(0, 126, 167, 0.3)' : '1px solid rgba(0, 229, 255, 0.3)' 
             }}>
               <Target size={13} style={{ marginRight: 4 }} />
               AD LAUNCHER · AUTOMATED MUSIC ADVERTISING
@@ -113,7 +177,7 @@ export default function AdLauncherPage({ onNavigate }) {
             </a>
             <a
               href="#features"
-              className="glass-panel"
+              className="ad-cta-secondary"
               style={{
                 padding: '15px 28px',
                 fontSize: '0.98rem',
@@ -133,7 +197,7 @@ export default function AdLauncherPage({ onNavigate }) {
           </div>
 
           {/* 4 Stats Cards */}
-          <div style={{
+          <div className="ad-stats-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
             gap: 18,
@@ -141,19 +205,19 @@ export default function AdLauncherPage({ onNavigate }) {
             margin: '0 auto',
             textAlign: 'left'
           }}>
-            <div className="glass-panel" style={{ padding: '20px 24px', borderRadius: 16 }}>
+            <div className="ad-stat-card card-shimmer-sweep" style={{ padding: '20px 24px', borderRadius: 16 }}>
               <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '-0.02em' }}>Spotify & YT</div>
               <div style={{ fontSize: '0.84rem', color: 'var(--tw-text-dim)', fontWeight: 600, marginTop: 4 }}>Direct Ad Network Access</div>
             </div>
-            <div className="glass-panel" style={{ padding: '20px 24px', borderRadius: 16 }}>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tw-lime)', letterSpacing: '-0.02em' }}>3 Clicks</div>
+            <div className="ad-stat-card card-shimmer-sweep" style={{ padding: '20px 24px', borderRadius: 16 }}>
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: isLight ? '#059669' : 'var(--tw-lime)', letterSpacing: '-0.02em' }}>3 Clicks</div>
               <div style={{ fontSize: '0.84rem', color: 'var(--tw-text-dim)', fontWeight: 600, marginTop: 4 }}>Zero Technical Setup</div>
             </div>
-            <div className="glass-panel" style={{ padding: '20px 24px', borderRadius: 16 }}>
+            <div className="ad-stat-card card-shimmer-sweep" style={{ padding: '20px 24px', borderRadius: 16 }}>
               <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tw-sky)', letterSpacing: '-0.02em' }}>100% Real</div>
               <div style={{ fontSize: '0.84rem', color: 'var(--tw-text-dim)', fontWeight: 600, marginTop: 4 }}>Verified Human Listeners</div>
             </div>
-            <div className="glass-panel" style={{ padding: '20px 24px', borderRadius: 16 }}>
+            <div className="ad-stat-card card-shimmer-sweep" style={{ padding: '20px 24px', borderRadius: 16 }}>
               <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '-0.02em' }}>Live ROI</div>
               <div style={{ fontSize: '0.84rem', color: 'var(--tw-text-dim)', fontWeight: 600, marginTop: 4 }}>Real-time Stream Tracking</div>
             </div>
@@ -644,7 +708,7 @@ export default function AdLauncherPage({ onNavigate }) {
               <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'rgba(0, 229, 255, 0.25)', marginBottom: 8 }}>01</div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 8 }}>Release Your Music</h3>
               <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                Distribute your release with TuneWave or simply grab your existing Spotify or YouTube link to get started.
+                Distribute your release with Tunewave or simply grab your existing Spotify or YouTube link to get started.
               </p>
             </div>
 
@@ -819,6 +883,240 @@ export default function AdLauncherPage({ onNavigate }) {
           </div>
         </div>
       </section>
+
+      {/* Embedded CSS Styles for 3D Hardware-Accelerated Hero Stage */}
+      <style>{`
+        /* ── Ad Launcher 3D Hero Stage & Parallax ── */
+        .ad-hero-3d-section {
+          background: #080b11;
+          border-bottom: 1px solid var(--tw-line);
+          transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] .ad-hero-3d-section {
+          background: #f1f7fa;
+          border-bottom: 1px solid rgba(0, 126, 167, 0.16);
+        }
+
+        .ad-hero-3d-stage {
+          position: absolute;
+          inset: -8%;
+          pointer-events: none;
+          z-index: 1;
+          transform-style: preserve-3d;
+          transform: translate3d(
+            calc(var(--ad-tilt-x, 0) * -28px),
+            calc(var(--ad-tilt-y, 0) * -18px),
+            -35px
+          ) rotateX(calc(var(--ad-tilt-y, 0) * 3.2deg)) rotateY(calc(var(--ad-tilt-x, 0) * -4.2deg));
+          transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: transform;
+        }
+
+        @keyframes adHeroAmbientFloat {
+          0% {
+            transform: scale(1.05) translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: scale(1.07) translateY(-6px) rotate(0.4deg);
+          }
+          100% {
+            transform: scale(1.05) translateY(0px) rotate(0deg);
+          }
+        }
+
+        .ad-hero-3d-art {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 50%;
+          transform: scale(1.06);
+          animation: adHeroAmbientFloat 16s ease-in-out infinite alternate;
+          will-change: transform;
+        }
+
+        [data-theme="light"] .ad-hero-3d-art {
+          filter: brightness(1.02) contrast(1.03) saturate(1.1);
+          opacity: 0.96;
+        }
+
+        [data-theme="dark"] .ad-hero-3d-art {
+          filter: brightness(0.72) contrast(1.2) saturate(1.25) hue-rotate(-5deg);
+          opacity: 0.85;
+        }
+
+        .ad-hero-3d-atmosphere {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 2;
+          transition: background 0.4s ease;
+        }
+
+        [data-theme="light"] .ad-hero-3d-atmosphere {
+          background: 
+            radial-gradient(ellipse 70% 75% at 50% 48%, rgba(241, 247, 250, 0.92) 0%, rgba(241, 247, 250, 0.70) 45%, rgba(241, 247, 250, 0.12) 85%),
+            linear-gradient(180deg, rgba(241, 247, 250, 0.6) 0%, transparent 20%, transparent 80%, rgba(241, 247, 250, 0.95) 100%);
+        }
+
+        [data-theme="dark"] .ad-hero-3d-atmosphere {
+          background: 
+            radial-gradient(ellipse 65% 72% at 50% 48%, rgba(8, 11, 17, 0.90) 0%, rgba(8, 11, 17, 0.68) 48%, rgba(8, 11, 17, 0.15) 85%),
+            linear-gradient(180deg, rgba(8, 11, 17, 0.7) 0%, transparent 20%, transparent 78%, rgba(8, 11, 17, 0.95) 100%);
+        }
+
+        .ad-hero-3d-spotlight {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 3;
+          opacity: 0.65;
+          mix-blend-mode: screen;
+          background: radial-gradient(
+            650px circle at var(--ad-cursor-x, 50%) var(--ad-cursor-y, 45%),
+            rgba(0, 229, 255, 0.22),
+            rgba(14, 165, 233, 0.12) 40%,
+            transparent 75%
+          );
+          transition: opacity 0.3s ease;
+        }
+
+        [data-theme="light"] .ad-hero-3d-spotlight {
+          mix-blend-mode: soft-light;
+          background: radial-gradient(
+            650px circle at var(--ad-cursor-x, 50%) var(--ad-cursor-y, 45%),
+            rgba(0, 126, 167, 0.25),
+            rgba(14, 165, 233, 0.15) 45%,
+            transparent 70%
+          );
+        }
+
+        /* Floating 3D badges */
+        .ad-hero-float-elem {
+          position: absolute;
+          pointer-events: none;
+          z-index: 4;
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+
+        .ad-float-1 {
+          top: 20%;
+          left: 7%;
+          transform: translate3d(
+            calc(var(--ad-tilt-x, 0) * -36px),
+            calc(var(--ad-tilt-y, 0) * -28px),
+            55px
+          );
+          animation: adFloatItem1 6.5s ease-in-out infinite;
+        }
+
+        .ad-float-2 {
+          top: 22%;
+          right: 8%;
+          transform: translate3d(
+            calc(var(--ad-tilt-x, 0) * 38px),
+            calc(var(--ad-tilt-y, 0) * 32px),
+            65px
+          );
+          animation: adFloatItem2 7.5s ease-in-out infinite 0.8s;
+        }
+
+        .ad-float-3 {
+          bottom: 24%;
+          left: 10%;
+          transform: translate3d(
+            calc(var(--ad-tilt-x, 0) * -26px),
+            calc(var(--ad-tilt-y, 0) * 24px),
+            45px
+          );
+          animation: adFloatItem1 8s ease-in-out infinite 1.4s;
+        }
+
+        .ad-float-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--tw-line-bright);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+        }
+
+        [data-theme="light"] .ad-float-badge {
+          background: rgba(255, 255, 255, 0.85);
+          border-color: rgba(0, 126, 167, 0.18);
+          box-shadow: 0 10px 25px -5px rgba(0, 126, 167, 0.15);
+        }
+
+        @keyframes adFloatItem1 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(4deg); }
+        }
+
+        @keyframes adFloatItem2 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(14px) rotate(-4deg); }
+        }
+
+        /* 3D Elevated Hero Stat Cards */
+        .ad-stat-card {
+          background: rgba(14, 20, 32, 0.65);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid var(--tw-line);
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 0.3s ease,
+                      box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ad-stat-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(0, 229, 255, 0.45);
+          box-shadow: 0 16px 36px -8px rgba(0, 229, 255, 0.25);
+        }
+
+        .ad-cta-secondary {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition: all 0.25s ease;
+        }
+
+        .ad-cta-secondary:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: var(--tw-cyan) !important;
+          transform: translateY(-2px);
+        }
+
+        [data-theme="light"] .ad-stat-card {
+          background: rgba(255, 255, 255, 0.88) !important;
+          border-color: rgba(0, 0, 0, 0.08) !important;
+          box-shadow: 0 8px 24px rgba(0, 126, 167, 0.06) !important;
+        }
+
+        [data-theme="light"] .ad-stat-card:hover {
+          border-color: #007EA7 !important;
+          box-shadow: 0 16px 36px -8px rgba(0, 126, 167, 0.22) !important;
+        }
+
+        [data-theme="light"] .ad-cta-secondary {
+          background: #ffffff !important;
+          color: #0F172A !important;
+          border-color: rgba(0, 0, 0, 0.12) !important;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        [data-theme="light"] .ad-cta-secondary:hover {
+          border-color: #007EA7 !important;
+        }
+      `}</style>
 
     </div>
   );

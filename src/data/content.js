@@ -45,7 +45,7 @@ export const TRANSLATIONS = {
       kicker: "Grow",
       headline: "Tools to help you",
       headlineAccent: "get heard.",
-      lede: "Releasing music is just the start. TuneWave gives you the data, firepower and edge you need to grow your audience long after release day.",
+      lede: "Releasing music is just the start. Tunewave gives you the data, firepower and edge you need to grow your audience long after release day.",
       ctaPrimary: "Explore all tools →"
     }
   },
@@ -95,7 +95,7 @@ export const TRANSLATIONS = {
       kicker: "Crecer",
       headline: "Herramientas para",
       headlineAccent: "hacerte escuchar.",
-      lede: "Lanzar música es solo el comienzo. TuneWave te entrega las analíticas, pitching y promoción para impulsar tu carrera.",
+      lede: "Lanzar música es solo el comienzo. Tunewave te entrega las analíticas, pitching y promoción para impulsar tu carrera.",
       ctaPrimary: "Explorar herramientas →"
     }
   },
@@ -255,7 +255,7 @@ export const PLATFORMS = [
   { name: "Spotify", tag: "Audio & Canvas", color: "#1DB954", icon: "spotify" },
   { name: "Apple Music", tag: "Spatial Audio", color: "#FA243C", icon: "apple" },
   { name: "TikTok", tag: "Sounds & ByteDance", color: "#00F2FE", icon: "tiktok" },
-  { name: "Amazon Music", tag: "HD & Prime", color: "#FF9900", icon: "amazon" },
+  { name: "Amazon Music", tag: "HD & Prime", color: "#25D1DA", icon: "amazon" },
   { name: "YouTube Music", tag: "Content ID & OAC", color: "#FF0000", icon: "youtube" },
   { name: "Tidal", tag: "Lossless HiFi", color: "#00FFFF", icon: "tidal" },
   { name: "Deezer", tag: "HiFi 360", color: "#A238FF", icon: "deezer" },
@@ -288,13 +288,6 @@ export const MEGA_MENUS = {
         desc: "Set up official Vevo artist channels, upload 4K music videos and monetize every view.",
         badge: "VEVO",
         icon: "video"
-      },
-      {
-        id: "app",
-        title: "TuneWave App",
-        desc: "Track every stream, payout and playlist from your phone. Withdraw royalties with a couple of taps.",
-        badge: "NEW",
-        icon: "app"
       }
     ],
     tools: [
@@ -338,7 +331,7 @@ export const MEGA_MENUS = {
       { title: "Automated Royalty Splits", path: "/monetize" },
       { title: "Official Chart Registration (Billboard/OCC)", path: "/monetize" },
       { title: "Neighboring Rights Collection", path: "/monetize" },
-      { title: "TuneWave Pro Suite", path: "/monetize" }
+      { title: "Tunewave Pro Suite", path: "/monetize" }
     ]
   },
   grow: {
@@ -370,9 +363,9 @@ export const MEGA_MENUS = {
     ],
     tools: [
       { title: "Smart Promo Cards", path: "/grow" },
-      { title: "TuneWave Chartbreaker Index", path: "/grow" },
+      { title: "Tunewave Chartbreaker Index", path: "/grow" },
       { title: "Start Your Own Record Label", path: "/grow" },
-      { title: "TuneWave Industry Perks & Gear Discounts", path: "/grow" },
+      { title: "Tunewave Industry Perks & Gear Discounts", path: "/grow" },
       { title: "Annual Creator Conference & Masterclasses", path: "/grow" }
     ]
   },
@@ -408,7 +401,7 @@ export const MEGA_MENUS = {
       { title: "How to Pitch to Spotify Editorial", path: "/advice" },
       { title: "Music Publishing & Royalties Explained", path: "/publishing" },
       { title: "Release Checklist & Timeline", path: "/advice" },
-      { title: "Get Signed to TuneWave Records", path: "/get-signed" }
+      { title: "Get Signed to Tunewave Records", path: "/get-signed" }
     ]
   }
 };
@@ -485,16 +478,16 @@ export const PRICING_PLANS = [
 ];
 
 export const COMPARISON_DATA = [
-  { feature: "Keep 100% of Royalties", tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
-  { feature: "Unlimited Releases per Year", tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: true },
-  { feature: "Free Pre-Save SmartLinks", tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
-  { feature: "Official Chart Registration (Billboard/OCC)", tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
-  { feature: "Built-in Publishing Royalty Collection", tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
-  { feature: "Custom Release Date Selection", tunewave: true, cdbaby: true, distrokid: "Upgrade required", tunecore: true, unitedmasters: true },
-  { feature: "Custom Record Label Imprints", tunewave: true, cdbaby: false, distrokid: "Upgrade required", tunecore: false, unitedmasters: false },
-  { feature: "Automated Royalty Splits (Zero Cut)", tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
-  { feature: "TV & Film Sync Licensing Direct Pitching", tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
-  { feature: "Mobile App (iOS & Android)", tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: true }
+  { feature: "Keep 100% of Royalties", Tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
+  { feature: "Unlimited Releases per Year", Tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: true },
+  { feature: "Free Pre-Save SmartLinks", Tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
+  { feature: "Official Chart Registration (Billboard/OCC)", Tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
+  { feature: "Built-in Publishing Royalty Collection", Tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
+  { feature: "Custom Release Date Selection", Tunewave: true, cdbaby: true, distrokid: "Upgrade required", tunecore: true, unitedmasters: true },
+  { feature: "Custom Record Label Imprints", Tunewave: true, cdbaby: false, distrokid: "Upgrade required", tunecore: false, unitedmasters: false },
+  { feature: "Automated Royalty Splits (Zero Cut)", Tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: false },
+  { feature: "TV & Film Sync Licensing Direct Pitching", Tunewave: true, cdbaby: false, distrokid: false, tunecore: false, unitedmasters: false },
+  { feature: "Real-Time Web Analytics Portal", Tunewave: true, cdbaby: false, distrokid: true, tunecore: true, unitedmasters: true }
 ];
 
 export const REVIEWS_DATA = [
@@ -505,7 +498,7 @@ export const REVIEWS_DATA = [
     rating: 5,
     date: "Verified Release · 3 days ago",
     title: "Best decision of my music career",
-    text: "After dealing with frustrating account delays and hidden royalty cuts on other legacy distributors, moving to TuneWave Global Network has been seamless. My tracks landed on Spotify within 36 hours and publishing royalties are collected cleanly."
+    text: "After dealing with frustrating account delays and hidden royalty cuts on other legacy distributors, moving to Tunewave Global Network has been seamless. My tracks landed on Spotify within 36 hours and publishing royalties are collected cleanly."
   },
   {
     id: 2,
@@ -523,7 +516,7 @@ export const REVIEWS_DATA = [
     rating: 5,
     date: "Verified Release · 2 weeks ago",
     title: "Sync placement in an HBO indie film!",
-    text: "I uploaded my EP through TuneWave Pro and opted into their sync pool. Within 4 months, one of my instrumental tracks was licensed for a streaming docuseries. Truly game-changing for independent artists."
+    text: "I uploaded my EP through Tunewave Pro and opted into their sync pool. Within 4 months, one of my instrumental tracks was licensed for a streaming docuseries. Truly game-changing for independent artists."
   },
   {
     id: 4,
@@ -532,7 +525,7 @@ export const REVIEWS_DATA = [
     rating: 5,
     date: "Verified Release · 3 weeks ago",
     title: "Instant verification and Spotify Canvas tools",
-    text: "TuneWave Global Network makes self-releasing feel like having a major label backend team. The analytics are clear, the mobile app is blazing fast, and our release reached 250k streams in the first month."
+    text: "Tunewave Global Network makes self-releasing feel like having a major label backend team. The analytics are clear, the artist dashboard is blazing fast, and our release reached 250k streams in the first month."
   },
   {
     id: 5,
@@ -554,7 +547,7 @@ export const BLOG_ARTICLES = [
     date: "Updated this week",
     image: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=800&q=80",
     excerpt: "Learn the exact timing, metadata criteria, and curator pitch templates needed to secure editorial placements on New Music Friday and genre hubs.",
-    content: "Landing an editorial playlist placement on Spotify can transform an independent artist's career overnight. But with over 100,000 tracks uploaded to streaming platforms daily, simply hitting 'Pitch' in Spotify for Artists is rarely enough.\n\n### 1. The 4-Week Golden Rule\nAlways deliver your final audio and ISRC metadata through TuneWave at least four weeks before your official release date. Spotify editors finalize their Friday playlist updates between 10 to 14 days in advance.\n\n### 2. Crafting the Perfect Curator Pitch\nCurators read thousands of pitches every week. Avoid generic buzzwords like 'chill vibes' or 'radio ready'. Instead, highlight:\n- Specific instrumentation and sub-genre influences\n- Planned marketing campaigns (e.g. TikTok influencer audio spends, press coverage)\n- Live touring milestones and existing viral traction\n\n### 3. The Power of Algorithmic Playlists\nRelease Radar and Discover Weekly account for up to 60% of an indie release's first-month streams. Driving early saves and pre-saves through your TuneWave SmartLink trains the algorithm to recommend your track to listeners with similar taste profiles."
+    content: "Landing an editorial playlist placement on Spotify can transform an independent artist's career overnight. But with over 100,000 tracks uploaded to streaming platforms daily, simply hitting 'Pitch' in Spotify for Artists is rarely enough.\n\n### 1. The 4-Week Golden Rule\nAlways deliver your final audio and ISRC metadata through Tunewave at least four weeks before your official release date. Spotify editors finalize their Friday playlist updates between 10 to 14 days in advance.\n\n### 2. Crafting the Perfect Curator Pitch\nCurators read thousands of pitches every week. Avoid generic buzzwords like 'chill vibes' or 'radio ready'. Instead, highlight:\n- Specific instrumentation and sub-genre influences\n- Planned marketing campaigns (e.g. TikTok influencer audio spends, press coverage)\n- Live touring milestones and existing viral traction\n\n### 3. The Power of Algorithmic Playlists\nRelease Radar and Discover Weekly account for up to 60% of an indie release's first-month streams. Driving early saves and pre-saves through your Tunewave SmartLink trains the algorithm to recommend your track to listeners with similar taste profiles."
   },
   {
     id: "music-publishing-unclaimed-royalties",
@@ -564,7 +557,7 @@ export const BLOG_ARTICLES = [
     date: "Industry Insights",
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
     excerpt: "Streaming payments are only half of the revenue equation. Discover mechanical, public performance, and neighboring rights royalties.",
-    content: "When a song streams on Spotify or Apple Music, two separate copyrights generate income: the Sound Recording (Master) and the Underlying Composition (Publishing).\n\nMost basic distributors only collect Master royalties. Without music publishing administration, your performance royalties from radio, international streams, and TV broadcasts sit in foreign collection society 'black boxes' and eventually expire.\n\nWith TuneWave Publishing Administration, we register your song catalog globally across PRS, ASCAP, BMI, GEMA, SACEM, and mechanical collection societies so you collect every single cent your work earns worldwide."
+    content: "When a song streams on Spotify or Apple Music, two separate copyrights generate income: the Sound Recording (Master) and the Underlying Composition (Publishing).\n\nMost basic distributors only collect Master royalties. Without music publishing administration, your performance royalties from radio, international streams, and TV broadcasts sit in foreign collection society 'black boxes' and eventually expire.\n\nWith Tunewave Publishing Administration, we register your song catalog globally across PRS, ASCAP, BMI, GEMA, SACEM, and mechanical collection societies so you collect every single cent your work earns worldwide."
   },
   {
     id: "tiktok-music-marketing-algorithm",
@@ -574,7 +567,7 @@ export const BLOG_ARTICLES = [
     date: "Creator Tactics",
     image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80",
     excerpt: "How micro-creators and snippet optimization create organic viral loops that convert short-form video viewers into repeat listeners.",
-    content: "A viral TikTok video is exciting, but converting viewer attention into Spotify listeners requires deliberate sound design and catalog setup.\n\n- **Create 15-second hook anchors**: Use TuneWave to specify the exact chorus or drop timestamp delivered to TikTok and Instagram audio libraries.\n- **Encourage interactive trends**: Provide stems or open-verse challenges for fellow musicians and content creators.\n- **Pin your SmartLink**: Direct fans straight to their preferred DSP with pre-saves and unified listening links."
+    content: "A viral TikTok video is exciting, but converting viewer attention into Spotify listeners requires deliberate sound design and catalog setup.\n\n- **Create 15-second hook anchors**: Use Tunewave to specify the exact chorus or drop timestamp delivered to TikTok and Instagram audio libraries.\n- **Encourage interactive trends**: Provide stems or open-verse challenges for fellow musicians and content creators.\n- **Pin your SmartLink**: Direct fans straight to their preferred DSP with pre-saves and unified listening links."
   },
   {
     id: "music-metadata-explained",
@@ -634,7 +627,7 @@ export const BLOG_ARTICLES = [
     date: "23 Jun 2026",
     image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&q=80",
     excerpt: "Get Your Music in Movies, TV & More with Sync Licensing. Here is everything you need to know to land your first placement.",
-    content: "Sync licensing is one of the most lucrative revenue streams available to independent artists.\n\nTo get your music placed in sync:\n1. Ensure your masters and publishing rights are 100% cleared\n2. Create instrumental versions of all your tracks\n3. Register with TuneWave Sync to pitch directly to music supervisors\n4. Tag your music with mood, tempo, and placement-type keywords\n5. Build relationships with indie film makers and YouTube creators"
+    content: "Sync licensing is one of the most lucrative revenue streams available to independent artists.\n\nTo get your music placed in sync:\n1. Ensure your masters and publishing rights are 100% cleared\n2. Create instrumental versions of all your tracks\n3. Register with Tunewave Sync to pitch directly to music supervisors\n4. Tag your music with mood, tempo, and placement-type keywords\n5. Build relationships with indie film makers and YouTube creators"
   },
   {
     id: "spotify-pay-per-stream",
@@ -664,7 +657,7 @@ export const BLOG_ARTICLES = [
     date: "23 Apr 2026",
     image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
     excerpt: "Owning your masters allows you to keep hold of your recordings and stay in control of your music career permanently.",
-    content: "Owning your masters means you own the original recordings of your music — the master recordings. This is separate from owning the songwriting copyright (publishing).\n\nWhy master ownership matters:\n- You control how and where your music is used\n- You earn 100% of master royalties from streaming\n- You can license your music for sync without seeking label approval\n- Your catalog grows in value as your career grows\n\nWith TuneWave, you always retain 100% of your masters."
+    content: "Owning your masters means you own the original recordings of your music — the master recordings. This is separate from owning the songwriting copyright (publishing).\n\nWhy master ownership matters:\n- You control how and where your music is used\n- You earn 100% of master royalties from streaming\n- You can license your music for sync without seeking label approval\n- Your catalog grows in value as your career grows\n\nWith Tunewave, you always retain 100% of your masters."
   }
 ];
 
@@ -730,7 +723,7 @@ export const HALL_OF_FAME = [
 export const COMPANY_INFO = {
   name: "Tunewave Global Network",
   legalName: "Tunewave Global Network",
-  email: "support@tunewavemusic.in",
+  email: "support@Tunewavemusic.in",
   address: "1-98/3/5/23 To 27, Jubilee Enclave, Madhapur, Shaikpet, Hyderabad, Telangana, India, 500081",
   supportHours: "Monday - Friday 11am - 6pm",
   city: "Hyderabad",

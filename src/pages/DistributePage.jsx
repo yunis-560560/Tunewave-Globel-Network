@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Music, Check, Shield, Zap, Sparkles, Smartphone, ArrowRight, 
-  Search, ExternalLink, CheckCircle2, ChevronDown, Star, Radio, 
+import {
+  Music, Check, Shield, Zap, Sparkles, BarChart3, ArrowRight,
+  Search, ExternalLink, CheckCircle2, ChevronDown, Star, Radio,
   Share2, DollarSign, Layers, PlayCircle, Lock
 } from 'lucide-react';
 
@@ -46,55 +46,55 @@ export default function DistributePage({ onNavigate, theme }) {
   }, []);
 
   const STORES = [
-    { name: "Spotify",            category: "Streaming",       color: "#1DB954", icon: "spotify" },
-    { name: "Apple Music",        category: "Streaming",       color: "#FA243C", icon: "applemusic" },
-    { name: "TikTok",             category: "Social",          color: "#00F2FE", icon: "tiktok" },
-    { name: "Amazon Music",       category: "Streaming",       color: "#FF9900", icon: "amazonmusic" },
-    { name: "Tidal",              category: "Hi-Fi",           color: "#00FFFF", icon: "tidal" },
-    { name: "Instagram",          category: "Social",          color: "#E1306C", icon: "instagram" },
-    { name: "Deezer",             category: "Streaming",       color: "#A238FF", icon: "deezer" },
-    { name: "Beatport",           category: "Electronic",      color: "#01FF95", icon: "beatport" },
-    { name: "YouTube Music",      category: "Video & Stream",  color: "#FF0000", icon: "youtubemusic" },
-    { name: "Pandora",            category: "Radio",           color: "#3668FF", icon: "pandora" },
-    { name: "Vevo",               category: "Music Video",     color: "#E51937", icon: "vevo" },
-    { name: "Shazam",             category: "Discovery",       color: "#0088FF", icon: "shazam" },
-    { name: "Snapchat",           category: "Social",          color: "#FFFC00", icon: "snapchat" },
-    { name: "YouTube",            category: "Rights / Content",color: "#CC0000", icon: "youtube" },
-    { name: "Twitch",             category: "Live Stream",     color: "#9146FF", icon: "twitch" },
-    { name: "CapCut",             category: "Video Creator",   color: "#00CFFF", icon: "capcut" },
-    { name: "Boomplay",           category: "African Markets", color: "#00AEEF", icon: "boomplay" },
-    { name: "Audiomack",          category: "Streaming",       color: "#FFA200", icon: "audiomack" },
-    { name: "Qobuz",              category: "Hi-Res Audio",    color: "#2B5876", icon: "qobuz" },
-    { name: "SoundCloud",         category: "Streaming",       color: "#FF5500", icon: "soundcloud" },
-    { name: "Facebook",           category: "Social",          color: "#1877F2", icon: "facebook" },
-    { name: "WhatsApp",           category: "Messaging",       color: "#25D366", icon: "whatsapp" },
-    { name: "iHeartRadio",        category: "Radio & Podcast", color: "#C60000", icon: "iheartradio" },
-    { name: "Peloton",            category: "Fitness Audio",   color: "#DF1A22", icon: "peloton" },
-    { name: "YouTube Shorts",     category: "Short Video",     color: "#FF0000", icon: "youtubeshorts" },
-    { name: "Tencent Music",      category: "China / Asia",    color: "#0052D9", icon: "tencentqq" },
-    { name: "NetEase Cloud",      category: "China / Asia",    color: "#C20C0C", icon: "neteasecloudmusic" },
-    { name: "JioSaavn",           category: "India / Global",  color: "#2BC5B4", icon: "jiosaavn" },
-    { name: "Gaana",              category: "India",           color: "#E72C30", icon: "gaana" },
-    { name: "Anghami",            category: "MENA Region",     color: "#7B1FA2", icon: "anghami" }
+    { name: "Spotify", category: "Streaming", color: "#1DB954", icon: "spotify", logo: "/logos of all apps/Spotify logo.png" },
+    { name: "Apple Music", category: "Streaming", color: "#FA243C", icon: "applemusic", logo: "/logos of all apps/Apple Music logo.jpg" },
+    { name: "TikTok", category: "Social", color: "#00F2FE", icon: "tiktok", logo: "/logos of all apps/TikTok logo.png" },
+    { name: "Amazon Music", category: "Streaming", color: "#25D1DA", icon: "amazonmusic", logo: "/logos of all apps/amazon music logo.jpg" },
+    { name: "Tidal", category: "Hi-Fi", color: "#00FFFF", icon: "tidal", logo: "/logos of all apps/Tidal logo.png" },
+    { name: "Instagram", category: "Social", color: "#E1306C", icon: "instagram", logo: "/logos of all apps/instagram logo.jpg" },
+    { name: "Deezer", category: "Streaming", color: "#A238FF", icon: "deezer", logo: "/logos of all apps/deezer logo.png" },
+    { name: "Beatport", category: "Electronic", color: "#01FF95", icon: "beatport", logo: "/logos of all apps/Beatport logo.png" },
+    { name: "YouTube Music", category: "Video & Stream", color: "#FF0000", icon: "youtubemusic", logo: "/logos of all apps/YouTube Music logo.png" },
+    { name: "Pandora", category: "Radio", color: "#3668FF", icon: "pandora", logo: "/logos of all apps/Pandora logo.jpg" },
+    { name: "Vevo", category: "Music Video", color: "#E51937", icon: "vevo", logo: "/logos of all apps/Vevo logo.png" },
+    { name: "Shazam", category: "Discovery", color: "#0088FF", icon: "shazam", logo: "/logos of all apps/Shazam-Logo.png" },
+    { name: "Snapchat", category: "Social", color: "#FFFC00", icon: "snapchat", logo: "/logos of all apps/Snapchat logo.jpg" },
+    { name: "YouTube", category: "Rights / Content", color: "#CC0000", icon: "youtube", logo: "/platformlogos/youtube.png" },
+    { name: "Twitch", category: "Live Stream", color: "#9146FF", icon: "twitch", logo: "/logos of all apps/Twitch logo.png" },
+    { name: "CapCut", category: "Video Creator", color: "#00CFFF", icon: "capcut", logo: "/logos of all apps/CapCut logo.png" },
+    { name: "Boomplay", category: "African Markets", color: "#00AEEF", icon: "boomplay", logo: "/logos of all apps/Boomplay logo.png" },
+    { name: "Audiomack", category: "Streaming", color: "#FFA200", icon: "audiomack", logo: "/logos of all apps/Audiomack logo.png" },
+    { name: "Qobuz", category: "Hi-Res Audio", color: "#2B5876", icon: "qobuz", logo: "/logos of all apps/Qobuz logo.jpg" },
+    { name: "SoundCloud", category: "Streaming", color: "#FF5500", icon: "soundcloud", logo: "/logos of all apps/SoundCloud logo.png" },
+    { name: "Facebook", category: "Social", color: "#1877F2", icon: "facebook", logo: "/logos of all apps/Facebook logo.png" },
+    { name: "WhatsApp", category: "Messaging", color: "#25D366", icon: "whatsapp", logo: "/logos of all apps/WhatsApp logo.jpg" },
+    { name: "iHeartRadio", category: "Radio & Podcast", color: "#C60000", icon: "iheartradio", logo: "/logos of all apps/iHeartRadio logo.png" },
+    { name: "Peloton", category: "Fitness Audio", color: "#DF1A22", icon: "peloton", logo: "/logos of all apps/Peloton logo.png" },
+    { name: "YouTube Shorts", category: "Short Video", color: "#FF0000", icon: "youtubeshorts", logo: "/logos of all apps/YouTube Shorts logo.png" },
+    { name: "Tencent Music", category: "China / Asia", color: "#0052D9", icon: "tencentqq", logo: "/logos of all apps/Tencent Music logo.png" },
+    { name: "NetEase Cloud", category: "China / Asia", color: "#C20C0C", icon: "neteasecloudmusic", logo: "/stores/neteasecloudmusic.svg" },
+    { name: "JioSaavn", category: "India / Global", color: "#1ECCB0", icon: "jiosaavn", logo: "/logos of all apps/jio saavn logo.jpg" },
+    { name: "Gaana", category: "India", color: "#E72C30", icon: "gaana", logo: "/logos of all apps/Gaana logo.jpg" },
+    { name: "Anghami", category: "MENA Region", color: "#7B1FA2", icon: "anghami", logo: "/logos of all apps/Anghami logo.jpg" }
   ];
 
-  const filteredStores = STORES.filter(s => 
-    s.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredStores = STORES.filter(s =>
+    s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     s.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const FAQS = [
     {
       q: "How long does it take to land on Spotify and Apple Music?",
-      a: "Most major stores can go live within 72 hours using Priority Distro. With TuneWave, you can choose an exact release date on any plan, unlike some other distributors. Upgrade to Pro and plan your release time down to the hour."
+      a: "Most major stores can go live within 72 hours using Priority Distro. With Tunewave, you can choose an exact release date on any plan, unlike some other distributors. Upgrade to Pro and plan your release time down to the hour."
     },
     {
-      q: "Which stores does TuneWave distribute music to?",
+      q: "Which stores does Tunewave distribute music to?",
       a: "Every streaming, download and social platform out there. We're talking Spotify, Apple Music, Tidal, Amazon Music, iTunes, Beatport, TikTok, Instagram, YouTube, Pandora, Deezer, WhatsApp, Boomplay, Snapchat, Audiomack and many more. See the full list above."
     },
     {
-      q: "Does TuneWave take a cut of your royalties?",
-      a: "No. You keep 100% of the streaming royalties generated by your releases. TuneWave charges a small annual fee for distribution and you can cash out everything you earn."
+      q: "Does Tunewave take a cut of your royalties?",
+      a: "No. You keep 100% of the streaming royalties generated by your releases. Tunewave charges a small annual fee for distribution and you can cash out everything you earn."
     },
     {
       q: "Can I upload music videos?",
@@ -102,10 +102,10 @@ export default function DistributePage({ onNavigate, theme }) {
     },
     {
       q: "Can I keep my existing ISRCs and UPCs?",
-      a: "Yes. Bring your own codes, or we generate ISRCs and UPCs for you for free. Either way they stay yours, so you can take them with you if you ever leave TuneWave."
+      a: "Yes. Bring your own codes, or we generate ISRCs and UPCs for you for free. Either way they stay yours, so you can take them with you if you ever leave Tunewave."
     },
     {
-      q: "Which TuneWave plan should I choose?",
+      q: "Which Tunewave plan should I choose?",
       a: "That depends. Our Starter plan is perfect for one artist who wants to put out their own music. Our Pro and Label plans unlock additional tools designed to tailor your releases and boost your earnings."
     }
   ];
@@ -114,22 +114,22 @@ export default function DistributePage({ onNavigate, theme }) {
     {
       name: "Maurizio Fiordaliso",
       meta: "9 June 2026 · France",
-      text: "After dealing with frustrating account issues and poor support on a previous platform, making the switch to TuneWave has been a great move for my career."
+      text: "After dealing with frustrating account issues and poor support on a previous platform, making the switch to Tunewave has been a great move for my career."
     },
     {
       name: "rkdigitalmusik",
       meta: "30 May 2026 · UK",
-      text: "TuneWave support have been great to help sort out any issues I've had and the platform is good to use with lots of useful functionality. Would I recommend? Yes, definitely!"
+      text: "Tunewave support have been great to help sort out any issues I've had and the platform is good to use with lots of useful functionality. Would I recommend? Yes, definitely!"
     },
     {
       name: "Lighten Letsholo",
       meta: "28 May 2026 · South Africa",
-      text: "TuneWave are very friendly, reliable, and professional, with an incredible body of knowledge. You guys are my new home. Thank you TuneWave Team."
+      text: "Tunewave are very friendly, reliable, and professional, with an incredible body of knowledge. You guys are my new home. Thank you Tunewave Team."
     },
     {
       name: "Kyle Butler",
       meta: "14 May 2026 · USA",
-      text: "TuneWave made it possible for me to make my dreams a reality. I struggled to get music distributed because of such complex platforms. But not with TuneWave!"
+      text: "Tunewave made it possible for me to make my dreams a reality. I struggled to get music distributed because of such complex platforms. But not with Tunewave!"
     }
   ];
 
@@ -138,7 +138,7 @@ export default function DistributePage({ onNavigate, theme }) {
       num: "01",
       tag: "SETUP & ONBOARDING",
       title: "Sign up & pick a plan",
-      body: "Create your verified TuneWave account in 60 seconds. Choose a plan tailored to your release frequency — Starter, Pro, or Label."
+      body: "Create your verified Tunewave account in 60 seconds. Choose a plan tailored to your release frequency — Starter, Pro, or Label."
     },
     {
       num: "02",
@@ -150,7 +150,7 @@ export default function DistributePage({ onNavigate, theme }) {
       num: "03",
       tag: "GLOBAL DISPATCH",
       title: "Land on every store",
-      body: "TuneWave delivers your release to Spotify, Apple Music, TikTok, Amazon, and 150+ stores simultaneously on your exact target date."
+      body: "Tunewave delivers your release to Spotify, Apple Music, TikTok, Amazon, and 150+ stores simultaneously on your exact target date."
     },
     {
       num: "04",
@@ -163,11 +163,11 @@ export default function DistributePage({ onNavigate, theme }) {
   return (
     <div style={{ paddingTop: 0, paddingBottom: 100 }}>
       {/* 1. HERO SPLIT: SELL YOUR MUSIC ONLINE */}
-      <section 
+      <section
         className="sell-music-hero-section"
-        style={{ 
-          position: 'relative', 
-          padding: '70px 0 95px', 
+        style={{
+          position: 'relative',
+          padding: '70px 0 95px',
           overflow: 'hidden',
           backgroundImage: `url('/login_background_image/sell-your-music_background_image.png')`,
           backgroundSize: 'cover',
@@ -177,14 +177,14 @@ export default function DistributePage({ onNavigate, theme }) {
         }}
       >
         {/* Ambient Gradient Overlay for Readability & High Contrast across Dark and Light Themes */}
-        <div 
+        <div
           className="sell-music-hero-overlay"
           style={{
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
             zIndex: 0
-          }} 
+          }}
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -204,7 +204,7 @@ export default function DistributePage({ onNavigate, theme }) {
                 marginBottom: 20,
                 color: 'var(--tw-text-white)'
               }}>
-                Sell your music <br />
+                Distribute your music <br />
                 <span className="text-cyan-gradient">online.</span>
               </h1>
 
@@ -234,7 +234,7 @@ export default function DistributePage({ onNavigate, theme }) {
               </div>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-                <button 
+                <button
                   onClick={() => onNavigate('/signup')}
                   className="btn-cyan"
                   style={{ padding: '16px 36px', fontSize: '1rem', fontWeight: 700 }}
@@ -242,7 +242,7 @@ export default function DistributePage({ onNavigate, theme }) {
                   <span>SIGN UP FOR FREE</span>
                   <ArrowRight size={18} className="btn-icon-hover" />
                 </button>
-                <button 
+                <button
                   onClick={() => onNavigate('/pricing')}
                   className="btn-glass"
                   style={{ padding: '16px 32px', fontSize: '1rem', fontWeight: 700 }}
@@ -284,8 +284,19 @@ export default function DistributePage({ onNavigate, theme }) {
                 <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 16, padding: 20, marginBottom: 20 }}>
                   <div style={{ fontSize: '0.78rem', color: '#94A3B8', marginBottom: 8 }}>Track Upload</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 10, background: 'linear-gradient(135deg, #00E5FF, #6D28D9)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: "var(--tw-text-white)" }}>
-                      <Music size={22} />
+                    <div style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 14,
+                      background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.3) 0%, rgba(109, 40, 217, 0.25) 100%)',
+                      border: '1px solid rgba(0, 229, 255, 0.4)',
+                      boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 6px 18px -3px rgba(0, 229, 255, 0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: "#FFFFFF"
+                    }}>
+                      <Music size={22} strokeWidth={2.2} />
                     </div>
                     <div>
                       <div style={{ fontSize: '1rem', fontWeight: 800, color: "var(--tw-text-white)" }}>Midnight Velocity</div>
@@ -342,11 +353,11 @@ export default function DistributePage({ onNavigate, theme }) {
       `}</style>
 
       {/* 2. FEATURE SLIDER: MUCH MORE THAN MUSIC DISTRIBUTION */}
-      <section 
+      <section
         ref={featuresSectionRef}
         id="what-you-get"
-        style={{ 
-          padding: '80px 0', 
+        style={{
+          padding: '80px 0',
           borderTop: '1px solid var(--tw-line)',
           perspective: 1200,
           position: 'relative'
@@ -430,12 +441,12 @@ export default function DistributePage({ onNavigate, theme }) {
               },
               {
                 id: "06",
-                icon: Smartphone,
+                icon: BarChart3,
                 iconColor: "#6366F1",
-                title: "Track your stats from the TuneWave app",
-                body: "Track live streaming numbers, playlist placements and withdrawal balances right from your phone.",
-                link: "Get the app",
-                path: "/app"
+                title: "Track your stats with real-time analytics",
+                body: "Track live streaming numbers, playlist placements and withdrawal balances right from your dashboard.",
+                link: "Explore dashboard",
+                path: "/dashboard"
               },
               {
                 id: "07",
@@ -449,9 +460,9 @@ export default function DistributePage({ onNavigate, theme }) {
             ].map((feat, idx) => {
               const IconComponent = feat.icon;
               return (
-                <div 
-                  key={idx} 
-                  className={`feature-pro-card ${sectionInView ? 'in-view' : ''}`} 
+                <div
+                  key={idx}
+                  className={`feature-pro-card ${sectionInView ? 'in-view' : ''}`}
                   style={{
                     animationDelay: `${idx * 80}ms`,
                     '--card-accent': feat.iconColor
@@ -462,7 +473,7 @@ export default function DistributePage({ onNavigate, theme }) {
 
                   {/* Header: Clean Icon + Pill Badge */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-                    <div 
+                    <div
                       className="feature-icon-box"
                       style={{
                         backgroundColor: `${feat.iconColor}14`,
@@ -490,7 +501,7 @@ export default function DistributePage({ onNavigate, theme }) {
 
                   {/* Footer Link */}
                   <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--tw-line)' }}>
-                    <span 
+                    <span
                       onClick={() => {
                         if (feat.path.startsWith('#')) {
                           document.getElementById('store-directory')?.scrollIntoView({ behavior: 'smooth' });
@@ -701,14 +712,14 @@ export default function DistributePage({ onNavigate, theme }) {
                 <span className="text-cyan-gradient">every platform that pays.</span>
               </h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--tw-text-dim)', maxWidth: '620px', marginTop: 12, lineHeight: 1.6 }}>
-                TuneWave distributes to every major streaming, download and social platform on earth. Search our store guide by name or category.
+                Tunewave distributes to every major streaming, download and social platform on earth. Search our store guide by name or category.
               </p>
             </div>
 
             {/* Search Input */}
             <div style={{ position: 'relative', width: '100%', maxWidth: 320 }}>
               <Search size={18} color="var(--tw-cyan)" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
-              <input 
+              <input
                 type="text"
                 placeholder="Search 150+ stores..."
                 value={searchTerm}
@@ -855,7 +866,7 @@ export default function DistributePage({ onNavigate, theme }) {
             {filteredStores.map((st, i) => {
               const accent = st.color;
               const shadow = accent + '55';
-              const glow   = accent + '22';
+              const glow = accent + '22';
               return (
                 <div
                   key={i}
@@ -863,7 +874,7 @@ export default function DistributePage({ onNavigate, theme }) {
                   style={{
                     '--card-accent': accent + 'aa',
                     '--card-shadow': shadow,
-                    '--card-glow':   glow,
+                    '--card-glow': glow,
                     '--card-accent-text': accent,
                     animationDelay: `${i * 0.04}s`
                   }}
@@ -883,7 +894,7 @@ export default function DistributePage({ onNavigate, theme }) {
                   {/* Logo */}
                   <div className="store-logo-wrap">
                     <img
-                      src={`/stores/${st.icon}.svg`}
+                      src={st.logo || `/stores/${st.icon}.svg`}
                       alt={st.name}
                       loading="lazy"
                     />
@@ -906,11 +917,11 @@ export default function DistributePage({ onNavigate, theme }) {
       </section>
 
       {/* 4. HOW IT WORKS: 4 STEPS + 2-IMAGE DUAL-PHASE ANIMATION (DROOMMUSIC INSPIRED) */}
-      <section 
+      <section
         id="how-it-works"
         className="how-it-works-section"
-        style={{ 
-          padding: '100px 0', 
+        style={{
+          padding: '100px 0',
           borderTop: '1px solid var(--tw-line)',
           position: 'relative',
           overflow: 'hidden',
@@ -991,8 +1002,8 @@ export default function DistributePage({ onNavigate, theme }) {
                       overflow: 'hidden',
                       transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
                       border: isActive ? '1px solid rgba(0, 229, 255, 0.45)' : '1px solid var(--tw-line)',
-                      background: isActive 
-                        ? 'linear-gradient(135deg, rgba(0, 126, 167, 0.18) 0%, rgba(10, 17, 29, 0.85) 100%)' 
+                      background: isActive
+                        ? 'linear-gradient(135deg, rgba(0, 126, 167, 0.18) 0%, rgba(10, 17, 29, 0.85) 100%)'
                         : 'var(--tw-bg-card)',
                       boxShadow: isActive ? '0 12px 35px -8px rgba(0, 229, 255, 0.2)' : 'none',
                       transform: isActive ? 'translateX(6px)' : 'none'
@@ -1106,8 +1117,8 @@ export default function DistributePage({ onNavigate, theme }) {
                     justifyContent: 'center',
                     gap: 8,
                     transition: 'all 0.25s ease',
-                    background: activeImagePhase === 1 
-                      ? 'linear-gradient(135deg, var(--tw-cyan) 0%, #0EA5E9 100%)' 
+                    background: activeImagePhase === 1
+                      ? 'linear-gradient(135deg, var(--tw-cyan) 0%, #0EA5E9 100%)'
                       : 'transparent',
                     color: activeImagePhase === 1 ? '#040D1A' : 'var(--tw-text-dim)',
                     boxShadow: activeImagePhase === 1 ? '0 4px 15px rgba(0, 229, 255, 0.35)' : 'none'
@@ -1134,8 +1145,8 @@ export default function DistributePage({ onNavigate, theme }) {
                     justifyContent: 'center',
                     gap: 8,
                     transition: 'all 0.25s ease',
-                    background: activeImagePhase === 2 
-                      ? 'linear-gradient(135deg, var(--tw-cyan) 0%, #0EA5E9 100%)' 
+                    background: activeImagePhase === 2
+                      ? 'linear-gradient(135deg, var(--tw-cyan) 0%, #0EA5E9 100%)'
                       : 'transparent',
                     color: activeImagePhase === 2 ? '#040D1A' : 'var(--tw-text-dim)',
                     boxShadow: activeImagePhase === 2 ? '0 4px 15px rgba(0, 229, 255, 0.35)' : 'none'
@@ -1146,7 +1157,7 @@ export default function DistributePage({ onNavigate, theme }) {
               </div>
 
               {/* Showcase Frame with 3D Depth, Floating Badge & Smooth Cross-fade Animation */}
-              <div 
+              <div
                 className="showcase-card-container card-shimmer-sweep"
                 style={{
                   position: 'relative',
@@ -1169,7 +1180,7 @@ export default function DistributePage({ onNavigate, theme }) {
                 }}>
                   <img
                     src="/how_it_works/upload_studio_ui.jpg"
-                    alt="TuneWave Studio Upload Engine"
+                    alt="Tunewave Studio Upload Engine"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1177,7 +1188,7 @@ export default function DistributePage({ onNavigate, theme }) {
                       display: 'block'
                     }}
                   />
-                  
+
                   {/* Floating Micro-Badges on Image 1 */}
                   <div style={{
                     position: 'absolute',
@@ -1237,7 +1248,7 @@ export default function DistributePage({ onNavigate, theme }) {
                 }}>
                   <img
                     src="/how_it_works/first_stream_ui.jpg"
-                    alt="TuneWave First Stream & Royalties"
+                    alt="Tunewave First Stream & Royalties"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1311,8 +1322,8 @@ export default function DistributePage({ onNavigate, theme }) {
       {/* 5. MID BANNER: YOUR MUSIC JOURNEY BEGINS HERE */}
       <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
         <div className="container">
-          <div 
-            className="journey-banner-card card-shimmer-sweep" 
+          <div
+            className="journey-banner-card card-shimmer-sweep"
             style={{
               position: 'relative',
               overflow: 'hidden',
@@ -1326,17 +1337,17 @@ export default function DistributePage({ onNavigate, theme }) {
             }}
           >
             {/* Ambient Overlay for text contrast across themes */}
-            <div 
-              className="journey-banner-overlay" 
+            <div
+              className="journey-banner-overlay"
               style={{
                 position: 'absolute',
                 inset: 0,
                 pointerEvents: 'none',
                 zIndex: 0
-              }} 
+              }}
             />
 
-            <h2 
+            <h2
               className="journey-banner-title"
               style={{
                 fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
@@ -1350,7 +1361,7 @@ export default function DistributePage({ onNavigate, theme }) {
             >
               Your music journey <span className="text-cyan-gradient">begins here.</span>
             </h2>
-            <p 
+            <p
               className="journey-banner-desc"
               style={{
                 fontSize: '1.15rem',
@@ -1364,12 +1375,12 @@ export default function DistributePage({ onNavigate, theme }) {
             >
               Pick a plan, drop your first release and land on every major store.
             </p>
-            <button 
+            <button
               onClick={() => onNavigate('/pricing')}
               className="btn-cyan"
-              style={{ 
-                padding: '16px 36px', 
-                fontSize: '1.05rem', 
+              style={{
+                padding: '16px 36px',
+                fontSize: '1.05rem',
                 marginTop: 10,
                 position: 'relative',
                 zIndex: 1
@@ -1561,7 +1572,7 @@ export default function DistributePage({ onNavigate, theme }) {
         </div>
       </section>
 
-      {/* 7. TUNEWAVE FAQS */}
+      {/* 7. Tunewave FAQS */}
       <section style={{ padding: '80px 0', borderTop: '1px solid var(--tw-line)' }}>
         <div className="container">
           <div className="reveal-up" style={{ maxWidth: '820px', margin: '0 auto' }}>
@@ -1575,10 +1586,10 @@ export default function DistributePage({ onNavigate, theme }) {
                 marginBottom: 12,
                 color: 'var(--tw-text-white)'
               }}>
-                TuneWave FAQs.
+                Tunewave FAQs.
               </h2>
               <p style={{ color: 'var(--tw-text-dim)' }}>
-                Everything you need to know about releasing music with TuneWave.
+                Everything you need to know about releasing music with Tunewave.
               </p>
             </div>
 

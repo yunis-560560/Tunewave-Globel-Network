@@ -113,7 +113,7 @@ export default function HallOfFame() {
             </h2>
 
             <p className="madverse-artists-sub">
-              From bedroom uploads to <strong>Grammy stages</strong>. Breakout independent stars, chart toppers, and viral innovators scale with TuneWave.
+              From bedroom uploads to <strong>Grammy stages</strong>. Breakout independent stars, chart toppers, and viral innovators scale with Tunewave.
             </p>
           </div>
 

@@ -42,7 +42,7 @@ export default function Logo({
       {/* 3.svg audio-wave 'T' Emblem */}
       <img
         src={emblemSrc}
-        alt="TuneWave Emblem"
+        alt="Tunewave Emblem"
         style={{
           height: emblemHeight,
           width: 'auto',
@@ -53,7 +53,7 @@ export default function Logo({
         }}
       />
 
-      {/* Right Lockup: 2.svg TUNEWAVE Wordmark + GLOBAL NETWORK */}
+      {/* Right Lockup: 2.svg Tunewave Wordmark + GLOBAL NETWORK */}
       <div 
         style={{ 
           display: 'flex', 
@@ -63,10 +63,10 @@ export default function Logo({
           justifyContent: 'center'
         }}
       >
-        {/* 2.svg TUNEWAVE Wordmark */}
+        {/* 2.svg Tunewave Wordmark */}
         <img
           src={wordmarkSrc}
-          alt="TUNEWAVE"
+          alt="Tunewave"
           style={{
             width: '100%',
             height: wordmarkHeight,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Music, Film, Smartphone, Sparkles, Link as LinkIcon, Disc, Image as ImageIcon, 
+  Music, Film, BarChart3, Sparkles, Link as LinkIcon, Disc, Image as ImageIcon, 
   FileText, ShieldCheck, DollarSign, Clapperboard, Tv, Video, Award, Radio, 
   TrendingUp, Send, Target, Layers, Trophy, Building, Gift, Calendar, ArrowRight 
 } from 'lucide-react';
@@ -8,7 +8,7 @@ import {
 const ICON_MAP = {
   distro: Music,
   video: Film,
-  app: Smartphone,
+  analytics: BarChart3,
   publishing: DollarSign,
   sync: Clapperboard,
   youtube: Video,
@@ -92,7 +92,7 @@ export default function MegaMenu({ data, theme = 'dark', onClose, onNavigate }) 
             {data.title} <span style={{ color: isLight ? '#007EA7' : '#00E5FF' }}>{data.titleAccent}</span>
           </h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${data.featured?.length || 1}, 1fr)`, gap: 16 }}>
             {data.featured.map((item) => {
               const IconComponent = ICON_MAP[item.icon] || Music;
               return (
@@ -100,8 +100,8 @@ export default function MegaMenu({ data, theme = 'dark', onClose, onNavigate }) 
                   key={item.id} 
                   className="mega-card-item"
                   onClick={() => {
-                    if (item.id === 'app' || item.id.includes('app')) {
-                      onNavigate('/app');
+                    if (item.id === 'analytics' || item.id.includes('analytics')) {
+                      onNavigate('/dashboard');
                     } else if (item.id === 'video-distro' || item.id.includes('video') || item.id.includes('vevo')) {
                       onNavigate('/sell-your-music/vevo');
                     } else if (item.id === 'music-distro' || item.id.includes('distro')) {
@@ -127,16 +127,22 @@ export default function MegaMenu({ data, theme = 'dark', onClose, onNavigate }) 
                   <div style={{ 
                     width: 44, 
                     height: 44, 
-                    borderRadius: 10, 
-                    background: isLight ? 'rgba(0, 126, 167, 0.1)' : 'rgba(0, 229, 255, 0.1)', 
-                    border: isLight ? '1px solid rgba(0, 126, 167, 0.25)' : '1px solid rgba(0, 229, 255, 0.25)', 
+                    borderRadius: 12, 
+                    background: isLight 
+                      ? 'linear-gradient(135deg, rgba(0, 126, 167, 0.16) 0%, rgba(0, 126, 167, 0.05) 100%)' 
+                      : 'linear-gradient(135deg, rgba(0, 229, 255, 0.20) 0%, rgba(0, 229, 255, 0.06) 100%)', 
+                    border: isLight ? '1px solid rgba(0, 126, 167, 0.32)' : '1px solid rgba(0, 229, 255, 0.35)', 
+                    boxShadow: isLight
+                      ? 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px -2px rgba(0, 126, 167, 0.18)'
+                      : 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 4px 14px -2px rgba(0, 229, 255, 0.25)',
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
                     color: isLight ? '#007EA7' : '#00E5FF',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    transition: 'all 0.25s ease'
                   }}>
-                    <IconComponent size={22} />
+                    <IconComponent size={20} strokeWidth={2.2} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
@@ -194,7 +200,7 @@ export default function MegaMenu({ data, theme = 'dark', onClose, onNavigate }) 
             </div>
           </div>
 
-          {/* Quick App Store Badge */}
+          {/* Quick Artist Portal Badge */}
           <div 
             style={{ 
               marginTop: 24, 
@@ -205,22 +211,22 @@ export default function MegaMenu({ data, theme = 'dark', onClose, onNavigate }) 
               cursor: 'pointer'
             }}
             onClick={() => {
-              onNavigate('/app');
+              onNavigate('/dashboard');
               onClose();
             }}
           >
             <div style={{ fontSize: '0.78rem', color: isLight ? '#007EA7' : '#00E5FF', fontWeight: 700, marginBottom: 6 }}>
-              TUNEWAVE ARTIST APP
+              Tunewave ARTIST PORTAL
             </div>
             <p style={{ fontSize: '0.8rem', color: isLight ? '#475569' : '#94A3B8', marginBottom: 10 }}>
-              Track daily streams and instant royalty payouts directly from your pocket.
+              Track daily streams and instant royalty payouts directly from your browser dashboard.
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
               <span style={{ fontSize: '0.75rem', color: isLight ? '#0F172A' : '#FFFFFF', padding: '4px 10px', background: isLight ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.08)', borderRadius: 6 }}>
-                iOS App Store
+                Web Dashboard
               </span>
               <span style={{ fontSize: '0.75rem', color: isLight ? '#0F172A' : '#FFFFFF', padding: '4px 10px', background: isLight ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.08)', borderRadius: 6 }}>
-                Google Play
+                Live Analytics
               </span>
             </div>
           </div>
