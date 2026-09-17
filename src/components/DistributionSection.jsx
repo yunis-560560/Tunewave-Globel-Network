@@ -23,7 +23,6 @@ import {
 
 export default function DistributionSection({ onNavigate, lang = 'en' }) {
   const t = TRANSLATIONS[lang]?.act1 || TRANSLATIONS.en.act1;
-  const [isPlaying, setIsPlaying] = useState(true);
   const [activeBadge, setActiveBadge] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isSubcardsExpanded, setIsSubcardsExpanded] = useState(false);
@@ -232,46 +231,6 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                 >
                   <span>{t.ctaSecondary}</span>
                 </button>
-              </div>
-
-              {/* Live Audio Distribution Preview Bar */}
-              <div className="dist-player-preview">
-                <button 
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  style={{
-                    background: 'var(--tw-cyan)',
-                    color: '#080B11',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: 32,
-                    height: 32,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    flexShrink: 0
-                  }}
-                  title={isPlaying ? "Pause track preview" : "Play track preview"}
-                >
-                  {isPlaying ? <Pause size={15} /> : <Play size={15} style={{ marginLeft: 2 }} />}
-                </button>
-
-                <div style={{ textAlign: 'left', overflow: 'hidden' }}>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--tw-text-white)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                    Neon Horizons (Master Edit)
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--tw-text-muted)' }}>
-                    {isPlaying ? 'Delivering Lossless 24-bit Stream' : 'Ready to Release Worldwide'}
-                  </div>
-                </div>
-
-                <div className="dist-equalizer">
-                  <div className="dist-eq-bar" style={{ animationPlayState: isPlaying ? 'running' : 'paused' }} />
-                  <div className="dist-eq-bar" style={{ animationPlayState: isPlaying ? 'running' : 'paused' }} />
-                  <div className="dist-eq-bar" style={{ animationPlayState: isPlaying ? 'running' : 'paused' }} />
-                  <div className="dist-eq-bar" style={{ animationPlayState: isPlaying ? 'running' : 'paused' }} />
-                  <div className="dist-eq-bar" style={{ animationPlayState: isPlaying ? 'running' : 'paused' }} />
-                </div>
               </div>
 
               {/* Active Badge Explainer Pill (if clicked) */}
