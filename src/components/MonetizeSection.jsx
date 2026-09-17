@@ -229,6 +229,20 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
         .vault-checkout-banner:active {
           transform: translateY(0);
         }
+        .vault-checkout-title,
+        .vault-checkout-banner .vault-checkout-title,
+        [data-theme="light"] .vault-checkout-title,
+        [data-theme="light"] .vault-checkout-banner .vault-checkout-title {
+          color: #FFFFFF !important;
+          -webkit-text-fill-color: #FFFFFF !important;
+        }
+        .vault-checkout-subtitle,
+        .vault-checkout-banner .vault-checkout-subtitle,
+        [data-theme="light"] .vault-checkout-subtitle,
+        [data-theme="light"] .vault-checkout-banner .vault-checkout-subtitle {
+          color: #86EFAC !important;
+          -webkit-text-fill-color: #86EFAC !important;
+        }
       `}</style>
 
       <div className="container">
@@ -1023,7 +1037,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
 
                     {/* Text: Checkout > */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <span style={{ fontSize: '1.02rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1 }}>
+                      <span className="vault-checkout-title" style={{ fontSize: '1.02rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1 }}>
                         Checkout
                       </span>
                       <ChevronRight size={17} color="#FFFFFF" strokeWidth={3} />
@@ -1031,7 +1045,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                   </div>
 
                   {/* Subtitle: Extra 5% off on Prepaid! */}
-                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#86EFAC', letterSpacing: '0.01em', textAlign: 'center' }}>
+                  <div className="vault-checkout-subtitle" style={{ fontSize: '0.74rem', fontWeight: 700, color: '#86EFAC', letterSpacing: '0.01em', textAlign: 'center' }}>
                     Extra 5% off on Prepaid!
                   </div>
                 </div>
