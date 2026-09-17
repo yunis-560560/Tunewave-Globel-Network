@@ -89,9 +89,12 @@ export default function Navbar({
         borderBottom: isLight
           ? '1px solid rgba(0, 0, 0, 0.08)'
           : '1px solid rgba(255, 255, 255, 0.08)',
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
-        zIndex: 100,
+        left: 0,
+        right: 0,
+        width: '100%',
+        zIndex: 1000,
         transition: 'background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease'
       }}
     >
@@ -513,6 +516,9 @@ export default function Navbar({
       )}
     </header>
 
+    {/* Spacer to preserve exact layout flow beneath fixed header */}
+    <div className="header-spacer" aria-hidden="true" />
+
     {/* Mobile Drawer Navigation */}
     {mobileMenuOpen && (
       <div
@@ -678,6 +684,21 @@ export default function Navbar({
 
       {/* Media query styling */}
       <style>{`
+        .header-wrapper {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          width: 100% !important;
+          z-index: 1000 !important;
+        }
+        .header-spacer {
+          height: 72px;
+          width: 100%;
+        }
+        .tw-mobile-drawer {
+          top: 72px !important;
+        }
         @media (min-width: 1024px) {
           .desktop-nav {
             display: flex !important;
@@ -698,6 +719,12 @@ export default function Navbar({
           .header-wrapper .container {
             padding: 0 16px !important;
             height: 64px !important;
+          }
+          .header-spacer {
+            height: 64px !important;
+          }
+          .tw-mobile-drawer {
+            top: 64px !important;
           }
           .tw-brand-logo {
             gap: 8px !important;
@@ -743,6 +770,12 @@ export default function Navbar({
           .header-wrapper .container {
             padding: 0 10px !important;
             height: 60px !important;
+          }
+          .header-spacer {
+            height: 60px !important;
+          }
+          .tw-mobile-drawer {
+            top: 60px !important;
           }
           .tw-brand-logo {
             gap: 6px !important;
