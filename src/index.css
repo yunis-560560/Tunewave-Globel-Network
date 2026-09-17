@@ -1029,10 +1029,11 @@ button {
 .dist-showcase-container {
   position: relative;
   width: 100%;
-  max-width: 100%;
+  max-width: 1260px;
   margin: 15px auto 65px auto;
-  padding: 60px 48px;
-  overflow: visible;
+  padding: 55px 70px;
+  overflow: visible !important;
+  box-sizing: border-box;
 }
 
 .dist-showcase-card {
@@ -1484,6 +1485,20 @@ button {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .dist-showcase-container {
+    padding: 45px 50px !important;
+  }
+  .dist-floating-badge {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 12px !important;
+  }
+  .dist-badge-label {
+    font-size: 0.68rem !important;
+  }
+}
+
 @media (max-width: 1120px) {
   .dist-showcase-card {
     grid-template-columns: 1fr 1fr;
