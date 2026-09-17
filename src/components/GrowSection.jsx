@@ -65,17 +65,18 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
     return () => clearInterval(timer);
   }, [isPaused, activePage]);
 
-  // 9 isolated 3D singer frames extracted directly from user's "all singers.png"
+  // 10 isolated 3D singer frames extracted directly from user's "new update singers images.png"
   const SINGER_FRAMES = [
     { angle: 0,   src: '/singers/female_0.png',   label: 'Female · 0° (Front)' },
-    { angle: 45,  src: '/singers/female_45.png',  label: 'Female · 45°' },
-    { angle: 90,  src: '/singers/female_90.png',  label: 'Female · 90° (Profile)' },
-    { angle: 135, src: '/singers/female_135.png', label: 'Female · 135°' },
-    { angle: 180, src: '/singers/female_180.png', label: 'Female · 180° (Back)' },
-    { angle: 225, src: '/singers/male_225.png',   label: 'Male · 225° (Back-Left)' },
-    { angle: 270, src: '/singers/male_270.png',   label: 'Male · 270° (Back)' },
-    { angle: 315, src: '/singers/male_315.png',   label: 'Male · 315° (Front-Left)' },
-    { angle: 350, src: '/singers/male_350.png',   label: 'Male · 350° (Facing Front)' },
+    { angle: 36,  src: '/singers/female_45.png',  label: 'Female · 36°' },
+    { angle: 72,  src: '/singers/female_90.png',  label: 'Female · 72° (Profile)' },
+    { angle: 108, src: '/singers/female_135.png', label: 'Female · 108°' },
+    { angle: 144, src: '/singers/female_180.png', label: 'Female · 144° (Back)' },
+    { angle: 180, src: '/singers/male_225.png',   label: 'Male · 180° (Profile)' },
+    { angle: 216, src: '/singers/male_270.png',   label: 'Male · 216° (Back-Left)' },
+    { angle: 252, src: '/singers/male_300.png',   label: 'Male · 252° (Side-Left)' },
+    { angle: 288, src: '/singers/male_315.png',   label: 'Male · 288° (Front-Left)' },
+    { angle: 324, src: '/singers/male_350.png',   label: 'Male · 324° (Front)' },
   ];
 
   // Mouse Movement Interaction: Moving mouse across the section rotates the singer 360°
@@ -146,28 +147,24 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
     };
   }, []);
 
-  // Preload all frames for instant switching
+  // Preload all frames for instant switching with zero stutter or white flash
   useEffect(() => {
     SINGER_FRAMES.forEach(frame => {
       const img = new Image();
       img.src = frame.src;
+      if (img.decode) {
+        img.decode().catch(() => {});
+      }
     });
   }, []);
 
   const currentAngle = scrollProgress * 360;
 
-  // Active frame index selection
+  // Active frame index selection: smooth continuous 36-degree segmentation across 10 frames
   const getActiveFrameIndex = (angle) => {
-    if (angle < 22.5) return 0;       // 0° female front
-    if (angle < 67.5) return 1;       // 45° female
-    if (angle < 112.5) return 2;      // 90° female profile
-    if (angle < 157.5) return 3;      // 135° female back-three-quarter
-    if (angle < 202.5) return 4;      // 180° female full back
-    if (angle < 247.5) return 5;      // 225° male back-three-quarter
-    if (angle < 292.5) return 6;      // 270° male full back
-    if (angle < 332.5) return 7;      // 315° male front-three-quarter
-    if (angle < 356) return 8;        // 350° male front
-    return 0;                         // 360° wraps to 0° female front
+    const normalized = ((angle % 360) + 360) % 360;
+    const index = Math.floor(normalized / 36);
+    return Math.min(SINGER_FRAMES.length - 1, Math.max(0, index));
   };
 
   const activeIndex = getActiveFrameIndex(currentAngle);
@@ -670,8 +667,8 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
                       width: 'auto',
                       objectFit: 'contain',
                       opacity: isCurrent ? 1 : 0,
-                      transform: isCurrent ? 'scale(1)' : 'scale(0.98)',
-                      transition: 'opacity 0.12s ease-out, transform 0.12s ease-out',
+                      transform: isCurrent ? 'scale(1)' : 'scale(0.995)',
+                      transition: 'opacity 0.08s ease-out',
                       pointerEvents: 'none',
                       userSelect: 'none',
                       filter: 'drop-shadow(0 25px 40px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 24px rgba(0, 229, 255, 0.28))'
