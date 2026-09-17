@@ -111,15 +111,15 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
   }, []);
 
   const floatingBadges = [
-    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-20px', left: '22px', vx: -28, vy: -34, rot: -5, anim: 'dist-float-1', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
-    { id: 'release', label: '48h Release', icon: Disc3, top: '-24px', left: '38%', vx: 0, vy: -38, rot: 2, anim: 'dist-float-2', info: 'Expedited DSP ingestion within 48 hours' },
-    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-20px', right: '22px', vx: 28, vy: -34, rot: 5, anim: 'dist-float-3', info: 'Free pre-save pages & custom landing URLs' },
-    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-14px', vx: -32, vy: -4, rot: -5, anim: 'dist-float-2', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
-    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-20px', left: '22px', vx: -28, vy: 34, rot: -5, anim: 'dist-float-1', info: 'Zero royalty cuts, keep every penny you earn' },
-    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-20px', left: '28%', vx: -14, vy: 35, rot: -2, anim: 'dist-float-3', info: '24-bit 192kHz master audio & Dolby Atmos support' },
-    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-20px', right: '28%', vx: 14, vy: 35, rot: 2, anim: 'dist-float-2', info: 'Live daily stream counters & real-time trend charts' },
-    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-14px', vx: 32, vy: -4, rot: 5, anim: 'dist-float-1', info: 'Automatic digital fingerprinting on YouTube & Meta' },
-    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-20px', right: '22px', vx: 28, vy: 34, rot: 5, anim: 'dist-float-3', info: 'Automatic revenue splitting for bandmates & producers' }
+    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-20px', left: '22px', vx: -28, vy: -34, rot: -5, anim: 'dist-float-1', path: '/distribute', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
+    { id: 'release', label: '48h Release', icon: Disc3, top: '-24px', left: '38%', vx: 0, vy: -38, rot: 2, anim: 'dist-float-2', path: '/distribute', info: 'Expedited DSP ingestion within 48 hours' },
+    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-20px', right: '22px', vx: 28, vy: -34, rot: 5, anim: 'dist-float-3', path: '/promo', info: 'Free pre-save pages & custom landing URLs' },
+    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-14px', vx: -32, vy: -4, rot: -5, anim: 'dist-float-2', path: '/distribute', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
+    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-20px', left: '22px', vx: -28, vy: 34, rot: -5, anim: 'dist-float-1', path: '/pricing', info: 'Zero royalty cuts, keep every penny you earn' },
+    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-20px', left: '28%', vx: -14, vy: 35, rot: -2, anim: 'dist-float-3', path: '/vevo', info: '24-bit 192kHz master audio & Dolby Atmos support' },
+    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-20px', right: '28%', vx: 14, vy: 35, rot: 2, anim: 'dist-float-2', path: '/playlists', info: 'Live daily stream counters & real-time trend charts' },
+    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-14px', vx: 32, vy: -4, rot: 5, anim: 'dist-float-1', path: '/youtube-content-id', info: 'Automatic digital fingerprinting on YouTube & Meta' },
+    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-20px', right: '22px', vx: 28, vy: 34, rot: 5, anim: 'dist-float-3', path: '/monetize', info: 'Automatic revenue splitting for bandmates & producers' }
   ];
 
   return (
@@ -165,8 +165,14 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                     borderColor: isSelected ? 'var(--tw-cyan)' : undefined,
                     boxShadow: isSelected ? '0 0 25px var(--tw-cyan-glow)' : undefined
                   }}
-                  onClick={() => setActiveBadge(activeBadge === b.id ? null : b.id)}
-                  title={b.info}
+                  onClick={() => {
+                    if (b.path && onNavigate) {
+                      onNavigate(b.path);
+                    }
+                  }}
+                  title={`Explore ${b.label} - ${b.info}`}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div className={`dist-badge-inner-float ${b.anim}`}>
                     <div className="dist-badge-icon-wrap">
@@ -179,7 +185,14 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
             })}
 
             {/* Left Column: Music Artist Portrait */}
-            <div className={`dist-showcase-left-panel dist-expand-subcard ${isSubcardsExpanded ? 'is-expanded' : ''}`}>
+            <div 
+              className={`dist-showcase-left-panel dist-expand-subcard ${isSubcardsExpanded ? 'is-expanded' : ''}`}
+              onClick={() => onNavigate && onNavigate('/distribute')}
+              style={{ cursor: 'pointer' }}
+              role="button"
+              tabIndex={0}
+              title="Explore Music Distribution"
+            >
               <img 
                 src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80" 
                 alt="Featured Tunewave Music Creator" 
@@ -253,7 +266,14 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
 
             {/* Right Column: Two Vertical Photo Strips (Studio + Stage) */}
             <div className="dist-showcase-right-panels">
-              <div className={`dist-photo-strip dist-expand-subcard dist-strip-1 ${isSubcardsExpanded ? 'is-expanded' : ''}`}>
+              <div 
+                className={`dist-photo-strip dist-expand-subcard dist-strip-1 ${isSubcardsExpanded ? 'is-expanded' : ''}`}
+                onClick={() => onNavigate && onNavigate('/vevo')}
+                style={{ cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                title="Studio Mastering & Vevo Video Distribution"
+              >
                 <img 
                   src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=500&auto=format&fit=crop&q=80" 
                   alt="24-bit Lossless Studio Mastering" 
@@ -264,7 +284,14 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                 </div>
               </div>
 
-              <div className={`dist-photo-strip dist-expand-subcard dist-strip-2 ${isSubcardsExpanded ? 'is-expanded' : ''}`}>
+              <div 
+                className={`dist-photo-strip dist-expand-subcard dist-strip-2 ${isSubcardsExpanded ? 'is-expanded' : ''}`}
+                onClick={() => onNavigate && onNavigate('/distribute')}
+                style={{ cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                title="Global Audience Reach"
+              >
                 <img 
                   src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80" 
                   alt="Global Concert & Streaming Audience" 
@@ -286,7 +313,14 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
                 <div 
                   key={`mob-${b.id}`} 
                   className="dist-floating-badge"
-                  onClick={() => setActiveBadge(activeBadge === b.id ? null : b.id)}
+                  onClick={() => {
+                    if (b.path && onNavigate) {
+                      onNavigate(b.path);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  title={`Explore ${b.label} - ${b.info}`}
                 >
                   <div className="dist-badge-icon-wrap">
                     <Icon size={20} strokeWidth={2.2} />
