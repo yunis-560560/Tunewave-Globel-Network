@@ -718,23 +718,23 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: 'rgba(0, 229, 255, 0.12)',
-                    border: '1px solid rgba(0, 229, 255, 0.25)',
+                    background: isLight ? 'rgba(0, 126, 167, 0.08)' : 'rgba(0, 229, 255, 0.12)',
+                    border: isLight ? '1px solid rgba(0, 126, 167, 0.2)' : '1px solid rgba(0, 229, 255, 0.25)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'var(--tw-cyan)'
+                    color: isLight ? '#007EA7' : 'var(--tw-cyan)'
                   }}>
                     <Icon size={24} />
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.1em' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: isLight ? '#007EA7' : 'var(--tw-cyan)', letterSpacing: '0.1em' }}>
                       {pillar.badge}
                     </span>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--tw-text-white)', margin: '6px 0 10px' }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: isLight ? '#0F172A' : 'var(--tw-text-white)', margin: '6px 0 10px' }}>
                       {pillar.title}
                     </h3>
-                    <p style={{ fontSize: '0.92rem', color: 'var(--tw-text-dim)', lineHeight: 1.65, margin: 0 }}>
+                    <p style={{ fontSize: '0.92rem', color: isLight ? '#334155' : 'var(--tw-text-dim)', lineHeight: 1.65, margin: 0 }}>
                       {pillar.desc}
                     </p>
                   </div>
@@ -748,61 +748,65 @@ export default function AboutPage({ onNavigate, theme = 'dark' }) {
       {/* ── 4. LOCATION & CAMPUS HIGHLIGHT ──────────────────────────── */}
       <section style={{ padding: '70px 0', borderTop: '1px solid var(--tw-line)' }}>
         <div className="container">
-          <div className="glass-panel card-shimmer-sweep dark-inverted-section" style={{
+          <div className="glass-panel card-shimmer-sweep" style={{
             padding: '48px 40px',
             borderRadius: 28,
-            background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(14, 165, 233, 0.08) 45%, rgba(8, 11, 17, 0.95) 100%)',
-            border: '1px solid rgba(0, 229, 255, 0.3)',
+            background: isLight 
+              ? 'linear-gradient(135deg, rgba(0, 126, 167, 0.05) 0%, rgba(255, 255, 255, 0.98) 50%, rgba(240, 249, 255, 0.95) 100%)' 
+              : 'linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(14, 165, 233, 0.08) 45%, rgba(8, 11, 17, 0.95) 100%)',
+            border: isLight ? '1px solid rgba(0, 126, 167, 0.22)' : '1px solid rgba(0, 229, 255, 0.3)',
+            boxShadow: isLight ? '0 18px 45px -12px rgba(0, 126, 167, 0.12)' : '0 25px 55px -15px rgba(0, 0, 0, 0.7)',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: 36,
             alignItems: 'center'
           }}>
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--tw-cyan)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: isLight ? '#007EA7' : 'var(--tw-cyan)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
                 TECHNOLOGY &amp; OPERATIONS HUB
               </div>
-              <h3 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.2, marginBottom: 16 }}>
+              <h3 style={{ fontSize: '2.2rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', lineHeight: 1.2, marginBottom: 16 }}>
                 Based in Hyderabad's Technology Hub.
               </h3>
-              <p style={{ color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.7, fontSize: '1.02rem', marginBottom: 24 }}>
+              <p style={{ color: isLight ? '#334155' : 'rgba(255, 255, 255, 0.85)', lineHeight: 1.7, fontSize: '1.02rem', marginBottom: 24 }}>
                 Located in Madhapur, Jubilee Enclave — the vibrant innovation epicentre of Hyderabad, Telangana.
                 Our distributed engineering and artist operations team powers music creators locally and globally.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, color: '#E2E8F0', fontSize: '0.9rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: '0.92rem', fontWeight: 500 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <CheckCircle2 size={16} color="var(--tw-cyan)" />
-                  <span>1-98/3/5/23 To 27, Jubilee Enclave, Madhapur, Shaikpet</span>
+                  <CheckCircle2 size={17} color={isLight ? '#007EA7' : 'var(--tw-cyan)'} style={{ flexShrink: 0 }} />
+                  <span style={{ color: isLight ? '#0F172A' : '#E2E8F0' }}>1-98/3/5/23 To 27, Jubilee Enclave, Madhapur, Shaikpet</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <CheckCircle2 size={16} color="var(--tw-cyan)" />
-                  <span>Hyderabad, Telangana, India · Pincode: 500081</span>
+                  <CheckCircle2 size={17} color={isLight ? '#007EA7' : 'var(--tw-cyan)'} style={{ flexShrink: 0 }} />
+                  <span style={{ color: isLight ? '#0F172A' : '#E2E8F0' }}>Hyderabad, Telangana, India · Pincode: 500081</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <CheckCircle2 size={16} color="var(--tw-cyan)" />
-                  <span>Operations Schedule: Monday - Friday (11:00 AM - 6:00 PM)</span>
+                  <CheckCircle2 size={17} color={isLight ? '#007EA7' : 'var(--tw-cyan)'} style={{ flexShrink: 0 }} />
+                  <span style={{ color: isLight ? '#0F172A' : '#E2E8F0' }}>Operations Schedule: Monday - Friday (11:00 AM - 6:00 PM)</span>
                 </div>
               </div>
             </div>
 
             <div style={{
-              background: 'rgba(0, 0, 0, 0.45)',
-              border: '1px solid rgba(0, 229, 255, 0.25)',
+              background: isLight ? 'linear-gradient(145deg, rgba(0, 126, 167, 0.05), rgba(248, 250, 252, 0.95))' : 'rgba(0, 0, 0, 0.45)',
+              border: isLight ? '1px solid rgba(0, 126, 167, 0.22)' : '1px solid rgba(0, 229, 255, 0.25)',
               borderRadius: 20,
               padding: '30px 26px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 18
+              gap: 18,
+              boxShadow: isLight ? '0 10px 30px -10px rgba(0, 126, 167, 0.08)' : '0 15px 35px -10px rgba(0, 0, 0, 0.6)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Globe size={24} color="var(--tw-cyan)" />
+                <Globe size={24} color={isLight ? '#007EA7' : 'var(--tw-cyan)'} />
                 <div>
-                  <div style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF' }}>Global Distribution Gateways</div>
-                  <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>Direct DSP Ingestion Pipeline</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF' }}>Global Distribution Gateways</div>
+                  <div style={{ fontSize: '0.8rem', color: isLight ? '#007EA7' : '#94A3B8', fontWeight: 600 }}>Direct DSP Ingestion Pipeline</div>
                 </div>
               </div>
 
-              <p style={{ fontSize: '0.88rem', color: '#CBD5E1', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: '0.88rem', color: isLight ? '#475569' : '#CBD5E1', lineHeight: 1.6, margin: 0 }}>
                 From Hyderabad to 150+ international stores, we ensure high fidelity audio encoding, DDEX metadata compliance, and expedited delivery cycles.
               </p>
 
