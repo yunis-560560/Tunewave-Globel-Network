@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TRANSLATIONS } from '../data/content';
-import { DollarSign, CircleDollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles, Globe, Landmark, CreditCard, Banknote } from 'lucide-react';
+import { DollarSign, CircleDollarSign, Clapperboard, Video, Split, ArrowRight, ShieldCheck, RotateCw, Check, Lock, Sparkles, Globe, Landmark, CreditCard, Banknote, ChevronRight } from 'lucide-react';
 
 // Custom hook for smooth numerical count-up on scroll reveal
 function useCountUp(target, startAnimation, duration = 1500) {
@@ -220,6 +220,14 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
             padding-bottom: 14px !important;
             margin-bottom: 18px !important;
           }
+        }
+        .vault-checkout-banner:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px -2px rgba(6, 58, 41, 0.7) !important;
+          border-color: rgba(52, 211, 153, 0.75) !important;
+        }
+        .vault-checkout-banner:active {
+          transform: translateY(0);
         }
       `}</style>
 
@@ -872,8 +880,8 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                   className="btn-cyan global-payout-btn"
                   style={{
                     width: '100%',
-                    padding: '13px 20px',
-                    fontSize: '0.92rem',
+                    padding: '11px 18px',
+                    fontSize: '0.88rem',
                     fontWeight: 800,
                     display: 'flex',
                     alignItems: 'center',
@@ -890,10 +898,143 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                     zIndex: 4
                   }}
                 >
-                  <CreditCard size={17} />
+                  <CreditCard size={16} />
                   <span>Go to Payment &amp; Pricing Page</span>
-                  <ArrowRight size={17} className="btn-icon-hover" />
+                  <ArrowRight size={16} className="btn-icon-hover" />
                 </button>
+
+                {/* 2nd Reference UI: Interactive Payment Logos & Instant Checkout Banner */}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onNavigate('/pricing');
+                  }}
+                  className="vault-checkout-banner"
+                  style={{
+                    marginTop: 8,
+                    background: 'linear-gradient(135deg, #063A29 0%, #042E20 100%)',
+                    border: '1px solid rgba(16, 185, 129, 0.45)',
+                    borderRadius: 13,
+                    padding: '7px 14px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 3,
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 16px -2px rgba(6, 58, 41, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                    transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    position: 'relative',
+                    zIndex: 4
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, width: '100%' }}>
+                    {/* Overlapping circular payment logos */}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {/* 1. Paytm */}
+                      <div style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#FFFFFF',
+                        border: '2px solid #063A29',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
+                        zIndex: 5
+                      }}>
+                        <img src="/payment%20logos/paytm%20logo.png" alt="Paytm" style={{ width: '82%', height: '82%', objectFit: 'contain' }} />
+                      </div>
+
+                      {/* 2. PhonePe */}
+                      <div style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#FFFFFF',
+                        border: '2px solid #063A29',
+                        marginLeft: -7,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
+                        zIndex: 4
+                      }}>
+                        <img src="/payment%20logos/phonepay%20logo.png" alt="PhonePe" style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
+                      </div>
+
+                      {/* 3. Google Pay */}
+                      <div style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#FFFFFF',
+                        border: '2px solid #063A29',
+                        marginLeft: -7,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
+                        zIndex: 3
+                      }}>
+                        <img src="/payment%20logos/googlepay%20log.jpg" alt="Google Pay" style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
+                      </div>
+
+                      {/* 4. BHIM UPI */}
+                      <div style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#FFFFFF',
+                        border: '2px solid #063A29',
+                        marginLeft: -7,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
+                        zIndex: 2
+                      }}>
+                        <img src="/payment%20logos/BHIM%20logo.jpg" alt="BHIM UPI" style={{ width: '78%', height: '78%', objectFit: 'contain' }} />
+                      </div>
+
+                      {/* 5. PayPal */}
+                      <div style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: '50%',
+                        background: '#FFFFFF',
+                        border: '2px solid #063A29',
+                        marginLeft: -7,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.35)',
+                        zIndex: 1
+                      }}>
+                        <img src="/payment%20logos/paypal.png" alt="PayPal" style={{ width: '78%', height: '78%', objectFit: 'contain' }} />
+                      </div>
+                    </div>
+
+                    {/* Text: Checkout > */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                      <span style={{ fontSize: '1.02rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1 }}>
+                        Checkout
+                      </span>
+                      <ChevronRight size={17} color="#FFFFFF" strokeWidth={3} />
+                    </div>
+                  </div>
+
+                  {/* Subtitle: Extra 5% off on Prepaid! */}
+                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#86EFAC', letterSpacing: '0.01em', textAlign: 'center' }}>
+                    Extra 5% off on Prepaid!
+                  </div>
+                </div>
               </div>
             </div>
           </div>
