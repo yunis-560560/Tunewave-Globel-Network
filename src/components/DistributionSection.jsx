@@ -112,15 +112,15 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
   }, []);
 
   const floatingBadges = [
-    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-26px', left: '24px', vx: -8, vy: -16, rot: -4, anim: 'dist-float-1', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
-    { id: 'release', label: '48h Release', icon: Disc3, top: '-34px', left: '38%', vx: 0, vy: -18, rot: 2, anim: 'dist-float-2', info: 'Expedited DSP ingestion within 48 hours' },
-    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-26px', right: '28px', vx: 8, vy: -16, rot: 4, anim: 'dist-float-3', info: 'Free pre-save pages & custom landing URLs' },
-    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-26px', vx: -8, vy: -3, rot: -4, anim: 'dist-float-2', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
-    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-26px', left: '24px', vx: -8, vy: 16, rot: -4, anim: 'dist-float-1', info: 'Zero royalty cuts, keep every penny you earn' },
-    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-26px', left: '28%', vx: -6, vy: 18, rot: -2, anim: 'dist-float-3', info: '24-bit 192kHz master audio & Dolby Atmos support' },
-    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-26px', right: '28%', vx: 6, vy: 18, rot: 2, anim: 'dist-float-2', info: 'Live daily stream counters & real-time trend charts' },
-    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-26px', vx: 8, vy: -3, rot: 4, anim: 'dist-float-1', info: 'Automatic digital fingerprinting on YouTube & Meta' },
-    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-26px', right: '24px', vx: 8, vy: 16, rot: 4, anim: 'dist-float-3', info: 'Automatic revenue splitting for bandmates & producers' }
+    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-22px', left: '20px', vx: -4, vy: -10, rot: -3, anim: 'dist-float-1', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
+    { id: 'release', label: '48h Release', icon: Disc3, top: '-28px', left: '38%', vx: 0, vy: -12, rot: 2, anim: 'dist-float-2', info: 'Expedited DSP ingestion within 48 hours' },
+    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-22px', right: '20px', vx: 4, vy: -10, rot: 3, anim: 'dist-float-3', info: 'Free pre-save pages & custom landing URLs' },
+    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-16px', vx: -4, vy: -3, rot: -3, anim: 'dist-float-2', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
+    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-22px', left: '20px', vx: -4, vy: 10, rot: -3, anim: 'dist-float-1', info: 'Zero royalty cuts, keep every penny you earn' },
+    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-22px', left: '28%', vx: -3, vy: 12, rot: -2, anim: 'dist-float-3', info: '24-bit 192kHz master audio & Dolby Atmos support' },
+    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-22px', right: '28%', vx: 3, vy: 12, rot: 2, anim: 'dist-float-2', info: 'Live daily stream counters & real-time trend charts' },
+    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-16px', vx: 4, vy: -3, rot: 3, anim: 'dist-float-1', info: 'Automatic digital fingerprinting on YouTube & Meta' },
+    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-22px', right: '20px', vx: 4, vy: 10, rot: 3, anim: 'dist-float-3', info: 'Automatic revenue splitting for bandmates & producers' }
   ];
 
   return (
@@ -132,7 +132,7 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
       borderBottom: '1px solid var(--tw-line)',
       transition: 'background 0.25s ease'
     }}>
-      <div className="container dist-container-outer" style={{ maxWidth: '100%', width: '100%', padding: '0 clamp(16px, 3vw, 48px)', boxSizing: 'border-box' }}>
+      <div className="container dist-container-outer" style={{ maxWidth: '100%', width: '100%', padding: '0 clamp(24px, 4vw, 64px)', boxSizing: 'border-box' }}>
 
         {/* ============================================================
             REFERRAL SHOWCASE DESIGN: 3-PANEL CARD WITH 9 FLOATING BADGES

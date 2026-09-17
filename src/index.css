@@ -1029,9 +1029,9 @@ button {
 .dist-showcase-container {
   position: relative;
   width: 100%;
-  max-width: 1260px;
+  max-width: 1140px;
   margin: 15px auto 65px auto;
-  padding: 55px 70px;
+  padding: 45px 35px;
   overflow: visible !important;
   box-sizing: border-box;
 }
@@ -1046,8 +1046,8 @@ button {
   box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.6), 0 0 30px -10px var(--tw-cyan-glow);
   padding: 24px;
   display: grid;
-  grid-template-columns: minmax(280px, 340px) 1fr minmax(280px, 340px);
-  gap: 24px;
+  grid-template-columns: minmax(260px, 320px) 1fr minmax(260px, 320px);
+  gap: 20px;
   align-items: stretch;
   min-height: 520px;
   transition: all 0.3s ease;
