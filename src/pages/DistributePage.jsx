@@ -64,10 +64,10 @@ export default function DistributePage({ onNavigate, theme }) {
     { name: "CapCut", category: "Video Creator", color: "#00CFFF", icon: "capcut", logo: "/logos of all apps/CapCut logo.png" },
     { name: "Boomplay", category: "African Markets", color: "#00AEEF", icon: "boomplay", logo: "/logos of all apps/Boomplay logo.png" },
     { name: "Audiomack", category: "Streaming", color: "#FFA200", icon: "audiomack", logo: "/logos of all apps/Audiomack logo.png" },
-    { name: "Qobuz", category: "Hi-Res Audio", color: "#2B5876", icon: "qobuz", logo: "/logos of all apps/Qobuz logo.jpg" },
+    { name: "Qobuz", category: "Hi-Res Audio", color: "#2B5876", icon: "qobuz", logo: "/logos of all apps/Qobuz logo.png" },
     { name: "SoundCloud", category: "Streaming", color: "#FF5500", icon: "soundcloud", logo: "/logos of all apps/SoundCloud logo.png" },
     { name: "Facebook", category: "Social", color: "#1877F2", icon: "facebook", logo: "/logos of all apps/Facebook logo.png" },
-    { name: "WhatsApp", category: "Messaging", color: "#25D366", icon: "whatsapp", logo: "/logos of all apps/WhatsApp logo.jpg" },
+    { name: "WhatsApp", category: "Messaging", color: "#25D366", icon: "whatsapp", logo: "/logos of all apps/WhatsApp logo.png" },
     { name: "iHeartRadio", category: "Radio & Podcast", color: "#C60000", icon: "iheartradio", logo: "/logos of all apps/iHeartRadio logo.png" },
     { name: "Peloton", category: "Fitness Audio", color: "#DF1A22", icon: "peloton", logo: "/logos of all apps/Peloton logo.png" },
     { name: "YouTube Shorts", category: "Short Video", color: "#FF0000", icon: "youtubeshorts", logo: "/logos of all apps/YouTube Shorts logo.png" },
@@ -310,7 +310,7 @@ export default function DistributePage({ onNavigate, theme }) {
                   {[
                     { store: "Spotify", status: "Instant Pre-Save & Direct Pitch", time: "< 48 hrs" },
                     { store: "Apple Music", status: "Spatial Audio Certified", time: "< 72 hrs" },
-                    { store: "TikTok & Meta", status: "Synchronized Fingerprint", time: "Instant" },
+                    { store: "TikTok & Meta", status: "Synchronized Fingerprint", time: "< 48 hrs" },
                     { store: "Beatport & Traxsource", status: "Electronic Direct Feed", time: "Verified" }
                   ].map((pipe, i) => (
                     <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: 10, border: '1px solid rgba(255,255,255,0.05)' }}>
