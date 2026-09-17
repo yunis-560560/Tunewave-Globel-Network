@@ -64,10 +64,10 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
             
             // Starts moving as the card enters the lower viewport
             // Full expansion when reaching the upper center
-            const start = vh * 0.92;
-            const end = vh * 0.12;
+            const start = vh * 0.95;
+            const end = vh * 0.20;
             const raw = (start - rect.top) / (start - end);
-            const clamped = Math.max(0, Math.min(1.25, raw));
+            const clamped = Math.max(0, Math.min(1.0, raw));
             setScrollProgress(clamped);
 
             // Trigger entrance expansion smoothly when section enters viewport
@@ -112,15 +112,15 @@ export default function DistributionSection({ onNavigate, lang = 'en' }) {
   }, []);
 
   const floatingBadges = [
-    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-22px', left: '20px', vx: -4, vy: -10, rot: -3, anim: 'dist-float-1', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
-    { id: 'release', label: '48h Release', icon: Disc3, top: '-28px', left: '38%', vx: 0, vy: -12, rot: 2, anim: 'dist-float-2', info: 'Expedited DSP ingestion within 48 hours' },
-    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-22px', right: '20px', vx: 4, vy: -10, rot: 3, anim: 'dist-float-3', info: 'Free pre-save pages & custom landing URLs' },
-    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-16px', vx: -4, vy: -3, rot: -3, anim: 'dist-float-2', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
-    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-22px', left: '20px', vx: -4, vy: 10, rot: -3, anim: 'dist-float-1', info: 'Zero royalty cuts, keep every penny you earn' },
-    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-22px', left: '28%', vx: -3, vy: 12, rot: -2, anim: 'dist-float-3', info: '24-bit 192kHz master audio & Dolby Atmos support' },
-    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-22px', right: '28%', vx: 3, vy: 12, rot: 2, anim: 'dist-float-2', info: 'Live daily stream counters & real-time trend charts' },
-    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-16px', vx: 4, vy: -3, rot: 3, anim: 'dist-float-1', info: 'Automatic digital fingerprinting on YouTube & Meta' },
-    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-22px', right: '20px', vx: 4, vy: 10, rot: 3, anim: 'dist-float-3', info: 'Automatic revenue splitting for bandmates & producers' }
+    { id: 'social', label: 'Social DSPs', icon: Share2, top: '-20px', left: '22px', vx: -16, vy: -20, rot: -4, anim: 'dist-float-1', info: 'Auto-delivery to TikTok, Instagram & YouTube' },
+    { id: 'release', label: '48h Release', icon: Disc3, top: '-24px', left: '38%', vx: 0, vy: -22, rot: 2, anim: 'dist-float-2', info: 'Expedited DSP ingestion within 48 hours' },
+    { id: 'smartlinks', label: 'SmartLinks', icon: SlidersHorizontal, top: '-20px', right: '22px', vx: 16, vy: -20, rot: 4, anim: 'dist-float-3', info: 'Free pre-save pages & custom landing URLs' },
+    { id: 'stores', label: '150+ Stores', icon: Globe2, top: '46%', left: '-14px', vx: -18, vy: -3, rot: -4, anim: 'dist-float-2', info: 'Spotify, Apple Music, Beatport, Amazon & 150+ stores' },
+    { id: 'royalties', label: '100% Royalties', icon: Coins, bottom: '-20px', left: '22px', vx: -16, vy: 20, rot: -4, anim: 'dist-float-1', info: 'Zero royalty cuts, keep every penny you earn' },
+    { id: 'audio', label: 'Lossless Audio', icon: Headphones, bottom: '-20px', left: '28%', vx: -8, vy: 20, rot: -2, anim: 'dist-float-3', info: '24-bit 192kHz master audio & Dolby Atmos support' },
+    { id: 'counter', label: 'Stream Counter', icon: TrendingUp, bottom: '-20px', right: '28%', vx: 8, vy: 20, rot: 2, anim: 'dist-float-2', info: 'Live daily stream counters & real-time trend charts' },
+    { id: 'contentId', label: 'Content ID', icon: ShieldCheck, top: '48%', right: '-14px', vx: 18, vy: -3, rot: 4, anim: 'dist-float-1', info: 'Automatic digital fingerprinting on YouTube & Meta' },
+    { id: 'splitpay', label: 'Split Pay', icon: Split, bottom: '-20px', right: '22px', vx: 16, vy: 20, rot: 4, anim: 'dist-float-3', info: 'Automatic revenue splitting for bandmates & producers' }
   ];
 
   return (
