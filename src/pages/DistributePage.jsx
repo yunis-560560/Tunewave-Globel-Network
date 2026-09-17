@@ -49,7 +49,7 @@ export default function DistributePage({ onNavigate, theme }) {
     { name: "Spotify", category: "Streaming", color: "#1DB954", icon: "spotify", logo: "/logos of all apps/Spotify logo.png" },
     { name: "Apple Music", category: "Streaming", color: "#FA243C", icon: "applemusic", logo: "/logos of all apps/Apple Music logo.jpg" },
     { name: "TikTok", category: "Social", color: "#00F2FE", icon: "tiktok", logo: "/logos of all apps/TikTok logo.png" },
-    { name: "Amazon Music", category: "Streaming", color: "#25D1DA", icon: "amazonmusic", logo: "/logos of all apps/amazon music logo.jpg" },
+    { name: "Amazon Music", category: "Streaming", color: "#25D1DA", icon: "amazonmusic", logo: "/logos of all apps/amazon music logo.png" },
     { name: "Tidal", category: "Hi-Fi", color: "#00FFFF", icon: "tidal", logo: "/logos of all apps/Tidal logo.png" },
     { name: "Instagram", category: "Social", color: "#E1306C", icon: "instagram", logo: "/logos of all apps/new instagram logo.png" },
     { name: "Deezer", category: "Streaming", color: "#A238FF", icon: "deezer", logo: "/logos of all apps/new deezer icon.png" },
