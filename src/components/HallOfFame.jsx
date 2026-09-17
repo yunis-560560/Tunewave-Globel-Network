@@ -69,8 +69,49 @@ export default function HallOfFame() {
     };
   }, [calculateTranslation]);
 
+  // Auto-scroll ONLY in mobile version (<= 768px)
+  const isInteractingRef = useRef(false);
+  const pauseTimerRef = useRef(null);
+
+  const pauseAutoScrollTemporarily = () => {
+    isInteractingRef.current = true;
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = setTimeout(() => {
+      isInteractingRef.current = false;
+    }, 4500); // Resume auto-scroll 4.5s after user stops interacting
+  };
+
+  useEffect(() => {
+    const isMobile = () => typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    const interval = setInterval(() => {
+      // ONLY run on mobile version
+      if (!isMobile() || !viewportRef.current || isInteractingRef.current || isDraggingRef.current) {
+        return;
+      }
+
+      const { scrollLeft, scrollWidth, clientWidth } = viewportRef.current;
+      const cardStep = 262; // 250px card width + 12px gap
+      const maxScroll = scrollWidth - clientWidth;
+
+      if (scrollLeft >= maxScroll - 20) {
+        // Smoothly loop back to first artist
+        viewportRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        // Advance to next artist card
+        viewportRef.current.scrollBy({ left: cardStep, behavior: 'smooth' });
+      }
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    };
+  }, []);
+
   // Mouse drag support for smooth horizontal panning
   const handleMouseDown = (e) => {
+    pauseAutoScrollTemporarily();
     if (!viewportRef.current) return;
     isDraggingRef.current = true;
     startXRef.current = e.pageX - viewportRef.current.offsetLeft;
@@ -91,8 +132,9 @@ export default function HallOfFame() {
 
   // Interactive Next / Prev Arrow Navigation
   const scrollByDirection = (dir) => {
+    pauseAutoScrollTemporarily();
     if (!viewportRef.current) return;
-    const cardWidth = window.innerWidth <= 768 ? 280 : 360;
+    const cardWidth = window.innerWidth <= 768 ? 262 : 360;
     viewportRef.current.scrollBy({
       left: dir * cardWidth,
       behavior: 'smooth'
@@ -141,6 +183,8 @@ export default function HallOfFame() {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={pauseAutoScrollTemporarily}
+            onTouchMove={pauseAutoScrollTemporarily}
           >
             <div ref={trackRef} className="madverse-artists-track">
               {HALL_OF_FAME.map((artist, idx) => (
