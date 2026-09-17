@@ -212,6 +212,7 @@ export default function App() {
             onLangChange={(newLang) => setLang(newLang)}
           />
         );
+      case '/dashboard':
       case '/artist/dashboard':
         return (
           <ArtistDashboard
