@@ -43,6 +43,7 @@ export default function Logo({
       <img
         src={emblemSrc}
         alt="Tunewave Emblem"
+        className="tw-logo-emblem"
         style={{
           height: emblemHeight,
           width: 'auto',
@@ -55,6 +56,7 @@ export default function Logo({
 
       {/* Right Lockup: 2.svg Tunewave Wordmark + GLOBAL NETWORK */}
       <div 
+        className="tw-logo-wordmark-wrap"
         style={{ 
           display: 'flex', 
           flexDirection: 'column',
@@ -67,6 +69,7 @@ export default function Logo({
         <img
           src={wordmarkSrc}
           alt="Tunewave"
+          className="tw-logo-wordmark-img"
           style={{
             width: '100%',
             height: wordmarkHeight,
@@ -81,6 +84,7 @@ export default function Logo({
         {/* Subtitle: G L O B A L   N E T W O R K */}
         {showSubtitle && (
           <div 
+            className="tw-logo-subtitle"
             style={{
               display: 'flex',
               justifyContent: 'space-between',

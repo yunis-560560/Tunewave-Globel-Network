@@ -114,7 +114,7 @@ export default function Navbar({
         </div>
 
         {/* Right-aligned Navigation Links & Actions (Matches reference format and spacing) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 2vw, 32px)', marginLeft: 'auto' }}>
+        <div className="tw-nav-right-wrap" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 2vw, 32px)', marginLeft: 'auto' }}>
           <nav
             style={{
               display: 'none',
@@ -294,7 +294,7 @@ export default function Navbar({
           </nav>
 
           {/* Action Buttons: Login (Bordered Box) + Try For Free (Tunewave Cyan Brand Button) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div className="tw-nav-actions-wrap" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             {/* Login Button (clean bordered container matching screenshot) */}
             <button
               onClick={() => onNavigate('/login')}
@@ -330,6 +330,7 @@ export default function Navbar({
             {/* Try For Free Button (Tunewave Cyan Gradient Matching Brand) */}
             <button
               onClick={() => onNavigate('/signup')}
+              className="tw-nav-cta-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -371,6 +372,7 @@ export default function Navbar({
 
           {/* Right Utility Items: Language Selector + Theme Toggle + Mobile Hamburger */}
           <div
+            className="tw-nav-utility-group"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -383,6 +385,7 @@ export default function Navbar({
             <div ref={langRef} style={{ position: 'relative' }}>
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="tw-nav-lang-btn"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -452,6 +455,7 @@ export default function Navbar({
             <button
               onClick={onToggleTheme}
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="tw-nav-theme-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -480,9 +484,13 @@ export default function Navbar({
                 borderRadius: 8,
                 background: 'transparent',
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               className="mobile-toggle"
+              aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -508,21 +516,85 @@ export default function Navbar({
         <div
           style={{
             position: 'fixed',
-            top: 72,
+            top: 64,
             left: 0,
             right: 0,
             bottom: 0,
-            background: isLight ? 'rgba(255, 255, 255, 0.98)' : '#000000',
+            background: isLight ? 'rgba(255, 255, 255, 0.98)' : '#080B11',
             backdropFilter: 'blur(30px)',
-            zIndex: 99,
-            padding: '24px',
+            zIndex: 999,
+            padding: '20px 24px 32px',
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
             overflowY: 'auto'
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {/* Quick Utility Row inside Drawer: Theme & Language */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingBottom: 14,
+            borderBottom: isLight ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255,255,255,0.08)',
+            marginBottom: 4
+          }}>
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: isLight ? '#64748B' : '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              Preferences
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {/* Language Pills in drawer */}
+              <div style={{ display: 'flex', gap: 4 }}>
+                {LANGUAGES.map(item => (
+                  <button
+                    key={item.code}
+                    onClick={() => {
+                      if (onLangChange) onLangChange(item.code);
+                    }}
+                    style={{
+                      padding: '4px 8px',
+                      borderRadius: 6,
+                      fontSize: '0.76rem',
+                      fontWeight: 700,
+                      background: lang === item.code 
+                        ? (isLight ? '#007EA7' : '#00E5FF') 
+                        : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)'),
+                      color: lang === item.code 
+                        ? (isLight ? '#FFFFFF' : '#040D1A') 
+                        : (isLight ? '#0F172A' : '#94A3B8'),
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Theme toggle in drawer */}
+              <button
+                onClick={onToggleTheme}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '5px 10px',
+                  borderRadius: 8,
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                  background: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)',
+                  color: isLight ? '#0F172A' : '#FFFFFF',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+                <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+              </button>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {[
               { path: '/distribute', label: t.distribute },
               { path: '/monetize', label: t.monetize },
@@ -537,14 +609,14 @@ export default function Navbar({
                 key={item.path}
                 onClick={() => { onNavigate(item.path); setMobileMenuOpen(false); }}
                 style={{
-                  padding: '14px 4px',
+                  padding: '13px 4px',
                   textAlign: 'left',
-                  fontSize: '1.15rem',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
                   color: currentPath === item.path
                     ? (isLight ? '#007EA7' : '#00E5FF')
                     : (isLight ? '#0F172A' : '#FFFFFF'),
-                  borderBottom: isLight ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(255,255,255,0.06)',
+                  borderBottom: isLight ? '1px solid rgba(0,0,0,0.05)' : '1px solid rgba(255,255,255,0.05)',
                   background: 'transparent',
                   border: 'none',
                   cursor: 'pointer'
@@ -572,7 +644,7 @@ export default function Navbar({
             </button>
           </div>
 
-          <div style={{ marginTop: 'auto', paddingTop: 20 }}>
+          <div style={{ marginTop: 'auto', paddingTop: 16 }}>
             <button
               onClick={() => { onNavigate('/signup'); setMobileMenuOpen(false); }}
               style={{
@@ -610,6 +682,68 @@ export default function Navbar({
           }
           .mobile-toggle {
             display: none !important;
+          }
+        }
+        @media (max-width: 1023px) {
+          .desktop-nav {
+            display: none !important;
+          }
+          .mobile-toggle {
+            display: inline-flex !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .tw-nav-right-wrap {
+            gap: 6px !important;
+          }
+          .tw-nav-actions-wrap {
+            gap: 6px !important;
+          }
+          .tw-nav-utility-group {
+            gap: 4px !important;
+            padding-left: 4px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .header-wrapper .container {
+            padding: 0 12px !important;
+            height: 64px !important;
+          }
+          .tw-nav-cta-btn {
+            padding: 7px 11px !important;
+            font-size: 0.78rem !important;
+            border-radius: 8px !important;
+          }
+          .tw-brand-logo .tw-logo-emblem {
+            height: 28px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-wrap {
+            width: 125px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-img {
+            height: 12px !important;
+          }
+          .tw-brand-logo .tw-logo-subtitle {
+            font-size: 0.40rem !important;
+          }
+        }
+        @media (max-width: 360px) {
+          .header-wrapper .container {
+            padding: 0 8px !important;
+          }
+          .tw-brand-logo .tw-logo-emblem {
+            height: 24px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-wrap {
+            width: 105px !important;
+          }
+          .tw-nav-cta-btn {
+            padding: 6px 8px !important;
+            font-size: 0.72rem !important;
+          }
+          .tw-nav-lang-btn {
+            font-size: 0.75rem !important;
+            padding: 4px 1px !important;
           }
         }
       `}</style>

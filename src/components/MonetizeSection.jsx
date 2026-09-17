@@ -211,6 +211,16 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
           opacity: 1;
           transform: translateX(0);
         }
+        @media (max-width: 768px) {
+          .monetize-main-grid {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+          }
+          .monetize-card-header {
+            padding-bottom: 14px !important;
+            margin-bottom: 18px !important;
+          }
+        }
       `}</style>
 
       <div className="container">
@@ -298,7 +308,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                   marginRight: '0.26em',
                   transform: isInView ? 'translateY(0)' : 'translateY(12px)',
                   opacity: isInView ? 1 : 0,
-                  transition: `transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${720 + idx * 20}ms, opacity 0.5s ease ${720 + idx * 20}ms`,
+                  transition: `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${800 + idx * 45}ms, opacity 0.6s ease ${800 + idx * 45}ms`,
                   willChange: 'transform, opacity'
                 }}
               >
@@ -307,15 +317,21 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
             ))}
           </p>
 
-          {/* Action CTAs: Staggered entrance following the text */}
-          <div style={{ display: 'flex', gap: 16, marginTop: 10, flexWrap: 'wrap' }}>
+          {/* Dual Action CTAs: Start Monitizing + Explore Publishing with Staggered Entrance */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            flexWrap: 'wrap',
+            marginTop: 8
+          }}>
             <div style={{
               transform: isInView ? 'translateY(0) scale(1)' : 'translateY(22px) scale(0.95)',
               opacity: isInView ? 1 : 0,
               transition: 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1400ms, opacity 0.65s ease 1400ms'
             }}>
               <button
-                onClick={() => onNavigate('/monetize')}
+                onClick={() => onNavigate('/signup')}
                 className="btn-cyan"
               >
                 <span>{t.ctaPrimary}</span>
@@ -337,7 +353,7 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
         </div>
 
         {/* Grid: Interactive Live Earnings Dashboard vs Feature Stack */}
-        <div style={{
+        <div className="monetize-main-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
           gap: 36,
@@ -404,13 +420,15 @@ export default function MonetizeSection({ onNavigate, lang = 'en' }) {
                 }} />
 
                 {/* Header with dots, Title, 360° indicator and LIVE pill */}
-                <div style={{
+                <div className="monetize-card-header" style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   paddingBottom: 20,
                   borderBottom: '1px solid var(--tw-line-bright)',
-                  marginBottom: 24
+                  marginBottom: 24,
+                  flexWrap: 'wrap',
+                  gap: 8
                 }}>
                   <div style={{ display: 'flex', gap: 6 }}>
                     <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />

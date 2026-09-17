@@ -121,12 +121,12 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: 40,
-        padding: '64px 0 48px',
+        padding: 'clamp(36px, 5vw, 64px) 16px clamp(24px, 4vw, 48px)',
         borderBottom: `1px solid ${divider}`,
       }}>
 
         {/* Brand column */}
-        <div style={{ maxWidth: 300 }}>
+        <div style={{ maxWidth: 300, width: '100%' }}>
           <Logo size="large" theme={theme} />
           <p style={{
             marginTop: 16,
@@ -138,7 +138,7 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
           </p>
 
           {/* Social icons */}
-          <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
+          <div style={{ display: 'flex', gap: 10, marginTop: 24, flexWrap: 'wrap' }}>
             {SOCIALS.map(s => (
               <a
                 key={s.label}
@@ -175,7 +175,7 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
         </div>
 
         {/* Newsletter */}
-        <div style={{
+        <div className="footer-newsletter-wrap" style={{
           background: isLight ? '#ffffff' : 'rgba(255,255,255,0.03)',
           border: `1px solid ${isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'}`,
           borderRadius: 16,
@@ -190,7 +190,7 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
           <p style={{ fontSize: '0.8rem', color: bodyClr, marginBottom: 16, lineHeight: 1.6 }}>
             Get algorithm updates, playlist opportunities, and release strategies delivered weekly.
           </p>
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div className="footer-newsletter-row" style={{ display: 'flex', gap: 8 }}>
             <input
               type="email"
               value={email}
@@ -220,11 +220,11 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
       </div>
 
       {/* ── MAIN LINK GRID ───────────────────────────────────────── */}
-      <div className="container" style={{
+      <div className="container footer-link-grid" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
         gap: '40px 48px',
-        padding: '52px 0',
+        padding: '52px 16px',
         borderBottom: `1px solid ${divider}`,
       }}>
         {NAV_COLS.map(col => (

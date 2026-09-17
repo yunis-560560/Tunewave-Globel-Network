@@ -390,7 +390,7 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
         {/* 2-Column Layout: 2x2 Grid View + Interactive 3D Singer on Right */}
         <div className="grow-section-layout" style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.5fr) minmax(360px, 0.9fr)',
+          gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 0.9fr)',
           gap: 36,
           alignItems: 'stretch',
           position: 'relative'
@@ -631,8 +631,9 @@ export default function GrowSection({ onNavigate, lang = 'en' }) {
             {/* Ambient Cyan Stage Glow */}
             <div style={{
               position: 'absolute',
-              width: '130%',
-              height: '110%',
+              width: '100%',
+              maxWidth: 450,
+              height: '100%',
               background: 'radial-gradient(ellipse at 50% 60%, rgba(0, 229, 255, 0.22) 0%, rgba(109, 40, 217, 0.1) 50%, transparent 75%)',
               pointerEvents: 'none',
               filter: 'blur(45px)',
