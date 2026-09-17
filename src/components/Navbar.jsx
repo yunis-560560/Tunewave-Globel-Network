@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Logo from './Logo';
 import MegaMenu from './MegaMenu';
 import { MEGA_MENUS, TRANSLATIONS } from '../data/content';
-import { ChevronDown, ArrowRight, Menu, X, Check, Sun, Moon } from 'lucide-react';
+import { 
+  ChevronDown, ArrowRight, Menu, X, Check, Sun, Moon,
+  Music, Film, DollarSign, Clapperboard, Video, TrendingUp, Send, Target, ChevronRight
+} from 'lucide-react';
 
 const LANGUAGES = [
   { code: 'en', label: 'EN', name: 'English' },
@@ -25,6 +28,7 @@ export default function Navbar({
   const [activeMega, setActiveMega] = useState(null);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const langRef = useRef(null);
 
@@ -602,11 +606,322 @@ export default function Navbar({
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {/* Expandable Sections with Rich Sub-Pages: Distribute, Monetize, Grow */}
             {[
-              { path: '/distribute', label: t.distribute },
-              { path: '/monetize', label: t.monetize },
-              { path: '/grow', label: t.grow },
+              {
+                key: 'distribute',
+                path: '/distribute',
+                label: t.distribute,
+                overviewLabel: 'Overview · Music Distribution Hub',
+                featured: [
+                  {
+                    title: 'Music Distribution',
+                    desc: 'Drop in your tracks and land on 150+ stores worldwide.',
+                    path: '/distribute',
+                    badge: 'CORE',
+                    icon: Music
+                  },
+                  {
+                    title: 'Music Video Distribution',
+                    desc: 'Official Vevo channels & 4K music video monetization.',
+                    path: '/sell-your-music/vevo',
+                    badge: 'VEVO',
+                    icon: Film
+                  }
+                ],
+                tools: [
+                  { title: 'AI Audio Mastering', path: '/distribute' },
+                  { title: 'Free Pre-Save Links', path: '/distribute' },
+                  { title: 'Beatport Electronic Labels', path: '/distribute' },
+                  { title: 'Spotify Canvas Generator', path: '/distribute' },
+                  { title: 'Synchronized Lyrics Upload', path: '/distribute' },
+                  { title: 'Release Day Protection', path: '/distribute' }
+                ]
+              },
+              {
+                key: 'monetize',
+                path: '/monetize',
+                label: t.monetize,
+                overviewLabel: 'Overview · Royalties & Monetization Hub',
+                featured: [
+                  {
+                    title: 'Music Publishing',
+                    desc: 'Global songwriter & mechanical royalties (PRS, ASCAP, BMI).',
+                    path: '/publishing',
+                    badge: '+20% REVENUE',
+                    icon: DollarSign
+                  },
+                  {
+                    title: 'Sync Licensing',
+                    desc: 'TV, Netflix, movies, and video game song placements.',
+                    path: '/sync',
+                    badge: 'PLACEMENTS',
+                    icon: Clapperboard
+                  },
+                  {
+                    title: 'YouTube Content ID',
+                    desc: 'Claim & monetize every YouTube video & Short playing your sound.',
+                    path: '/tools/youtube-content-id',
+                    badge: 'AUTO DETECT',
+                    icon: Video
+                  }
+                ],
+                tools: [
+                  { title: 'AI Music Licensing & Protection', path: '/monetize' },
+                  { title: 'Automated Royalty Splits', path: '/monetize' },
+                  { title: 'Official Chart Registration', path: '/monetize' },
+                  { title: 'Neighboring Rights Collection', path: '/monetize' },
+                  { title: 'Tunewave Pro Suite', path: '/monetize' }
+                ]
+              },
+              {
+                key: 'grow',
+                path: '/grow',
+                label: t.grow,
+                overviewLabel: 'Overview · Artist Growth & Marketing Hub',
+                featured: [
+                  {
+                    title: 'Music Promotion',
+                    desc: 'Digital campaigns, publicists & PR reach to boost streams.',
+                    path: '/promo',
+                    badge: 'TEAM ACCESS',
+                    icon: TrendingUp
+                  },
+                  {
+                    title: 'Editorial Playlist Pitching',
+                    desc: 'Direct pitch to verified playlist curators & Spotify editors.',
+                    path: '/playlists',
+                    badge: 'PRIORITY',
+                    icon: Send
+                  },
+                  {
+                    title: 'Automated Ad Launcher',
+                    desc: 'Smart ads on Instagram, TikTok & YouTube with instant ROI.',
+                    path: '/ad-launcher',
+                    badge: 'SMART ROI',
+                    icon: Target
+                  }
+                ],
+                tools: [
+                  { title: 'Smart Promo Cards', path: '/grow' },
+                  { title: 'Tunewave Chartbreaker Index', path: '/grow' },
+                  { title: 'Start Your Own Record Label', path: '/grow' },
+                  { title: 'Industry Perks & Gear Discounts', path: '/grow' },
+                  { title: 'Creator Masterclasses', path: '/grow' }
+                ]
+              }
+            ].map(section => {
+              const isExpanded = expandedMobile === section.key;
+              const isCurrentActive = currentPath === section.path || section.featured.some(f => f.path === currentPath);
+              return (
+                <div 
+                  key={section.key}
+                  style={{
+                    borderBottom: isLight ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(255,255,255,0.06)',
+                    paddingBottom: isExpanded ? 10 : 0
+                  }}
+                >
+                  <div
+                    onClick={() => setExpandedMobile(isExpanded ? null : section.key)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 4px',
+                      cursor: 'pointer',
+                      userSelect: 'none'
+                    }}
+                  >
+                    <span style={{
+                      fontSize: '1.1rem',
+                      fontWeight: 700,
+                      color: isCurrentActive
+                        ? (isLight ? '#007EA7' : '#00E5FF')
+                        : (isLight ? '#0F172A' : '#FFFFFF'),
+                      letterSpacing: '-0.01em'
+                    }}>
+                      {section.label}
+                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: 6,
+                        background: isLight ? 'rgba(0, 126, 167, 0.08)' : 'rgba(0, 229, 255, 0.1)',
+                        color: isLight ? '#007EA7' : '#00E5FF',
+                        letterSpacing: '0.04em'
+                      }}>
+                        {section.featured.length} SUB-PAGES
+                      </span>
+                      <div style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 7,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: isExpanded
+                          ? (isLight ? 'rgba(0, 126, 167, 0.14)' : 'rgba(0, 229, 255, 0.18)')
+                          : (isLight ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.05)'),
+                        color: isExpanded
+                          ? (isLight ? '#007EA7' : '#00E5FF')
+                          : (isLight ? '#64748B' : '#94A3B8'),
+                        transition: 'transform 0.22s ease',
+                        transform: isExpanded ? 'rotate(180deg)' : 'none'
+                      }}>
+                        <ChevronDown size={16} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {isExpanded && (
+                    <div style={{
+                      padding: '6px 2px 14px 2px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 8,
+                      animation: 'megaFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}>
+                      {/* Overview Hub Link */}
+                      <div
+                        onClick={() => { onNavigate(section.path); setMobileMenuOpen(false); }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '10px 14px',
+                          borderRadius: 10,
+                          background: isLight ? 'rgba(0, 126, 167, 0.06)' : 'rgba(0, 229, 255, 0.08)',
+                          border: isLight ? '1px solid rgba(0, 126, 167, 0.22)' : '1px solid rgba(0, 229, 255, 0.25)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <span style={{ fontSize: '0.88rem', fontWeight: 700, color: isLight ? '#007EA7' : '#00E5FF' }}>
+                          {section.overviewLabel}
+                        </span>
+                        <ArrowRight size={15} color={isLight ? '#007EA7' : '#00E5FF'} />
+                      </div>
+
+                      {/* Featured Sub-Pages */}
+                      {section.featured.map(subItem => {
+                        const IconComp = subItem.icon;
+                        const isSubActive = currentPath === subItem.path;
+                        return (
+                          <div
+                            key={subItem.path + subItem.title}
+                            onClick={() => { onNavigate(subItem.path); setMobileMenuOpen(false); }}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: 12,
+                              padding: '12px 14px',
+                              borderRadius: 12,
+                              background: isSubActive
+                                ? (isLight ? 'rgba(0, 126, 167, 0.09)' : 'rgba(0, 229, 255, 0.14)')
+                                : (isLight ? '#F8FAFC' : 'rgba(255, 255, 255, 0.03)'),
+                              border: isLight ? '1px solid rgba(0, 0, 0, 0.06)' : '1px solid rgba(255, 255, 255, 0.07)',
+                              cursor: 'pointer',
+                              transition: 'all 0.15s ease'
+                            }}
+                          >
+                            <div style={{
+                              width: 36,
+                              height: 36,
+                              borderRadius: 9,
+                              background: isLight ? 'rgba(0, 126, 167, 0.1)' : 'rgba(0, 229, 255, 0.15)',
+                              color: isLight ? '#007EA7' : '#00E5FF',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0
+                            }}>
+                              <IconComp size={18} strokeWidth={2.2} />
+                            </div>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                                <div style={{
+                                  fontSize: '0.94rem',
+                                  fontWeight: 700,
+                                  color: isLight ? '#0F172A' : '#FFFFFF'
+                                }}>
+                                  {subItem.title}
+                                </div>
+                                {subItem.badge && (
+                                  <span style={{
+                                    fontSize: '0.62rem',
+                                    padding: '1px 6px',
+                                    borderRadius: 4,
+                                    fontWeight: 800,
+                                    background: isLight ? 'rgba(0, 126, 167, 0.12)' : 'rgba(0, 229, 255, 0.2)',
+                                    color: isLight ? '#007EA7' : '#00E5FF',
+                                    letterSpacing: '0.04em'
+                                  }}>
+                                    {subItem.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <div style={{
+                                fontSize: '0.78rem',
+                                color: isLight ? '#64748B' : '#94A3B8',
+                                lineHeight: 1.35
+                              }}>
+                                {subItem.desc}
+                              </div>
+                            </div>
+                            <ChevronRight size={16} color={isLight ? '#94A3B8' : '#64748B'} style={{ alignSelf: 'center' }} />
+                          </div>
+                        );
+                      })}
+
+                      {/* Tools & Features Pill List */}
+                      <div style={{
+                        marginTop: 2,
+                        padding: '10px 12px',
+                        borderRadius: 10,
+                        background: isLight ? 'rgba(0,0,0,0.02)' : 'rgba(255,255,255,0.02)',
+                        border: isLight ? '1px dashed rgba(0,0,0,0.1)' : '1px dashed rgba(255,255,255,0.1)'
+                      }}>
+                        <div style={{
+                          fontSize: '0.72rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          color: isLight ? '#64748B' : '#94A3B8',
+                          marginBottom: 8
+                        }}>
+                          Specialized Tools & Features
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                          {section.tools.map(tool => (
+                            <button
+                              key={tool.title}
+                              onClick={() => { onNavigate(tool.path); setMobileMenuOpen(false); }}
+                              style={{
+                                padding: '4px 9px',
+                                borderRadius: 6,
+                                fontSize: '0.75rem',
+                                fontWeight: 600,
+                                border: isLight ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255,255,255,0.1)',
+                                background: isLight ? '#FFFFFF' : 'rgba(255,255,255,0.04)',
+                                color: isLight ? '#334155' : '#CBD5E1',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              {tool.title}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Direct Navigation Links without Subpages */}
+            {[
               { path: '/get-signed', label: t.getSign },
               { path: '/pricing', label: t.pricing },
               { path: '/reviews', label: t.reviews },
