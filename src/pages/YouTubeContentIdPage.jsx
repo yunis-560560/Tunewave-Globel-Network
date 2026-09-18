@@ -956,7 +956,7 @@ export default function YouTubeContentIdPage({ onNavigate, theme }) {
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 54, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px, 4vw, 54px)', alignItems: 'center' }}>
             <div 
               className="yt-hero-content-left"
               style={{

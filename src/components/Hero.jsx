@@ -44,107 +44,113 @@ export default function Hero({ onNavigate, lang = 'en' }) {
       <div className="container hero-content-container">
         <div className="hero-text-content">
           
-          {/* Main Headline (Left-aligned, exact text, mask reveal typography) */}
-          <h1 className="hero-main-title">
-            <span className="hero-title-mask">
-              <span className="hero-title-line hero-line-1">{t.titlePart1}</span>
-            </span>
-            <span className="hero-title-mask">
-              <span className="hero-title-line hero-line-2 text-cyan-gradient hero-title-glow">
-                {t.titleHighlight}
+          {/* Top Video Overlay: Headline, Subtitle, and Action Buttons (Bottom 50% of video on mobile) */}
+          <div className="hero-video-text-wrap">
+            {/* Main Headline (Left-aligned, exact text, mask reveal typography) */}
+            <h1 className="hero-main-title">
+              <span className="hero-title-mask">
+                <span className="hero-title-line hero-line-1">{t.titlePart1}</span>
               </span>
-            </span>
-            <span className="hero-title-mask">
-              <span className="hero-title-line hero-line-3">{t.titlePart2}</span>
-            </span>
-          </h1>
+              <span className="hero-title-mask">
+                <span className="hero-title-line hero-line-2 text-cyan-gradient hero-title-glow">
+                  {t.titleHighlight}
+                </span>
+              </span>
+              <span className="hero-title-mask">
+                <span className="hero-title-line hero-line-3">{t.titlePart2}</span>
+              </span>
+            </h1>
 
-          {/* Subtitle (Left-aligned, exact text) */}
-          <p className="hero-main-subtitle hero-anim-fade-up hero-delay-4">
-            {t.subtitle}
-          </p>
+            {/* Subtitle (Left-aligned, exact text) */}
+            <p className="hero-main-subtitle hero-anim-fade-up hero-delay-4">
+              {t.subtitle}
+            </p>
 
-          {/* Action Buttons (Original buttons, Left-Aligned) */}
-          <div className="hero-actions-group hero-anim-fade-up hero-delay-5">
-            <button
-              onClick={() => onNavigate('/signup')}
-              className="btn-cyan hero-btn-primary"
-            >
-              <span>{t.startBtn}</span>
-              <ArrowRight size={18} className="btn-icon-hover" />
-            </button>
+            {/* Action Buttons (Original buttons, Left-Aligned) */}
+            <div className="hero-actions-group hero-anim-fade-up hero-delay-5">
+              <button
+                onClick={() => onNavigate('/signup')}
+                className="btn-cyan hero-btn-primary"
+              >
+                <span>{t.startBtn}</span>
+                <ArrowRight size={18} className="btn-icon-hover" />
+              </button>
 
-            <button
-              onClick={() => onNavigate('/distribute')}
-              className="btn-glass hero-btn-secondary"
-            >
-              <span>{t.exploreBtn}</span>
-              <ChevronRight size={18} className="btn-icon-hover" />
-            </button>
+              <button
+                onClick={() => onNavigate('/distribute')}
+                className="btn-glass hero-btn-secondary"
+              >
+                <span>{t.exploreBtn}</span>
+                <ChevronRight size={18} className="btn-icon-hover" />
+              </button>
+            </div>
           </div>
 
-          {/* Live Social Proof Badge Bar */}
-          <div className="hero-proof-bar hero-anim-fade-up hero-delay-6">
-            <div className="avatar-group">
-              {[
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80",
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
-                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
-                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80"
-              ].map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt="Artist avatar"
-                  className={`avatar-img hero-avatar-pop hero-avatar-${i}`}
-                  style={{ marginLeft: i === 0 ? 0 : -10 }}
-                />
-              ))}
-            </div>
+          {/* Placed Below & Out of the Video on Mobile: Live Social Proof Badge Bar + Feature Cards */}
+          <div className="hero-below-video-wrap">
+            {/* Live Social Proof Badge Bar */}
+            <div className="hero-proof-bar hero-anim-fade-up hero-delay-6">
+              <div className="avatar-group">
+                {[
+                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80",
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
+                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80"
+                ].map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt="Artist avatar"
+                    className={`avatar-img hero-avatar-pop hero-avatar-${i}`}
+                    style={{ marginLeft: i === 0 ? 0 : -10 }}
+                  />
+                ))}
+              </div>
 
-            <div className="pill-badge live">
-              <span className="pulse-dot" />
-              <span>{t.liveBadge}</span>
-            </div>
+              <div className="pill-badge live">
+                <span className="pulse-dot" />
+                <span>{t.liveBadge}</span>
+              </div>
 
-            <div className="proof-info">
-              <div className="proof-rating-row">
-                <span>{t.trustedBy}</span>
-                <div className="stars-flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={12} fill="#00E5FF" stroke="#00E5FF" />
-                  ))}
+              <div className="proof-info">
+                <div className="proof-rating-row">
+                  <span>{t.trustedBy}</span>
+                  <div className="stars-flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={12} fill="#00E5FF" stroke="#00E5FF" />
+                    ))}
+                  </div>
+                </div>
+                <div className="proof-sub text-muted">
+                  {t.statsLine}
                 </div>
               </div>
-              <div className="proof-sub text-muted">
-                {t.statsLine}
-              </div>
-            </div>
-          </div>
-
-          {/* 3 Quick Value Feature Cards */}
-          <div className="hero-feature-cards hero-anim-fade-up hero-delay-7 reveal-stagger is-in-view">
-            <div className="feature-card-mini card-shimmer-sweep">
-              <Globe size={18} className="feat-icon" />
-              <div>
-                <div className="feat-title">Digital Distribution</div>
-                <div className="feat-desc">150+ stores worldwide</div>
-              </div>
             </div>
 
-            <div className="feature-card-mini card-shimmer-sweep">
-              <ShieldCheck size={18} className="feat-icon" />
-              <div>
-                <div className="feat-title">Rights Protection</div>
-                <div className="feat-desc">100% artist retention</div>
+            {/* 3 Quick Value Feature Cards */}
+            <div className="hero-feature-cards hero-anim-fade-up hero-delay-7 reveal-stagger is-in-view">
+              <div className="feature-card-mini card-shimmer-sweep">
+                <Globe size={18} className="feat-icon" />
+                <div>
+                  <div className="feat-title">Digital Distribution</div>
+                  <div className="feat-desc">150+ stores worldwide</div>
+                </div>
               </div>
-            </div>
 
-            <div className="feature-card-mini card-shimmer-sweep">
-              <Tv size={18} className="feat-icon" />
-              <div>
-                <div className="feat-title">YouTube Monetization</div>
-                <div className="feat-desc">Content ID & OAC sync</div>
+              <div className="feature-card-mini card-shimmer-sweep">
+                <ShieldCheck size={18} className="feat-icon" />
+                <div>
+                  <div className="feat-title">Rights Protection</div>
+                  <div className="feat-desc">100% artist retention</div>
+                </div>
+              </div>
+
+              <div className="feature-card-mini card-shimmer-sweep">
+                <Tv size={18} className="feat-icon" />
+                <div>
+                  <div className="feat-title">YouTube Monetization</div>
+                  <div className="feat-desc">Content ID & OAC sync</div>
+                </div>
               </div>
             </div>
           </div>

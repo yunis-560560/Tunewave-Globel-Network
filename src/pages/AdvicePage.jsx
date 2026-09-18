@@ -101,19 +101,72 @@ export default function AdvicePage({ onNavigate, theme }) {
 
   return (
     <div style={{ paddingTop: 0, paddingBottom: 0, background: "var(--tw-bg-dark)" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .advice-featured-card {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+          .advice-featured-image {
+            order: -1;
+            height: 220px !important;
+            max-height: 220px !important;
+          }
+          .advice-featured-image img {
+            height: 100% !important;
+          }
+          .advice-featured-content {
+            padding: 24px 20px !important;
+          }
+          .advice-top-three-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .advice-top-three-item {
+            border-right: none !important;
+            border-bottom: 1px solid var(--tw-line) !important;
+          }
+          .advice-top-three-item:last-child {
+            border-bottom: none !important;
+          }
+          .advice-popular-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .advice-popular-col {
+            border-right: none !important;
+            padding: 4px 0 !important;
+          }
+          .advice-articles-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .advice-hero-section {
+            padding: 44px 0 0 !important;
+          }
+          .advice-search-wrapper {
+            margin-bottom: 32px !important;
+          }
+          .advice-modal-body {
+            padding: 22px 18px 28px !important;
+          }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .advice-articles-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+      `}</style>
 
       {/* ─── HERO ─────────────────────────────────────────── */}
-      <section style={{ padding: "80px 0 0", borderBottom: "1px solid var(--tw-line)" }}>
+      <section className="advice-hero-section" style={{ padding: "80px 0 0", borderBottom: "1px solid var(--tw-line)" }}>
         <div className="container">
 
           {/* Big headline */}
-          <h1 style={{ fontSize: "clamp(3rem, 6.5vw, 5.5rem)", fontWeight: 900, lineHeight: 1.03, marginBottom: 28, color: "var(--tw-text-white)", maxWidth: 700 }}>
+          <h1 style={{ fontSize: "clamp(2.2rem, 6.5vw, 5.5rem)", fontWeight: 900, lineHeight: 1.05, marginBottom: 24, color: "var(--tw-text-white)", maxWidth: 700 }}>
             Music advice for{" "}
             <span style={{ color: "var(--tw-cyan)" }}>independent artists.</span>
           </h1>
 
           {/* Search bar */}
-          <div style={{ position: "relative", maxWidth: 480, marginBottom: 52 }}>
+          <div className="advice-search-wrapper" style={{ position: "relative", maxWidth: 480, marginBottom: 52 }}>
             <Search size={17} color="var(--tw-text-muted)" style={{ position: "absolute", left: 18, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
             <input
               type="text"
@@ -131,7 +184,7 @@ export default function AdvicePage({ onNavigate, theme }) {
           </div>
 
           {/* Featured Editor's Pick — 50/50 split */}
-          <div style={{
+          <div className="advice-featured-card" style={{
             display: "grid", gridTemplateColumns: "1fr 1fr",
             borderRadius: 20, overflow: "hidden",
             border: "1px solid var(--tw-line-bright)",
@@ -143,7 +196,7 @@ export default function AdvicePage({ onNavigate, theme }) {
             onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--tw-line-bright)"; e.currentTarget.style.transform = "translateY(0)"; }}
           >
             {/* Left: adaptive content panel */}
-            <div style={{ background: "var(--tw-bg-card)", padding: "40px 44px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div className="advice-featured-content" style={{ background: "var(--tw-bg-card)", padding: "40px 44px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
                   <span style={{
@@ -173,7 +226,7 @@ export default function AdvicePage({ onNavigate, theme }) {
               </div>
             </div>
             {/* Right: image */}
-            <div style={{ overflow: "hidden" }}>
+            <div className="advice-featured-image" style={{ overflow: "hidden" }}>
               <img src={articleImg(FEATURED)} alt={FEATURED.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
                 onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
                 onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
@@ -184,9 +237,9 @@ export default function AdvicePage({ onNavigate, theme }) {
 
         {/* ── TOP 3 sub-featured ── */}
         <div className="container" style={{ marginTop: 0 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, borderTop: "1px solid var(--tw-line)", marginTop: 0 }}>
+          <div className="advice-top-three-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, borderTop: "1px solid var(--tw-line)", marginTop: 0 }}>
             {TOP_THREE.map((article, i) => (
-              <div key={article.id} style={{
+              <div key={article.id} className="advice-top-three-item" style={{
                 borderRight: i < 2 ? "1px solid var(--tw-line)" : "none",
                 cursor: "pointer", overflow: "hidden",
                 transition: "background 0.2s"
@@ -253,11 +306,11 @@ export default function AdvicePage({ onNavigate, theme }) {
             What artists are reading right now.
           </h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+          <div className="advice-popular-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
             {POPULAR.map((article, i) => {
               const cs = catStyle(article.category);
               return (
-                <div key={article.id} style={{
+                <div key={article.id} className="advice-popular-col" style={{
                   borderTop: "1px solid var(--tw-line)",
                   borderRight: i % 2 === 0 ? "1px solid var(--tw-line)" : "none",
                   padding: i % 2 === 0 ? "8px 24px 8px 0" : "8px 0 8px 24px",
@@ -400,7 +453,7 @@ export default function AdvicePage({ onNavigate, theme }) {
 
           {/* 3-column article cards grid */}
           {paginated.length > 0 ? (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 64 }}>
+            <div className="advice-articles-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 64 }}>
               {paginated.map(article => {
                 const cs = catStyle(article.category);
                 return (
@@ -503,7 +556,7 @@ export default function AdvicePage({ onNavigate, theme }) {
               <img src={articleImg(selectedArticle)} alt={selectedArticle.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
 
-            <div style={{ padding: "36px 48px 48px" }}>
+            <div className="advice-modal-body" style={{ padding: "36px 48px 48px" }}>
               <button onClick={() => setSelectedArticle(null)} style={{ position: "absolute", top: 20, right: 20, width: 38, height: 38, borderRadius: "50%", background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)", color: "var(--tw-text-white)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                 <X size={17} />
               </button>

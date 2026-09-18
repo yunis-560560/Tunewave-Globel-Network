@@ -961,6 +961,68 @@ export default function PublishingPage({ onNavigate, theme }) {
           background: linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.46) 50%, rgba(255, 255, 255, 0.84) 100%),
                       radial-gradient(circle at center, transparent 35%, rgba(255, 255, 255, 0.55) 100%) !important;
         }
+
+        /* ── Mobile Responsive for Unclaimed Publishing Banner ── */
+        @media (max-width: 768px) {
+          .pub-unclaimed-wrap {
+            perspective: none !important;
+            padding: 0 14px !important;
+          }
+
+          .pub-unclaimed-card-3d {
+            padding: 16px 12px !important;
+            border-radius: 20px !important;
+            transform: none !important;
+            perspective: none !important;
+          }
+
+          .pub-unclaimed-3d-backdrop {
+            transform: none !important;
+            inset: 0 !important;
+          }
+
+          .pub-unclaimed-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+            transform: none !important;
+          }
+
+          .pub-unclaimed-left-card {
+            padding: 22px 18px !important;
+            border-radius: 18px !important;
+            transform: none !important;
+          }
+
+          .pub-breakdown-box {
+            padding: 22px 18px !important;
+            border-radius: 18px !important;
+            transform: none !important;
+          }
+
+          .pub-unclaimed-rings,
+          .pub-unclaimed-vinyl,
+          .pub-floating-note-1,
+          .pub-floating-note-2 {
+            display: none !important;
+          }
+
+          .pub-unclaimed-title {
+            font-size: clamp(1.6rem, 6.5vw, 2.1rem) !important;
+            line-height: 1.15 !important;
+            margin-bottom: 14px !important;
+          }
+
+          .pub-unclaimed-sub {
+            font-size: 0.95rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 22px !important;
+          }
+
+          .pub-breakdown-item-header {
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+          }
+        }
       `}</style>
 
       {/* 1. HERO SECTION WITH 3D IMAGE BACKGROUND */}
@@ -989,7 +1051,7 @@ export default function PublishingPage({ onNavigate, theme }) {
         <div className="pub-hero-overlay-dark" />
 
         <div className="container pub-hero-content-wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 54, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px, 4vw, 54px)', alignItems: 'center' }}>
             <div className="reveal-up">
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                 <span className="pill-badge" style={{ 
@@ -1619,6 +1681,7 @@ export default function PublishingPage({ onNavigate, theme }) {
 
             {/* 3D Sound Pulse Rings floating near the vinyl */}
             <div 
+              className="pub-unclaimed-rings"
               style={{
                 position: 'absolute',
                 right: '18%',
@@ -1638,6 +1701,7 @@ export default function PublishingPage({ onNavigate, theme }) {
 
             {/* 3D Floating Holographic Vinyl Record (echoing the vinyl in the background image) */}
             <div 
+              className="pub-unclaimed-vinyl"
               style={{
                 position: 'absolute',
                 right: -30,
@@ -1718,6 +1782,7 @@ export default function PublishingPage({ onNavigate, theme }) {
 
             {/* Foreground Content Grid with 3D Depth */}
             <div 
+              className="pub-unclaimed-grid"
               style={{
                 position: 'relative',
                 zIndex: 3,
@@ -1730,6 +1795,7 @@ export default function PublishingPage({ onNavigate, theme }) {
             >
               {/* Left Column Content */}
               <div 
+                className="pub-unclaimed-left-card"
                 style={{
                   transform: unclaimedLeft3DTransform,
                   transition: unclaimedMousePos.x === 0 && unclaimedMousePos.y === 0 ? 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1)' : 'transform 0.12s ease-out',
@@ -1822,7 +1888,7 @@ export default function PublishingPage({ onNavigate, theme }) {
                       borderLeft: isLight ? '5px solid #475569' : '4px solid #64748B' 
                     }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="pub-breakdown-item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <strong className="pub-breakdown-text" style={{ color: isLight ? '#0F172A' : "var(--tw-text-white)", fontSize: '1rem', fontWeight: 800 }}>1. Master Recording Royalties</strong>
                       <span className="pub-muted-text" style={{ fontSize: '0.8rem', color: isLight ? '#334155' : 'var(--tw-text-dim)', fontWeight: 700 }}>Collected by Distributor</span>
                     </div>
@@ -1840,7 +1906,7 @@ export default function PublishingPage({ onNavigate, theme }) {
                       borderLeft: isLight ? '5px solid #0284C7' : '4px solid var(--tw-cyan)' 
                     }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="pub-breakdown-item-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <strong style={{ color: isLight ? '#0284C7' : 'var(--tw-cyan)', fontSize: '1rem', fontWeight: 800 }}>2. Composition / Publishing Royalties</strong>
                       <span style={{ fontSize: '0.8rem', color: isLight ? '#0284C7' : 'var(--tw-cyan)', fontWeight: 800 }}>Collected by Tunewave</span>
                     </div>

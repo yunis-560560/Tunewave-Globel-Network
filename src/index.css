@@ -690,6 +690,11 @@ button {
   align-items: flex-start;
 }
 
+.hero-video-text-wrap,
+.hero-below-video-wrap {
+  display: contents;
+}
+
 /* Headline */
 .hero-main-title {
   font-size: clamp(3rem, 6.2vw, 5.6rem);
@@ -3849,80 +3854,390 @@ img, video, iframe {
   max-width: 100%;
 }
 
-/* ── 1. Hero Section Mobile ──────────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ── 1. Hero Section Tablet (Side-by-Side Desktop-Identical Composition) ── */
+@media (min-width: 769px) and (max-width: 1024px) {
   .hero-full-bg-section {
-    min-height: auto;
-    padding: 32px 0 52px;
+    min-height: clamp(420px, 78vh, 680px) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 30px 0 40px !important;
+    overflow: hidden !important;
   }
 
-  .hero-video-scrim {
-    background: linear-gradient(180deg,
-        rgba(8, 11, 17, 0.94) 0%,
-        rgba(8, 11, 17, 0.86) 45%,
-        rgba(8, 11, 17, 0.96) 100%) !important;
+  .hero-video-element {
+    object-fit: cover !important;
+    object-position: 74% 35% !important;
   }
 
-  [data-theme="light"] .hero-video-scrim {
-    background: linear-gradient(180deg,
-        rgba(248, 250, 252, 0.96) 0%,
-        rgba(248, 250, 252, 0.88) 45%,
-        rgba(248, 250, 252, 0.98) 100%) !important;
+  .hero-content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+  }
+
+  .hero-text-content {
+    width: 58% !important;
+    max-width: 58% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    z-index: 10 !important;
   }
 
   .hero-main-title {
-    font-size: clamp(2rem, 8vw, 2.9rem) !important;
-    line-height: 1.08 !important;
+    font-size: clamp(1.35rem, 5.5vw, 2.6rem) !important;
+    line-height: 1.05 !important;
     letter-spacing: -0.03em !important;
-    margin-bottom: 18px !important;
+    margin-bottom: 10px !important;
   }
 
   .hero-main-subtitle {
-    font-size: 0.95rem !important;
-    line-height: 1.55 !important;
-    margin-bottom: 24px !important;
+    font-size: clamp(0.72rem, 2.3vw, 0.95rem) !important;
+    line-height: 1.42 !important;
+    margin-bottom: 14px !important;
+    max-width: 100% !important;
   }
 
   .hero-actions-group {
-    flex-direction: column !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
     width: 100% !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 14px !important;
+    align-items: center !important;
   }
 
   .hero-btn-primary,
   .hero-btn-secondary {
-    width: 100% !important;
-    justify-content: center !important;
-    padding: 14px 20px !important;
-    font-size: 0.96rem !important;
+    width: auto !important;
+    padding: 9px 15px !important;
+    font-size: clamp(0.72rem, 2.2vw, 0.88rem) !important;
+    border-radius: 10px !important;
+    white-space: nowrap !important;
     box-sizing: border-box !important;
   }
 
   .hero-proof-bar {
-    display: flex !important;
-    width: 100% !important;
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    width: auto !important;
     max-width: 100% !important;
-    border-radius: 16px !important;
-    padding: 10px 14px !important;
-    margin-bottom: 24px !important;
+    padding: 6px 10px !important;
+    border-radius: 14px !important;
+    margin-bottom: 0 !important;
+    gap: 6px !important;
     box-sizing: border-box !important;
-    gap: 10px !important;
+  }
+
+  .hero-proof-bar .avatar-img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .hero-proof-bar .pill-badge.live {
+    font-size: 0.65rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .hero-proof-bar .proof-info {
+    font-size: 0.68rem !important;
   }
 
   .hero-feature-cards {
-    grid-template-columns: 1fr !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    gap: 10px !important;
+    display: none !important;
   }
 
-  .feature-card-mini {
-    width: 100% !important;
-    padding: 12px 14px !important;
+  .hero-video-scrim {
+    background: linear-gradient(90deg,
+        #080B11 0%,
+        rgba(8, 11, 17, 0.96) 38%,
+        rgba(8, 11, 17, 0.65) 54%,
+        rgba(8, 11, 17, 0.08) 68%,
+        transparent 78%,
+        transparent 100%) !important;
+  }
+
+  [data-theme="light"] .hero-video-scrim {
+    background: linear-gradient(90deg,
+        #F8FAFC 0%,
+        rgba(248, 250, 252, 0.98) 38%,
+        rgba(248, 250, 252, 0.65) 54%,
+        rgba(248, 250, 252, 0.08) 68%,
+        transparent 78%,
+        transparent 100%) !important;
+  }
+
+  .hero-video-vignette {
+    display: none !important;
   }
 }
+
+/* ── 1b. Hero Section Mobile Redesign (Full Video, Bottom 50% Text & Buttons, Proof Bar Outside Video, No Whiteness) ── */
+@media (max-width: 768px) {
+  .hero-full-bg-section {
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    background: #080B11 !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  /* Full Video Stage on Mobile */
+  .hero-full-video-bg {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: clamp(480px, 70vh, 570px) !important;
+    overflow: hidden !important;
+    background: #080B11 !important;
+  }
+
+  .hero-video-element {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 28% 18% !important;
+    filter: contrast(1.18) brightness(0.98) saturate(1.15) !important;
+    transform: scale(1.02) !important;
+  }
+
+  /* REMOVE WHITENESS: Deep dark gradient from bottom up across both Dark & Light modes */
+  .hero-video-scrim,
+  [data-theme="light"] .hero-video-scrim {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(to top, 
+      #080B11 0%, 
+      rgba(8, 11, 17, 0.94) 36%, 
+      rgba(8, 11, 17, 0.65) 54%, 
+      rgba(8, 11, 17, 0.12) 72%, 
+      transparent 100%) !important;
+    z-index: 1 !important;
+  }
+
+  .hero-video-vignette {
+    display: none !important;
+  }
+
+  .hero-video-studio-glow {
+    display: none !important;
+  }
+
+  .hero-content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    position: static !important;
+  }
+
+  .hero-text-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: static !important;
+  }
+
+  /* 2nd Image: Text and Buttons at Video 50% Below (bottom overlay) */
+  .hero-video-text-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: clamp(480px, 70vh, 570px) !important;
+    padding: 16px 18px 24px 18px !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+  }
+
+  .hero-video-text-wrap > * {
+    pointer-events: auto !important;
+  }
+
+  .hero-main-title {
+    font-size: clamp(1.85rem, 8vw, 2.5rem) !important;
+    font-weight: 900 !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.03em !important;
+    color: #FFFFFF !important;
+    margin-bottom: 10px !important;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.6) !important;
+  }
+
+  .hero-main-subtitle {
+    font-size: clamp(0.85rem, 3.2vw, 0.98rem) !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 16px !important;
+    max-width: 100% !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6) !important;
+  }
+
+  .hero-actions-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    align-items: center !important;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+    border-radius: 12px !important;
+  }
+
+  /* 3rd Image: Trusted by 7,000+ Creators Placed BELOW and OUT of the video */
+  .hero-below-video-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 18px 16px 36px 16px !important;
+    background: #080B11 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  .hero-proof-bar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px 18px !important;
+    background: rgba(13, 22, 38, 0.92) !important;
+    border: 1px solid rgba(0, 229, 255, 0.25) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4), 0 0 20px rgba(0,229,255,0.08) !important;
+    backdrop-filter: blur(14px) !important;
+    margin: 0 0 16px 0 !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-proof-bar .avatar-group {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .hero-proof-bar .avatar-img {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    border: 2px solid #080B11 !important;
+  }
+
+  .hero-proof-bar .pill-badge.live {
+    font-size: 0.72rem !important;
+    padding: 4px 10px !important;
+    border-radius: 9999px !important;
+    background: rgba(0, 229, 255, 0.12) !important;
+    color: #00E5FF !important;
+    border: 1px solid rgba(0, 229, 255, 0.35) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .hero-proof-bar .proof-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+
+  .hero-proof-bar .proof-rating-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    font-size: 0.92rem !important;
+    font-weight: 800 !important;
+    color: #FFFFFF !important;
+  }
+
+  .hero-proof-bar .proof-sub {
+    font-size: 0.78rem !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    line-height: 1.45 !important;
+  }
+
+  .hero-feature-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .hero-video-text-wrap .hero-main-title,
+  .hero-video-text-wrap .hero-title-line {
+    color: #FFFFFF !important;
+  }
+
+  .hero-video-text-wrap .hero-title-line.text-cyan-gradient {
+    color: transparent !important;
+    background: linear-gradient(135deg, #00F2FE 0%, #00E5FF 50%, #38BDF8 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  .hero-video-text-wrap .hero-main-subtitle {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .hero-video-text-wrap .hero-btn-secondary {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+
+  /* Light Theme Adjustments for Outside-Video Area on Mobile */
+  [data-theme="light"] .hero-below-video-wrap {
+    background: var(--tw-bg-base, #F8FAFC) !important;
+  }
+
+  [data-theme="light"] .hero-proof-bar {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 229, 255, 0.35) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 18px rgba(0, 229, 255, 0.12) !important;
+  }
+
+  [data-theme="light"] .hero-proof-bar .proof-rating-row {
+    color: #0F172A !important;
+  }
+
+  [data-theme="light"] .hero-proof-bar .proof-sub {
+    color: #475569 !important;
+  }
+
+  [data-theme="light"] .hero-feature-cards .feature-card-mini {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  [data-theme="light"] .hero-feature-cards .feature-card-mini .feat-title {
+    color: #0F172A !important;
+  }
+
+  [data-theme="light"] .hero-feature-cards .feature-card-mini .feat-desc {
+    color: #475569 !important;
+  }
+}
+
+
 
 /* ── 2. Distribution Section Mobile ──────────────────────────────────────── */
 @media (max-width: 768px) {

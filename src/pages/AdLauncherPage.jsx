@@ -33,6 +33,25 @@ export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
     heroRef.current.style.setProperty('--ad-cursor-y', '45%');
   };
 
+  // 3D Parallax Tilt for Bottom CTA Banner
+  const ctaRef = useRef(null);
+  const handleCtaMouseMove = (e) => {
+    if (!ctaRef.current) return;
+    const rect = ctaRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const normX = ((x / rect.width) - 0.5) * 2;
+    const normY = ((y / rect.height) - 0.5) * 2;
+    ctaRef.current.style.setProperty('--cta-tilt-x', normX.toFixed(3));
+    ctaRef.current.style.setProperty('--cta-tilt-y', normY.toFixed(3));
+  };
+
+  const handleCtaMouseLeave = () => {
+    if (!ctaRef.current) return;
+    ctaRef.current.style.setProperty('--cta-tilt-x', '0');
+    ctaRef.current.style.setProperty('--cta-tilt-y', '0');
+  };
+
   // Interactive Ad Builder State
   const [selectedPlatform, setSelectedPlatform] = useState('spotify');
   const [selectedGoal, setSelectedGoal] = useState('streams');
@@ -568,16 +587,58 @@ export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
       </section>
 
       {/* 3. 01 · WHY AD LAUNCHER (3 CORE ADVANTAGES) */}
-      <section id="features" style={{ padding: '80px 0', background: 'rgba(0, 0, 0, 0.2)', borderTop: '1px solid var(--tw-line)', borderBottom: '1px solid var(--tw-line)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="pill-badge" style={{ color: 'var(--tw-cyan)', borderColor: 'var(--tw-cyan)' }}>
-              01 · WHY AD LAUNCHER
-            </span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, color: 'var(--tw-text-white)', marginTop: 12, marginBottom: 12 }}>
-              Built Specifically for Musicians & Labels
+      <section 
+        id="features" 
+        className="ad-features-section"
+        style={{ 
+          padding: '96px 0', 
+          position: 'relative',
+          overflow: 'hidden',
+          background: isLight 
+            ? 'linear-gradient(180deg, #F8FAFC 0%, #EDF4FA 50%, #F8FAFC 100%)' 
+            : 'linear-gradient(180deg, #080B11 0%, #0B101C 50%, #080B11 100%)',
+          borderTop: isLight ? '1px solid rgba(0, 126, 167, 0.12)' : '1px solid rgba(255, 255, 255, 0.08)', 
+          borderBottom: isLight ? '1px solid rgba(0, 126, 167, 0.12)' : '1px solid rgba(255, 255, 255, 0.08)' 
+        }}
+      >
+        {/* Soft Ambient Radial Aura */}
+        <div style={{
+          position: 'absolute',
+          top: '5%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'min(900px, 90vw)',
+          height: 380,
+          background: isLight
+            ? 'radial-gradient(ellipse, rgba(0, 126, 167, 0.09) 0%, rgba(2, 132, 199, 0.03) 50%, transparent 70%)'
+            : 'radial-gradient(ellipse, rgba(0, 229, 255, 0.11) 0%, rgba(14, 165, 233, 0.04) 50%, transparent 70%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none'
+        }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ textAlign: 'center', marginBottom: 60 }}>
+            <div className="ad-badge-glow">
+              <span className="ad-dot-pulse" />
+              <span>01 · WHY AD LAUNCHER</span>
+            </div>
+            <h2 style={{ 
+              fontSize: 'clamp(2.1rem, 4.5vw, 3.2rem)', 
+              fontWeight: 900, 
+              color: isLight ? '#0F172A' : '#FFFFFF', 
+              marginTop: 16, 
+              marginBottom: 14,
+              letterSpacing: '-0.025em'
+            }}>
+              Built Specifically for <span className="ad-heading-accent">Musicians &amp; Labels</span>
             </h2>
-            <p style={{ color: 'var(--tw-text-dim)', fontSize: '1.05rem', maxWidth: 600, margin: '0 auto' }}>
+            <p style={{ 
+              color: isLight ? '#475569' : '#94A3B8', 
+              fontSize: '1.05rem', 
+              maxWidth: 620, 
+              margin: '0 auto',
+              lineHeight: 1.65 
+            }}>
               Say goodbye to confusing pixel setups, complicated Business Managers, and wasted ad budgets.
             </p>
           </div>
@@ -585,97 +646,107 @@ export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 28
+            gap: 28,
+            position: 'relative'
           }}>
-            <div className="glass-panel card-shimmer-sweep" style={{ padding: 34, borderRadius: 20 }}>
-              <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(0, 229, 255, 0.12)',
-                color: 'var(--tw-cyan)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 20,
-                border: '1px solid rgba(0, 229, 255, 0.3)'
-              }}>
-                <Target size={24} />
+            {/* Card 1: Cyan Identity - Targeted at real music fans */}
+            <div className="ad-advantage-card ad-card-cyan">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                <div className="ad-feature-icon-wrap ad-icon-cyan">
+                  <Target size={24} />
+                </div>
+                <span className="ad-feature-tag tag-cyan">
+                  Precision Audiences
+                </span>
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
+
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
                 Targeted at real music fans
               </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: 20 }}>
+              <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
                 Audiences are pre-built around actual listening habits, favorite subgenres, and related artists. Zero spam clicks or bot farms.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: '0.8rem', color: 'var(--tw-text-dim)', paddingTop: 16, borderTop: '1px solid var(--tw-line)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-cyan)" /> Lookalike listener modelling
+
+              <div className="ad-checklist-wrap" style={{ borderTopColor: isLight ? 'rgba(0, 126, 167, 0.12)' : 'rgba(255, 255, 255, 0.08)' }}>
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-cyan">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Lookalike listener modelling</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-cyan)" /> Genre-specific playlist retargeting
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-cyan">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Genre-specific playlist retargeting</span>
                 </div>
               </div>
             </div>
 
-            <div className="glass-panel card-shimmer-sweep" style={{ padding: 34, borderRadius: 20 }}>
-              <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(139, 92, 246, 0.12)',
-                color: 'var(--tw-sky)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 20,
-                border: '1px solid rgba(139, 92, 246, 0.3)'
-              }}>
-                <Layers size={24} />
+            {/* Card 2: Violet / Sky Identity - Spotify & YouTube unified */}
+            <div className="ad-advantage-card ad-card-purple">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                <div className="ad-feature-icon-wrap ad-icon-purple">
+                  <Layers size={24} />
+                </div>
+                <span className="ad-feature-tag tag-purple">
+                  Omnichannel Sync
+                </span>
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
-                Spotify & YouTube unified
+
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
+                Spotify &amp; YouTube unified
               </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: 20 }}>
+              <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
                 One simple dashboard handles ad campaigns across multiple major DSPs and video networks without configuring separate ad managers.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: '0.8rem', color: 'var(--tw-text-dim)', paddingTop: 16, borderTop: '1px solid var(--tw-line)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-purple)" /> Automated video & audio formatting
+
+              <div className="ad-checklist-wrap" style={{ borderTopColor: isLight ? 'rgba(124, 58, 237, 0.12)' : 'rgba(255, 255, 255, 0.08)' }}>
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-purple">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Automated video &amp; audio formatting</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-purple)" /> Multi-channel budget balancing
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-purple">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Multi-channel budget balancing</span>
                 </div>
               </div>
             </div>
 
-            <div className="glass-panel card-shimmer-sweep" style={{ padding: 34, borderRadius: 20 }}>
-              <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                background: 'rgba(16, 185, 129, 0.12)',
-                color: 'var(--tw-lime)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 20,
-                border: '1px solid rgba(16, 185, 129, 0.3)'
-              }}>
-                <BarChart3 size={24} />
+            {/* Card 3: Emerald Identity - Live performance dashboard */}
+            <div className="ad-advantage-card ad-card-green">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                <div className="ad-feature-icon-wrap ad-icon-green">
+                  <BarChart3 size={24} />
+                </div>
+                <span className="ad-feature-tag tag-green">
+                  Real-Time Telemetry
+                </span>
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
+
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
                 Live performance dashboard
               </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: 20 }}>
+              <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
                 Watch your streaming metrics surge with transparent analytics updating in real time, tracking cost per click, stream lift, and playlist adds.
               </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: '0.8rem', color: 'var(--tw-text-dim)', paddingTop: 16, borderTop: '1px solid var(--tw-line)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-lime)" /> Hourly conversion refresh
+
+              <div className="ad-checklist-wrap" style={{ borderTopColor: isLight ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255, 255, 255, 0.08)' }}>
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-green">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Hourly conversion refresh</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Check size={14} color="var(--tw-lime)" /> Downloadable PDF campaign recap
+                <div className="ad-check-item">
+                  <div className="ad-check-bullet bullet-green">
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  <span>Downloadable PDF campaign recap</span>
                 </div>
               </div>
             </div>
@@ -836,49 +907,65 @@ export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
         </div>
       </section>
 
-      {/* 7. BOTTOM CTA BANNER */}
-      <section style={{ padding: '60px 0 30px' }}>
-        <div className="container" style={{ maxWidth: 940 }}>
-          <div className="glass-panel" style={{
-            padding: 56,
-            borderRadius: 28,
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.1) 0%, rgba(9, 7, 20, 0.95) 50%, rgba(59, 130, 246, 0.1) 100%)',
-            border: '1px solid rgba(0, 229, 255, 0.3)'
-          }}>
-            <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 14 }}>
-              Ready to promote your release?
-            </h2>
-            <p style={{ fontSize: '1.1rem', color: 'var(--tw-text-dim)', maxWidth: 640, margin: '0 auto 32px', lineHeight: 1.6 }}>
-              Launch targeted music ads across Spotify and YouTube in minutes. Reach real fans, ignite algorithmic playlists, and build a lasting audience.
-            </p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button
-                onClick={() => {
-                  const el = document.getElementById('ad-builder');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="btn-cyan"
-                style={{ padding: '16px 36px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: 8 }}
-              >
-                <span>Launch Ad Campaign</span>
-                <ArrowRight size={18} />
-              </button>
-              <button
-                onClick={() => onNavigate && onNavigate('/promo')}
-                className="glass-panel"
-                style={{
-                  padding: '16px 30px',
-                  borderRadius: 12,
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  color: 'var(--tw-text-white)',
-                  cursor: 'pointer',
-                  border: '1px solid var(--tw-line)'
-                }}
-              >
-                View Full Promo Packages
-              </button>
+      {/* 7. BOTTOM CTA BANNER WITH 3D PARALLAX & AMBIENT ANIMATION */}
+      <section style={{ padding: '70px 0 40px', position: 'relative', overflow: 'hidden' }}>
+        <div className="container" style={{ maxWidth: 1040, position: 'relative', zIndex: 2 }}>
+          <div
+            ref={ctaRef}
+            onMouseMove={handleCtaMouseMove}
+            onMouseLeave={handleCtaMouseLeave}
+            className="ad-cta-3d-card"
+          >
+            {/* 3D Background Image Layer with Parallax & Float */}
+            <img
+              src="/login_background_image/Ready to release background image.png"
+              alt="Promote your music release"
+              aria-hidden="true"
+              className="ad-cta-3d-img"
+            />
+
+            {/* Cinematic Radial & Gradient Overlays for rich contrast */}
+            <div className="ad-cta-3d-overlay" />
+            <div className="ad-cta-3d-glow" />
+
+            {/* Shimmer Sheen Sweep */}
+            <div className="ad-cta-sheen" />
+
+            {/* Foreground Content with 3D Depth */}
+            <div className="ad-cta-3d-content">
+              {/* Badge */}
+              <div className="ad-cta-badge">
+                <Sparkles size={13} />
+                <span>Amplify Your Streaming</span>
+              </div>
+
+              <h2 className="ad-cta-title">
+                Ready to <span className="ad-cta-gradient-text">promote your release?</span>
+              </h2>
+
+              <p className="ad-cta-desc">
+                Launch targeted music ads across Spotify and YouTube in minutes. Reach real fans, ignite algorithmic playlists, and build a lasting audience.
+              </p>
+
+              <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('ad-builder');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="btn-cyan ad-cta-primary-btn"
+                >
+                  <span>Launch Ad Campaign</span>
+                  <ArrowRight size={18} />
+                </button>
+
+                <button
+                  onClick={() => onNavigate && onNavigate('/promo')}
+                  className="ad-cta-secondary-btn"
+                >
+                  View Full Promo Packages
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1115,6 +1202,476 @@ export default function AdLauncherPage({ onNavigate, theme = 'dark' }) {
 
         [data-theme="light"] .ad-cta-secondary:hover {
           border-color: #007EA7 !important;
+        }
+
+        /* ── Why Ad Launcher Section Styles & Animations ── */
+        .ad-features-section {
+          transition: background 0.3s ease;
+        }
+        .ad-badge-glow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 16px;
+          border-radius: 999px;
+          background: rgba(0, 229, 255, 0.1);
+          border: 1px solid rgba(0, 229, 255, 0.35);
+          color: #00E5FF;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+        }
+        [data-theme="light"] .ad-badge-glow {
+          background: rgba(0, 126, 167, 0.08);
+          border-color: rgba(0, 126, 167, 0.25);
+          color: #007EA7;
+          box-shadow: 0 2px 12px rgba(0, 126, 167, 0.12);
+        }
+        .ad-dot-pulse {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #00E5FF;
+          box-shadow: 0 0 10px #00E5FF;
+          animation: adDotPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        [data-theme="light"] .ad-dot-pulse {
+          background: #007EA7;
+          box-shadow: 0 0 8px #007EA7;
+        }
+        @keyframes adDotPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.4); }
+        }
+        .ad-heading-accent {
+          background: linear-gradient(135deg, #00E5FF 0%, #38BDF8 50%, #2DD4BF 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        [data-theme="light"] .ad-heading-accent {
+          background: linear-gradient(135deg, #007EA7 0%, #0284C7 50%, #0D9488 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .ad-advantage-card {
+          position: relative;
+          border-radius: 22px;
+          padding: 34px 28px;
+          overflow: hidden;
+          background: rgba(14, 20, 32, 0.75);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.5);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+          will-change: transform;
+        }
+        [data-theme="light"] .ad-advantage-card {
+          background: #FFFFFF;
+          border: 1px solid rgba(0, 126, 167, 0.14);
+          box-shadow: 0 12px 30px -10px rgba(0, 80, 120, 0.07);
+        }
+        .ad-advantage-card::after {
+          content: '';
+          position: absolute;
+          top: -60%;
+          left: -60%;
+          width: 220%;
+          height: 220%;
+          background: linear-gradient(65deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+          transform: translateX(-100%) rotate(25deg);
+          transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+        }
+        [data-theme="light"] .ad-advantage-card::after {
+          background: linear-gradient(65deg, transparent 40%, rgba(0, 126, 167, 0.08) 50%, transparent 60%);
+        }
+        .ad-advantage-card:hover::after {
+          transform: translateX(100%) rotate(25deg);
+        }
+        .ad-advantage-card:hover {
+          transform: translateY(-8px) scale(1.02);
+        }
+        .ad-card-cyan:hover {
+          border-color: rgba(0, 229, 255, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(0, 229, 255, 0.28), 0 0 20px rgba(0, 229, 255, 0.12) !important;
+        }
+        [data-theme="light"] .ad-card-cyan:hover {
+          border-color: #007EA7 !important;
+          box-shadow: 0 24px 50px -12px rgba(0, 126, 167, 0.22) !important;
+        }
+        .ad-card-purple:hover {
+          border-color: rgba(168, 85, 247, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(168, 85, 247, 0.28), 0 0 20px rgba(168, 85, 247, 0.12) !important;
+        }
+        [data-theme="light"] .ad-card-purple:hover {
+          border-color: #7C3AED !important;
+          box-shadow: 0 24px 50px -12px rgba(124, 58, 237, 0.22) !important;
+        }
+        .ad-card-green:hover {
+          border-color: rgba(16, 185, 129, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(16, 185, 129, 0.28), 0 0 20px rgba(16, 185, 129, 0.12) !important;
+        }
+        [data-theme="light"] .ad-card-green:hover {
+          border-color: #059669 !important;
+          box-shadow: 0 24px 50px -12px rgba(5, 150, 105, 0.22) !important;
+        }
+        .ad-feature-icon-wrap {
+          width: 50px;
+          height: 50px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+          animation: adIconFloat 4s ease-in-out infinite;
+        }
+        .ad-advantage-card:hover .ad-feature-icon-wrap {
+          transform: scale(1.14) rotate(4deg);
+        }
+        @keyframes adIconFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-4px); }
+        }
+        .ad-icon-cyan {
+          background: linear-gradient(135deg, rgba(0, 229, 255, 0.18) 0%, rgba(14, 165, 233, 0.12) 100%);
+          color: #00E5FF;
+          border: 1px solid rgba(0, 229, 255, 0.4);
+          box-shadow: 0 0 16px rgba(0, 229, 255, 0.2);
+        }
+        [data-theme="light"] .ad-icon-cyan {
+          background: rgba(0, 126, 167, 0.1);
+          color: #007EA7;
+          border-color: rgba(0, 126, 167, 0.3);
+          box-shadow: 0 2px 10px rgba(0, 126, 167, 0.15);
+        }
+        .ad-icon-purple {
+          background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(139, 92, 246, 0.12) 100%);
+          color: #C084FC;
+          border: 1px solid rgba(168, 85, 247, 0.4);
+          box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+          animation-delay: 1.3s;
+        }
+        [data-theme="light"] .ad-icon-purple {
+          background: rgba(124, 58, 237, 0.1);
+          color: #7C3AED;
+          border-color: rgba(124, 58, 237, 0.3);
+          box-shadow: 0 2px 10px rgba(124, 58, 237, 0.15);
+        }
+        .ad-icon-green {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.12) 100%);
+          color: #34D399;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+          animation-delay: 2.6s;
+        }
+        [data-theme="light"] .ad-icon-green {
+          background: rgba(5, 150, 105, 0.1);
+          color: #059669;
+          border-color: rgba(5, 150, 105, 0.3);
+          box-shadow: 0 2px 10px rgba(5, 150, 105, 0.15);
+        }
+        .ad-feature-tag {
+          font-size: 0.70rem;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          padding: 3px 10px;
+          border-radius: 999px;
+        }
+        .ad-checklist-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding-top: 18px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .ad-check-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 0.84rem;
+          font-weight: 600;
+          color: #94A3B8;
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+        [data-theme="light"] .ad-check-item {
+          color: #475569;
+        }
+        .ad-advantage-card:hover .ad-check-item {
+          transform: translateX(4px);
+        }
+        .ad-check-bullet {
+          width: 20px;
+          height: 20px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: transform 0.25s ease;
+        }
+        .ad-advantage-card:hover .ad-check-bullet {
+          transform: scale(1.15);
+        }
+        .bullet-cyan {
+          background: rgba(0, 229, 255, 0.15);
+          color: #00E5FF;
+          border: 1px solid rgba(0, 229, 255, 0.3);
+        }
+        [data-theme="light"] .bullet-cyan {
+          background: rgba(0, 126, 167, 0.12);
+          color: #007EA7;
+          border-color: rgba(0, 126, 167, 0.25);
+        }
+        .bullet-purple {
+          background: rgba(168, 85, 247, 0.15);
+          color: #C084FC;
+          border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+        [data-theme="light"] .bullet-purple {
+          background: rgba(124, 58, 237, 0.12);
+          color: #7C3AED;
+          border-color: rgba(124, 58, 237, 0.25);
+        }
+        .bullet-green {
+          background: rgba(16, 185, 129, 0.15);
+          color: #34D399;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        [data-theme="light"] .bullet-green {
+          background: rgba(5, 150, 105, 0.12);
+          color: #059669;
+          border-color: rgba(5, 150, 105, 0.25);
+        }
+
+        /* ── Bottom CTA 3D Card with Parallax & Ambient Float ── */
+        .ad-cta-3d-card {
+          position: relative;
+          border-radius: 32px;
+          padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 60px);
+          text-align: center;
+          overflow: hidden;
+          perspective: 1200px;
+          transform-style: preserve-3d;
+          transform: perspective(1200px) rotateX(calc(var(--cta-tilt-y, 0) * -5deg)) rotateY(calc(var(--cta-tilt-x, 0) * 6.5deg));
+          transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+          will-change: transform;
+          background: #080C16;
+          border: 1px solid rgba(0, 229, 255, 0.35);
+          box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.2);
+        }
+        [data-theme="light"] .ad-cta-3d-card {
+          background: #FFFFFF;
+          border: 1px solid rgba(0, 126, 167, 0.28);
+          box-shadow: 0 25px 65px -15px rgba(0, 126, 167, 0.22), 0 0 35px rgba(0, 126, 167, 0.08);
+        }
+        .ad-cta-3d-card:hover {
+          border-color: rgba(0, 229, 255, 0.7) !important;
+          box-shadow: 0 35px 85px -15px rgba(0, 229, 255, 0.35), 0 0 40px rgba(0, 229, 255, 0.25) !important;
+        }
+        [data-theme="light"] .ad-cta-3d-card:hover {
+          border-color: #007EA7 !important;
+          box-shadow: 0 35px 80px -12px rgba(0, 126, 167, 0.32), 0 0 40px rgba(0, 126, 167, 0.15) !important;
+        }
+        .ad-cta-3d-img {
+          position: absolute;
+          inset: -5%;
+          width: 110%;
+          height: 110%;
+          object-fit: cover;
+          object-position: center;
+          transform: scale(1.06) translate3d(calc(var(--cta-tilt-x, 0) * -18px), calc(var(--cta-tilt-y, 0) * -14px), -20px);
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          animation: adCtaImgFloat 14s ease-in-out infinite alternate;
+          will-change: transform;
+          user-select: none;
+          pointer-events: none;
+          opacity: 0.85;
+          filter: brightness(0.85) contrast(1.2) saturate(1.25);
+        }
+        [data-theme="light"] .ad-cta-3d-img {
+          opacity: 0.96;
+          filter: brightness(1.02) contrast(1.05) saturate(1.08);
+        }
+        @keyframes adCtaImgFloat {
+          0% {
+            transform: scale(1.06) translate3d(0, 0, 0) rotate(0deg);
+          }
+          50% {
+            transform: scale(1.11) translate3d(-8px, -5px, 0) rotate(0.35deg);
+          }
+          100% {
+            transform: scale(1.06) translate3d(8px, 6px, 0) rotate(-0.3deg);
+          }
+        }
+        .ad-cta-3d-overlay {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(8, 12, 24, 0.85) 0%, rgba(8, 12, 24, 0.68) 45%, rgba(6, 9, 18, 0.88) 100%), linear-gradient(180deg, rgba(8, 12, 24, 0.4) 0%, rgba(8, 12, 24, 0.65) 100%);
+          pointer-events: none;
+          z-index: 1;
+        }
+        [data-theme="light"] .ad-cta-3d-overlay {
+          background: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.65) 45%, rgba(240, 248, 255, 0.35) 75%, rgba(230, 242, 255, 0.55) 100%);
+        }
+        .ad-cta-3d-glow {
+          position: absolute;
+          top: -30%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 70%;
+          height: 80%;
+          background: radial-gradient(circle, rgba(0, 229, 255, 0.25) 0%, rgba(168, 85, 247, 0.15) 45%, transparent 70%);
+          filter: blur(40px);
+          pointer-events: none;
+          z-index: 2;
+          animation: adCtaGlowPulse 6s ease-in-out infinite alternate;
+        }
+        [data-theme="light"] .ad-cta-3d-glow {
+          background: radial-gradient(circle, rgba(0, 126, 167, 0.16) 0%, rgba(56, 189, 248, 0.1) 45%, transparent 70%);
+        }
+        @keyframes adCtaGlowPulse {
+          0% { opacity: 0.6; transform: translateX(-50%) scale(0.95); }
+          100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+        }
+        .ad-cta-sheen {
+          position: absolute;
+          top: -60%;
+          left: -60%;
+          width: 220%;
+          height: 220%;
+          background: linear-gradient(65deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+          transform: translateX(-100%) rotate(25deg);
+          transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+          z-index: 2;
+        }
+        [data-theme="light"] .ad-cta-sheen {
+          background: linear-gradient(65deg, transparent 40%, rgba(0, 126, 167, 0.1) 50%, transparent 60%);
+        }
+        .ad-cta-3d-card:hover .ad-cta-sheen {
+          transform: translateX(100%) rotate(25deg);
+        }
+        .ad-cta-3d-content {
+          position: relative;
+          z-index: 3;
+          transform: translateZ(35px);
+        }
+        .ad-cta-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 6px 16px;
+          border-radius: 999px;
+          background: rgba(0, 229, 255, 0.14);
+          border: 1px solid rgba(0, 229, 255, 0.35);
+          color: #00E5FF;
+          font-size: 0.76rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+          box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+        }
+        [data-theme="light"] .ad-cta-badge {
+          background: rgba(0, 126, 167, 0.1);
+          border-color: rgba(0, 126, 167, 0.28);
+          color: #007EA7;
+          box-shadow: 0 2px 10px rgba(0, 126, 167, 0.12);
+        }
+        .ad-cta-title {
+          font-size: clamp(2.1rem, 5vw, 3.2rem);
+          font-weight: 900;
+          color: #FFFFFF;
+          margin-bottom: 16px;
+          line-height: 1.2;
+          text-shadow: 0 3px 18px rgba(0, 0, 0, 0.9);
+          letter-spacing: -0.02em;
+        }
+        [data-theme="light"] .ad-cta-title {
+          color: #0F172A;
+          text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        }
+        .ad-cta-gradient-text {
+          background: linear-gradient(135deg, #00E5FF 0%, #38BDF8 50%, #A855F7 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.45));
+          text-shadow: none !important;
+        }
+        [data-theme="light"] .ad-cta-gradient-text {
+          background: linear-gradient(135deg, #007EA7 0%, #0284C7 50%, #7C3AED 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: none;
+        }
+        .ad-cta-desc {
+          font-size: clamp(1rem, 2vw, 1.14rem);
+          color: #E2E8F0;
+          max-width: 640px;
+          margin: 0 auto 36px;
+          line-height: 1.65;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+        }
+        [data-theme="light"] .ad-cta-desc {
+          color: #334155;
+          text-shadow: none;
+        }
+        .ad-cta-primary-btn {
+          padding: 16px 36px;
+          font-size: 1rem;
+          font-weight: 800;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          border-radius: 12px;
+          box-shadow: 0 8px 30px rgba(0, 229, 255, 0.45), 0 0 20px rgba(0, 229, 255, 0.25);
+          transition: all 0.25s ease;
+        }
+        .ad-cta-primary-btn:hover {
+          transform: translateY(-2px) scale(1.03);
+          box-shadow: 0 10px 35px rgba(0, 229, 255, 0.6), 0 0 25px rgba(0, 229, 255, 0.35) !important;
+        }
+        [data-theme="light"] .ad-cta-primary-btn {
+          box-shadow: 0 8px 25px rgba(0, 126, 167, 0.3), 0 2px 8px rgba(0, 126, 167, 0.15);
+        }
+        [data-theme="light"] .ad-cta-primary-btn:hover {
+          box-shadow: 0 10px 30px rgba(0, 126, 167, 0.4) !important;
+        }
+        .ad-cta-secondary-btn {
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-size: 1rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="light"] .ad-cta-secondary-btn {
+          background: rgba(255, 255, 255, 0.9);
+          color: #0F172A;
+          border: 1px solid rgba(0, 126, 167, 0.25);
+          box-shadow: 0 4px 15px rgba(0, 80, 120, 0.08);
+        }
+        .ad-cta-secondary-btn:hover {
+          background: rgba(255, 255, 255, 0.16) !important;
+          border-color: rgba(0, 229, 255, 0.5) !important;
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 0 8px 25px rgba(0, 229, 255, 0.2) !important;
+        }
+        [data-theme="light"] .ad-cta-secondary-btn:hover {
+          background: #FFFFFF !important;
+          color: #007EA7 !important;
+          border-color: #007EA7 !important;
+          box-shadow: 0 6px 20px rgba(0, 126, 167, 0.2) !important;
         }
       `}</style>
 

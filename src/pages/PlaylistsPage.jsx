@@ -800,106 +800,142 @@ export default function PlaylistsPage({ onNavigate, theme = 'dark' }) {
       </section>
 
       {/* 3. HOW PITCHING WORKS (3 STEPS) */}
-      <section style={{ padding: '80px 0', background: 'rgba(0, 0, 0, 0.2)', borderTop: '1px solid var(--tw-line)', borderBottom: '1px solid var(--tw-line)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="pill-badge" style={{ color: 'var(--tw-cyan)', borderColor: 'var(--tw-cyan)' }}>
-              THE PITCHING PIPELINE
-            </span>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, color: 'var(--tw-text-white)', marginTop: 12, marginBottom: 12 }}>
-              How Playlist Pitching Works
+      <section 
+        className="pipeline-pitch-section"
+        style={{ 
+          padding: '96px 0', 
+          position: 'relative',
+          overflow: 'hidden',
+          background: isLight 
+            ? 'linear-gradient(180deg, #F8FAFC 0%, #EDF4FA 50%, #F8FAFC 100%)' 
+            : 'linear-gradient(180deg, #080B11 0%, #0B101C 50%, #080B11 100%)',
+          borderTop: isLight ? '1px solid rgba(0, 126, 167, 0.12)' : '1px solid rgba(255, 255, 255, 0.08)', 
+          borderBottom: isLight ? '1px solid rgba(0, 126, 167, 0.12)' : '1px solid rgba(255, 255, 255, 0.08)' 
+        }}
+      >
+        {/* Soft Ambient Radial Aura */}
+        <div style={{
+          position: 'absolute',
+          top: '5%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'min(900px, 90vw)',
+          height: 380,
+          background: isLight
+            ? 'radial-gradient(ellipse, rgba(0, 126, 167, 0.09) 0%, rgba(2, 132, 199, 0.03) 50%, transparent 70%)'
+            : 'radial-gradient(ellipse, rgba(0, 229, 255, 0.11) 0%, rgba(14, 165, 233, 0.04) 50%, transparent 70%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none'
+        }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ textAlign: 'center', marginBottom: 60 }}>
+            <div className="pipeline-badge-glow">
+              <span className="pipeline-dot-pulse" />
+              <span>THE PITCHING PIPELINE</span>
+            </div>
+            <h2 style={{ 
+              fontSize: 'clamp(2.1rem, 4.5vw, 3.2rem)', 
+              fontWeight: 900, 
+              color: isLight ? '#0F172A' : '#FFFFFF', 
+              marginTop: 16, 
+              marginBottom: 14,
+              letterSpacing: '-0.025em'
+            }}>
+              How <span className="pipeline-heading-accent">Playlist Pitching</span> Works
             </h2>
-            <p style={{ color: 'var(--tw-text-dim)', fontSize: '1.05rem', maxWidth: 600, margin: '0 auto' }}>
+            <p style={{ 
+              color: isLight ? '#475569' : '#94A3B8', 
+              fontSize: '1.05rem', 
+              maxWidth: 620, 
+              margin: '0 auto',
+              lineHeight: 1.65 
+            }}>
               Get your tracks evaluated by genuine music curators with zero automated bot playlists or payola.
             </p>
           </div>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 28
+            gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+            gap: 28,
+            position: 'relative'
           }}>
-            <div className="pipeline-step-card card-shimmer-sweep">
-              <div className="pipeline-step-num" style={{
-                width: 46,
-                height: 46,
-                borderRadius: 14,
-                background: 'rgba(0, 229, 255, 0.12)',
-                color: 'var(--tw-cyan)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '1.1rem',
-                marginBottom: 20,
-                border: '1px solid rgba(0, 229, 255, 0.35)'
-              }}>
-                01
-              </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
-                Submit your track
-              </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: 20 }}>
-                Provide your Spotify track URL or pre-save link along with genre tags and a brief pitch note outlining your release backstory.
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', color: 'var(--tw-cyan)', fontWeight: 700 }}>
-                <CheckCircle2 size={14} /> Takes less than 60 seconds
+            {/* Step 01: Cyan Identity */}
+            <div className="pipeline-card pipeline-card-cyan">
+              <div className="pipeline-card-glow-bg" />
+              <div className="pipeline-card-inner">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                  <div className="pipeline-step-badge badge-cyan">
+                    01
+                  </div>
+                  <span className="pipeline-step-tag tag-cyan">
+                    Step 01 · Submission
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
+                  Submit your track
+                </h3>
+                <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
+                  Provide your Spotify track URL or pre-save link along with genre tags and a brief pitch note outlining your release backstory.
+                </p>
+                <div className="pipeline-pill-benefit benefit-cyan">
+                  <CheckCircle2 size={15} className="benefit-icon" />
+                  <span>Takes less than 60 seconds</span>
+                </div>
               </div>
             </div>
 
-            <div className="pipeline-step-card card-shimmer-sweep">
-              <div className="pipeline-step-num" style={{
-                width: 46,
-                height: 46,
-                borderRadius: 14,
-                background: 'rgba(139, 92, 246, 0.12)',
-                color: 'var(--tw-purple)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '1.1rem',
-                marginBottom: 20,
-                border: '1px solid rgba(139, 92, 246, 0.35)'
-              }}>
-                02
-              </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
-                Our curators listen
-              </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: 20 }}>
-                Our internal editorial curation team listens to every single incoming submission across all genres twice a week without algorithms.
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', color: 'var(--tw-purple)', fontWeight: 700 }}>
-                <CheckCircle2 size={14} /> Real humans, no AI scrapers
+            {/* Step 02: Violet / Purple Identity */}
+            <div className="pipeline-card pipeline-card-purple">
+              <div className="pipeline-card-glow-bg" />
+              <div className="pipeline-card-inner">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                  <div className="pipeline-step-badge badge-purple">
+                    02
+                  </div>
+                  <span className="pipeline-step-tag tag-purple">
+                    Step 02 · Evaluation
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
+                  Our curators listen
+                </h3>
+                <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
+                  Our internal editorial curation team listens to every single incoming submission across all genres twice a week without algorithms.
+                </p>
+                <div className="pipeline-pill-benefit benefit-purple">
+                  <CheckCircle2 size={15} className="benefit-icon" />
+                  <span>Real humans, no AI scrapers</span>
+                </div>
               </div>
             </div>
 
-            <div className="pipeline-step-card card-shimmer-sweep">
-              <div className="pipeline-step-num" style={{
-                width: 46,
-                height: 46,
-                borderRadius: 14,
-                background: 'rgba(29, 185, 84, 0.14)',
-                color: '#1DB954',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '1.1rem',
-                marginBottom: 20,
-                border: '1px solid rgba(29, 185, 84, 0.4)'
-              }}>
-                03
-              </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--tw-text-white)', marginBottom: 10 }}>
-                Get featured worldwide
-              </h3>
-              <p style={{ color: 'var(--tw-text-dim)', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: 20 }}>
-                Accepted tracks are slotted directly into high-rotation playlist positions and boosted to our 550,000+ monthly listener community.
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', color: '#1DB954', fontWeight: 700 }}>
-                <CheckCircle2 size={14} /> Zero fees, 100% royalties kept
+            {/* Step 03: Emerald / Spotify Green Identity */}
+            <div className="pipeline-card pipeline-card-green">
+              <div className="pipeline-card-glow-bg" />
+              <div className="pipeline-card-inner">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                  <div className="pipeline-step-badge badge-green">
+                    03
+                  </div>
+                  <span className="pipeline-step-tag tag-green">
+                    Step 03 · Placement
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: isLight ? '#0F172A' : '#FFFFFF', marginBottom: 12 }}>
+                  Get featured worldwide
+                </h3>
+                <p style={{ color: isLight ? '#475569' : '#94A3B8', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: 24 }}>
+                  Accepted tracks are slotted directly into high-rotation playlist positions and boosted to our 550,000+ monthly listener community.
+                </p>
+                <div className="pipeline-pill-benefit benefit-green">
+                  <CheckCircle2 size={15} className="benefit-icon" />
+                  <span>Zero fees, 100% royalties kept</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1377,6 +1413,260 @@ export default function PlaylistsPage({ onNavigate, theme = 'dark' }) {
         </div>
       )}
 
+      {/* Styles & Animations for Playlist Pitching Pipeline */}
+      <style>{`
+        .pipeline-pitch-section {
+          transition: background 0.3s ease;
+        }
+        .pipeline-badge-glow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 16px;
+          border-radius: 999px;
+          background: rgba(0, 229, 255, 0.1);
+          border: 1px solid rgba(0, 229, 255, 0.35);
+          color: #00E5FF;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+        }
+        [data-theme="light"] .pipeline-badge-glow {
+          background: rgba(0, 126, 167, 0.08);
+          border-color: rgba(0, 126, 167, 0.25);
+          color: #007EA7;
+          box-shadow: 0 2px 12px rgba(0, 126, 167, 0.12);
+        }
+        .pipeline-dot-pulse {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #00E5FF;
+          box-shadow: 0 0 10px #00E5FF;
+          animation: pipelineDotPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        [data-theme="light"] .pipeline-dot-pulse {
+          background: #007EA7;
+          box-shadow: 0 0 8px #007EA7;
+        }
+        @keyframes pipelineDotPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.4); }
+        }
+        .pipeline-heading-accent {
+          background: linear-gradient(135deg, #00E5FF 0%, #38BDF8 50%, #2DD4BF 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        [data-theme="light"] .pipeline-heading-accent {
+          background: linear-gradient(135deg, #007EA7 0%, #0284C7 50%, #0D9488 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .pipeline-card {
+          position: relative;
+          border-radius: 22px;
+          padding: 32px 28px;
+          overflow: hidden;
+          background: rgba(14, 20, 32, 0.75);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.5);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+          will-change: transform;
+        }
+        [data-theme="light"] .pipeline-card {
+          background: #FFFFFF;
+          border: 1px solid rgba(0, 126, 167, 0.14);
+          box-shadow: 0 12px 30px -10px rgba(0, 80, 120, 0.07);
+        }
+        .pipeline-card::after {
+          content: '';
+          position: absolute;
+          top: -60%;
+          left: -60%;
+          width: 220%;
+          height: 220%;
+          background: linear-gradient(65deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+          transform: translateX(-100%) rotate(25deg);
+          transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+        }
+        [data-theme="light"] .pipeline-card::after {
+          background: linear-gradient(65deg, transparent 40%, rgba(0, 126, 167, 0.08) 50%, transparent 60%);
+        }
+        .pipeline-card:hover::after {
+          transform: translateX(100%) rotate(25deg);
+        }
+        .pipeline-card:hover {
+          transform: translateY(-8px) scale(1.02);
+        }
+        .pipeline-card-cyan:hover {
+          border-color: rgba(0, 229, 255, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(0, 229, 255, 0.28), 0 0 20px rgba(0, 229, 255, 0.12) !important;
+        }
+        [data-theme="light"] .pipeline-card-cyan:hover {
+          border-color: #007EA7 !important;
+          box-shadow: 0 24px 50px -12px rgba(0, 126, 167, 0.22) !important;
+        }
+        .pipeline-card-purple:hover {
+          border-color: rgba(168, 85, 247, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(168, 85, 247, 0.28), 0 0 20px rgba(168, 85, 247, 0.12) !important;
+        }
+        [data-theme="light"] .pipeline-card-purple:hover {
+          border-color: #7C3AED !important;
+          box-shadow: 0 24px 50px -12px rgba(124, 58, 237, 0.22) !important;
+        }
+        .pipeline-card-green:hover {
+          border-color: rgba(16, 185, 129, 0.55) !important;
+          box-shadow: 0 24px 50px -12px rgba(16, 185, 129, 0.28), 0 0 20px rgba(16, 185, 129, 0.12) !important;
+        }
+        [data-theme="light"] .pipeline-card-green:hover {
+          border-color: #059669 !important;
+          box-shadow: 0 24px 50px -12px rgba(5, 150, 105, 0.22) !important;
+        }
+        .pipeline-step-badge {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 900;
+          font-size: 1.15rem;
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+          animation: pipelineBadgeFloat 4s ease-in-out infinite;
+        }
+        .pipeline-card:hover .pipeline-step-badge {
+          transform: scale(1.14) rotate(4deg);
+        }
+        @keyframes pipelineBadgeFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-4px); }
+        }
+        .badge-cyan {
+          background: linear-gradient(135deg, rgba(0, 229, 255, 0.18) 0%, rgba(14, 165, 233, 0.12) 100%);
+          color: #00E5FF;
+          border: 1px solid rgba(0, 229, 255, 0.4);
+          box-shadow: 0 0 16px rgba(0, 229, 255, 0.2);
+        }
+        [data-theme="light"] .badge-cyan {
+          background: rgba(0, 126, 167, 0.1);
+          color: #007EA7;
+          border-color: rgba(0, 126, 167, 0.3);
+          box-shadow: 0 2px 10px rgba(0, 126, 167, 0.15);
+        }
+        .badge-purple {
+          background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(139, 92, 246, 0.12) 100%);
+          color: #C084FC;
+          border: 1px solid rgba(168, 85, 247, 0.4);
+          box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+          animation-delay: 1.3s;
+        }
+        [data-theme="light"] .badge-purple {
+          background: rgba(124, 58, 237, 0.1);
+          color: #7C3AED;
+          border-color: rgba(124, 58, 237, 0.3);
+          box-shadow: 0 2px 10px rgba(124, 58, 237, 0.15);
+        }
+        .badge-green {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.12) 100%);
+          color: #34D399;
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+          animation-delay: 2.6s;
+        }
+        [data-theme="light"] .badge-green {
+          background: rgba(5, 150, 105, 0.1);
+          color: #059669;
+          border-color: rgba(5, 150, 105, 0.3);
+          box-shadow: 0 2px 10px rgba(5, 150, 105, 0.15);
+        }
+        .pipeline-step-tag {
+          font-size: 0.70rem;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          padding: 3px 10px;
+          border-radius: 999px;
+        }
+        .tag-cyan {
+          background: rgba(0, 229, 255, 0.08);
+          color: #00E5FF;
+          border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        [data-theme="light"] .tag-cyan {
+          background: rgba(0, 126, 167, 0.08);
+          color: #007EA7;
+          border-color: rgba(0, 126, 167, 0.2);
+        }
+        .tag-purple {
+          background: rgba(168, 85, 247, 0.08);
+          color: #C084FC;
+          border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        [data-theme="light"] .tag-purple {
+          background: rgba(124, 58, 237, 0.08);
+          color: #7C3AED;
+          border-color: rgba(124, 58, 237, 0.2);
+        }
+        .tag-green {
+          background: rgba(16, 185, 129, 0.08);
+          color: #34D399;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        [data-theme="light"] .tag-green {
+          background: rgba(5, 150, 105, 0.08);
+          color: #059669;
+          border-color: rgba(5, 150, 105, 0.2);
+        }
+        .pipeline-pill-benefit {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border-radius: 10px;
+          font-size: 0.80rem;
+          font-weight: 700;
+          transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .pipeline-card:hover .pipeline-pill-benefit {
+          transform: translateX(4px);
+        }
+        .benefit-cyan {
+          background: rgba(0, 229, 255, 0.08);
+          color: #00E5FF;
+          border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        [data-theme="light"] .benefit-cyan {
+          background: rgba(0, 126, 167, 0.08);
+          color: #007EA7;
+          border-color: rgba(0, 126, 167, 0.18);
+        }
+        .benefit-purple {
+          background: rgba(168, 85, 247, 0.08);
+          color: #C084FC;
+          border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        [data-theme="light"] .benefit-purple {
+          background: rgba(124, 58, 237, 0.08);
+          color: #7C3AED;
+          border-color: rgba(124, 58, 237, 0.18);
+        }
+        .benefit-green {
+          background: rgba(16, 185, 129, 0.08);
+          color: #34D399;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        [data-theme="light"] .benefit-green {
+          background: rgba(5, 150, 105, 0.08);
+          color: #059669;
+          border-color: rgba(5, 150, 105, 0.18);
+        }
+      `}</style>
     </div>
   );
 }

@@ -171,13 +171,142 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
           box-shadow: 0 16px 36px rgba(0, 229, 255, 0.18), 0 0 20px rgba(0, 229, 255, 0.12) !important;
           border-color: rgba(0, 229, 255, 0.65) !important;
         }
-
         .gs-hero-artist-card {
           transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .gs-hero-artist-card:hover {
           border-color: rgba(0, 229, 255, 0.8) !important;
           box-shadow: 0 20px 40px rgba(0, 229, 255, 0.25) !important;
+        }
+
+        /* ── Responsive Layout & Media Queries ── */
+        .gs-hero-section {
+          position: relative;
+          padding: 120px 0 90px;
+          overflow: hidden;
+          border-bottom: 1px solid var(--tw-line);
+          background: radial-gradient(ellipse at 50% 20%, rgba(0, 229, 255, 0.08) 0%, transparent 65%);
+        }
+        .gs-hero-container {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 64px;
+          align-items: center;
+          position: relative;
+          z-index: 2;
+        }
+        .gs-hero-artist-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+          perspective: 1200px;
+          transform-style: preserve-3d;
+        }
+        .gs-services-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+        .gs-steps-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 26px;
+        }
+        .gs-advances-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: center;
+        }
+        .gs-stats-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        .gs-form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+        }
+        .gs-form-wrapper {
+          background: var(--tw-bg-surface);
+          border: 1px solid var(--tw-line-bright);
+          border-radius: 28px;
+          padding: 52px 48px;
+          box-shadow: 0 35px 90px rgba(0,0,0,0.45), 0 0 30px rgba(0,229,255,0.06);
+          backdrop-filter: blur(16px);
+        }
+        .gs-roster-card {
+          flex-shrink: 0;
+          width: calc((100% - 48px) / 3);
+          background: var(--tw-bg-card);
+          border: 1px solid var(--tw-line);
+          border-radius: 22px;
+          overflow: hidden;
+        }
+
+        @media (max-width: 960px) {
+          .gs-hero-section {
+            padding: 50px 0 60px !important;
+          }
+          .gs-hero-container {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          .gs-services-grid,
+          .gs-steps-grid {
+            grid-template-columns: 1fr !important;
+            gap: 18px !important;
+          }
+          .gs-advances-grid {
+            grid-template-columns: 1fr !important;
+            gap: 36px !important;
+          }
+          .gs-hero-artist-grid {
+            perspective: none !important;
+            transform-style: flat !important;
+            max-width: 440px;
+            margin: 0 auto;
+            width: 100%;
+          }
+          .gs-hero-artist-card {
+            transform: none !important;
+          }
+          .gs-roster-card {
+            width: calc((100% - 24px) / 2) !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .gs-hero-section {
+            padding: 32px 0 44px !important;
+          }
+          .gs-hero-artist-grid {
+            gap: 10px !important;
+            max-width: 100% !important;
+          }
+          .gs-hero-artist-card {
+            padding: 12px 10px !important;
+            border-radius: 14px !important;
+          }
+          .gs-hero-artist-card .gs-artist-thumb {
+            height: 100px !important;
+          }
+          .gs-form-grid {
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+          }
+          .gs-form-wrapper {
+            padding: 24px 16px !important;
+            border-radius: 18px !important;
+          }
+          .gs-stats-grid {
+            gap: 10px !important;
+          }
+          .gs-roster-card {
+            width: 86% !important;
+            min-width: 240px !important;
+          }
         }
       `}</style>
 
@@ -186,20 +315,14 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        style={{ 
-          position: "relative", 
-          padding: "130px 0 90px", 
-          overflow: "hidden", 
-          borderBottom: "1px solid var(--tw-line)",
-          background: "radial-gradient(ellipse at 50% 20%, rgba(0, 229, 255, 0.08) 0%, transparent 65%)"
-        }}
+        className="gs-hero-section"
       >
         {/* Dynamic Interactive Cursor Spotlight */}
         <div 
           style={{ 
             position: "absolute", 
             inset: 0, 
-            pointerEvents: "none",
+            pointerEvents: "none", 
             background: `radial-gradient(650px circle at ${cursorPos.x}% ${cursorPos.y}%, rgba(0, 229, 255, 0.12) 0%, transparent 70%)`,
             transition: "background 0.15s ease-out"
           }} 
@@ -211,7 +334,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
           <div style={{ position: "absolute", bottom: "-15%", right: "-8%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)", animation: "gsGlowOrb 10s ease-in-out infinite alternate-reverse" }} />
         </div>
 
-        <div className="container" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 64, alignItems: "center", position: "relative", zIndex: 2 }}>
+        <div className="container gs-hero-container">
           <div className="reveal-up">
             <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
               <span style={{ 
@@ -224,7 +347,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
                 <Sparkles size={14} /> TUNEWAVE LABEL SERVICES
               </span>
             </div>
-            <h1 style={{ fontSize: "clamp(2.8rem, 5.8vw, 4.4rem)", fontWeight: 900, lineHeight: 1.05, marginBottom: 22, color: "var(--tw-text-white)", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "clamp(2.3rem, 5.8vw, 4.4rem)", fontWeight: 900, lineHeight: 1.05, marginBottom: 22, color: "var(--tw-text-white)", letterSpacing: "-0.02em" }}>
               Get signed where<br />
               <span style={{ 
                 background: "linear-gradient(135deg, #00F2FE 0%, #00E5FF 50%, #38BDF8 100%)",
@@ -234,7 +357,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
                 you started.
               </span>
             </h1>
-            <p style={{ fontSize: "1.12rem", color: "var(--tw-text-dim)", lineHeight: 1.75, marginBottom: 38, maxWidth: 510 }}>
+            <p style={{ fontSize: "clamp(0.95rem, 2vw, 1.12rem)", color: "var(--tw-text-dim)", lineHeight: 1.75, marginBottom: 38, maxWidth: 510 }}>
               Tunewave Label Services spots the next wave of independent artists and offers catalog advances, A&R support, global radio pitching, and sync representation — all without surrendering your masters.
             </p>
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
@@ -260,15 +383,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
           </div>
 
           {/* 3D TILT ARTIST GALLERY IN HERO */}
-          <div 
-            style={{ 
-              display: "grid", 
-              gridTemplateColumns: "1fr 1fr", 
-              gap: 18, 
-              perspective: 1200,
-              transformStyle: "preserve-3d"
-            }}
-          >
+          <div className="gs-hero-artist-grid">
             {HALL_OF_FAME.slice(0, 4).map((artist, i) => {
               const depthZ = 15 + (i % 2) * 18;
               const staggeredY = i % 2 === 1 ? 24 : 0;
@@ -289,7 +404,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
                     boxShadow: "0 12px 30px rgba(0,0,0,0.3)"
                   }}
                 >
-                  <div style={{ position: "relative", overflow: "hidden", borderRadius: 12, height: 130 }}>
+                  <div className="gs-artist-thumb" style={{ position: "relative", overflow: "hidden", borderRadius: 12, height: 130 }}>
                     <img 
                       src={artist.avatar} 
                       alt={artist.name} 
@@ -333,7 +448,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="gs-services-grid">
             {LABEL_SERVICES.map((s, i) => (
               <div 
                 key={i} 
@@ -394,7 +509,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 26 }}>
+          <div className="gs-steps-grid">
             {HOW_IT_WORKS.map((step, i) => (
               <div 
                 key={i} 
@@ -443,7 +558,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
           </div>
           <div ref={rosterRef} style={{ display: "flex", gap: 24, overflow: "hidden", scrollBehavior: "smooth" }}>
             {HALL_OF_FAME.map((artist, i) => (
-              <div key={i} className="gs-interactive-card" style={{ flexShrink: 0, width: "calc((100% - 48px) / 3)", background: "var(--tw-bg-card)", border: "1px solid var(--tw-line)", borderRadius: 22, overflow: "hidden" }}>
+              <div key={i} className="gs-interactive-card gs-roster-card">
                 <div style={{ position: "relative", overflow: "hidden", height: 230 }}>
                   <img src={artist.avatar} alt={artist.name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }} 
                     onMouseEnter={e => e.currentTarget.style.transform = "scale(1.06)"}
@@ -452,7 +567,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
                 </div>
                 <div style={{ padding: "22px 26px" }}>
                   <div style={{ fontSize: "1.15rem", fontWeight: 800, color: "var(--tw-text-white)", marginBottom: 8 }}>{artist.name}</div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ display: "flex", verticalAlign: "middle", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontSize: "0.82rem", color: "var(--tw-text-dim)" }}>{artist.genre}</span>
                     <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--tw-cyan)" }}>{artist.stats}</span>
                   </div>
@@ -470,7 +585,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
         style={{ position: "relative", padding: "110px 0", borderBottom: "1px solid var(--tw-line)", perspective: 1200 }}
       >
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div className="gs-advances-grid">
             <div>
               <div style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.15em", color: "var(--tw-cyan)", marginBottom: 16 }}>04 ADVANCES</div>
               <h2 style={{ fontSize: "clamp(2rem, 3.8vw, 3rem)", fontWeight: 900, color: "var(--tw-text-white)", lineHeight: 1.15, marginBottom: 22 }}>
@@ -492,7 +607,7 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
             </div>
 
             {/* 4 Stat Cards with Cascading 3D Flip */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            <div className="gs-stats-grid">
               {[
                 { value: "5", label: "Continents", sub: "Global reach" },
                 { value: "15+", label: "Countries", sub: "Active markets" },
@@ -534,19 +649,12 @@ export default function GetSignedPage({ onNavigate, theme = "dark" }) {
                 Submit your music to our A&R team. We listen to every submission and reach out directly when your project fits an active campaign.
               </p>
             </div>
-            <div style={{ 
-              background: "var(--tw-bg-surface)", 
-              border: "1px solid var(--tw-line-bright)", 
-              borderRadius: 28, 
-              padding: "52px 48px", 
-              boxShadow: "0 35px 90px rgba(0,0,0,0.45), 0 0 30px rgba(0,229,255,0.06)",
-              backdropFilter: "blur(16px)"
-            }}>
+            <div className="gs-form-wrapper">
               {!submitted ? (
                 <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--tw-text-white)", marginBottom: 4 }}>Submit Your Music to Tunewave A&amp;R</h3>
                   <p style={{ fontSize: "0.92rem", color: "var(--tw-text-dim)", marginBottom: 12 }}>Our A&amp;R team reviews every submission. If your project fits, a manager will reach out within 5-7 business days.</p>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+                  <div className="gs-form-grid">
                     {[
                       { label: "Artist / Band Name", type: "text", ph: "e.g. Nova Luna" },
                       { label: "Contact Email", type: "email", ph: "mgmt@artist.com" },

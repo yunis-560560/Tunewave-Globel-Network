@@ -116,6 +116,7 @@ export default function Navbar({
         {/* Brand Logo on Left */}
         <div
           onClick={() => onNavigate('/')}
+          className="tw-brand-logo-container"
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', flexShrink: 0 }}
         >
           <Logo theme={theme} />
@@ -542,21 +543,116 @@ export default function Navbar({
           overflowY: 'auto'
         }}
       >
-          {/* Quick Utility Row inside Drawer: Theme & Language */}
+          {/* Mobile Drawer Preferences: Dedicated Theme Mode Switch & Language Selector */}
           <div style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 14,
-            borderBottom: isLight ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255,255,255,0.08)',
+            flexDirection: 'column',
+            gap: 12,
+            padding: '12px 14px',
+            borderRadius: 14,
+            background: isLight ? 'rgba(0, 0, 0, 0.03)' : 'rgba(255, 255, 255, 0.03)',
+            border: isLight ? '1px solid rgba(0, 0, 0, 0.07)' : '1px solid rgba(255, 255, 255, 0.07)',
             marginBottom: 4
           }}>
-            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: isLight ? '#64748B' : '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Preferences
-            </span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {/* Language Pills in drawer */}
-              <div style={{ display: 'flex', gap: 4 }}>
+            {/* Row 1: Appearance / Theme Mode Switch */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 10
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                {theme === 'dark' ? (
+                  <Moon size={15} color="#00E5FF" />
+                ) : (
+                  <Sun size={15} color="#F59E0B" />
+                )}
+                <span style={{
+                  fontSize: '0.80rem',
+                  fontWeight: 800,
+                  color: isLight ? '#334155' : '#CBD5E1',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase'
+                }}>
+                  Theme Mode
+                </span>
+              </div>
+
+              {/* Segmented Light / Dark Toggle Switch */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: 3,
+                borderRadius: 999,
+                background: isLight ? '#E2E8F0' : 'rgba(255, 255, 255, 0.08)',
+                border: isLight ? '1px solid rgba(0, 0, 0, 0.06)' : '1px solid rgba(255, 255, 255, 0.1)'
+              }}>
+                <button
+                  type="button"
+                  onClick={() => { if (!isLight) onToggleTheme(); }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '5px 12px',
+                    borderRadius: 999,
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                    background: isLight ? '#FFFFFF' : 'transparent',
+                    color: isLight ? '#0F172A' : '#94A3B8',
+                    boxShadow: isLight ? '0 2px 6px rgba(0,0,0,0.12)' : 'none'
+                  }}
+                >
+                  <Sun size={13} color={isLight ? '#F59E0B' : '#94A3B8'} />
+                  <span>Light</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { if (isLight) onToggleTheme(); }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '5px 12px',
+                    borderRadius: 999,
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                    background: !isLight ? 'linear-gradient(135deg, #00E5FF 0%, #0284C7 100%)' : 'transparent',
+                    color: !isLight ? '#040D1A' : '#64748B',
+                    boxShadow: !isLight ? '0 2px 8px rgba(0, 229, 255, 0.3)' : 'none'
+                  }}
+                >
+                  <Moon size={13} color={!isLight ? '#040D1A' : '#64748B'} />
+                  <span>Dark</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Row 2: Languages */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 8,
+              paddingTop: 8,
+              borderTop: isLight ? '1px solid rgba(0, 0, 0, 0.06)' : '1px solid rgba(255, 255, 255, 0.06)'
+            }}>
+              <span style={{
+                fontSize: '0.74rem',
+                fontWeight: 700,
+                color: isLight ? '#64748B' : '#94A3B8',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase'
+              }}>
+                Language
+              </span>
+              <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
                 {LANGUAGES.map(item => (
                   <button
                     key={item.code}
@@ -566,7 +662,7 @@ export default function Navbar({
                     style={{
                       padding: '4px 8px',
                       borderRadius: 6,
-                      fontSize: '0.76rem',
+                      fontSize: '0.75rem',
                       fontWeight: 700,
                       background: lang === item.code 
                         ? (isLight ? '#007EA7' : '#00E5FF') 
@@ -575,34 +671,14 @@ export default function Navbar({
                         ? (isLight ? '#FFFFFF' : '#040D1A') 
                         : (isLight ? '#0F172A' : '#94A3B8'),
                       border: 'none',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
                     }}
                   >
                     {item.label}
                   </button>
                 ))}
               </div>
-
-              {/* Theme toggle in drawer */}
-              <button
-                onClick={onToggleTheme}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '5px 10px',
-                  borderRadius: 8,
-                  fontSize: '0.78rem',
-                  fontWeight: 600,
-                  background: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)',
-                  color: isLight ? '#0F172A' : '#FFFFFF',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-                <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
-              </button>
             </div>
           </div>
 
@@ -1032,59 +1108,12 @@ export default function Navbar({
         }
         @media (max-width: 768px) {
           .header-wrapper .container {
-            padding: 0 16px !important;
-            height: 64px !important;
-          }
-          .header-spacer {
-            height: 64px !important;
-          }
-          .tw-mobile-drawer {
-            top: 64px !important;
-          }
-          .tw-brand-logo {
-            gap: 8px !important;
-          }
-          .tw-brand-logo .tw-logo-emblem {
-            height: 30px !important;
-          }
-          .tw-brand-logo .tw-logo-wordmark-wrap {
-            width: 130px !important;
-          }
-          .tw-brand-logo .tw-logo-wordmark-img {
-            height: 13px !important;
-          }
-          .tw-brand-logo .tw-logo-subtitle {
-            font-size: 0.42rem !important;
-            margin-top: 2px !important;
-          }
-          .tw-nav-right-wrap {
-            gap: 8px !important;
-          }
-          .tw-nav-actions-wrap {
-            gap: 8px !important;
-          }
-          .tw-nav-cta-btn {
-            padding: 7px 13px !important;
-            font-size: 0.80rem !important;
-            border-radius: 8px !important;
-          }
-          .tw-nav-utility-group {
-            border-left: none !important;
-            padding-left: 0 !important;
-            gap: 0 !important;
-          }
-          .tw-nav-utility-group .tw-nav-lang-btn,
-          .tw-nav-utility-group .tw-nav-theme-btn {
-            display: none !important;
-          }
-          .mobile-toggle {
-            padding: 6px !important;
-          }
-        }
-        @media (max-width: 360px) {
-          .header-wrapper .container {
-            padding: 0 10px !important;
+            padding: 0 12px !important;
             height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
           }
           .header-spacer {
             height: 60px !important;
@@ -1092,27 +1121,121 @@ export default function Navbar({
           .tw-mobile-drawer {
             top: 60px !important;
           }
+          .tw-brand-logo-container {
+            flex-shrink: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+          }
           .tw-brand-logo {
-            gap: 6px !important;
+            gap: 7px !important;
+            flex-shrink: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
           }
           .tw-brand-logo .tw-logo-emblem {
-            height: 25px !important;
+            height: 26px !important;
+            width: auto !important;
+            flex-shrink: 0 !important;
           }
           .tw-brand-logo .tw-logo-wordmark-wrap {
-            width: 108px !important;
+            width: 110px !important;
+            flex-shrink: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
           }
           .tw-brand-logo .tw-logo-wordmark-img {
             height: 11px !important;
+            width: 100% !important;
           }
           .tw-brand-logo .tw-logo-subtitle {
-            font-size: 0.36rem !important;
-          }
-          .tw-nav-cta-btn {
-            padding: 6px 9px !important;
-            font-size: 0.74rem !important;
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 0.44rem !important;
+            font-weight: 800 !important;
+            margin-top: 2px !important;
+            letter-spacing: 0.02em !important;
+            line-height: 1 !important;
           }
           .tw-nav-right-wrap {
-            gap: 6px !important;
+            gap: 5px !important;
+            flex-shrink: 0 !important;
+            margin-left: auto !important;
+          }
+          .tw-nav-actions-wrap {
+            gap: 5px !important;
+            flex-shrink: 0 !important;
+          }
+          .tw-nav-cta-btn {
+            padding: 5px 9px !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            border-radius: 6px !important;
+            letter-spacing: -0.01em !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+          }
+          .tw-nav-utility-group {
+            border-left: none !important;
+            padding-left: 0 !important;
+            gap: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+          }
+          .tw-nav-utility-group .tw-nav-lang-btn {
+            display: none !important;
+          }
+          .tw-nav-utility-group .tw-nav-theme-btn {
+            display: inline-flex !important;
+            width: 28px !important;
+            height: 28px !important;
+            padding: 4px !important;
+            flex-shrink: 0 !important;
+          }
+          .mobile-toggle {
+            padding: 5px !important;
+            flex-shrink: 0 !important;
+          }
+        }
+        @media (max-width: 360px) {
+          .header-wrapper .container {
+            padding: 0 8px !important;
+            height: 56px !important;
+            gap: 4px !important;
+          }
+          .header-spacer {
+            height: 56px !important;
+          }
+          .tw-mobile-drawer {
+            top: 56px !important;
+          }
+          .tw-brand-logo {
+            gap: 5px !important;
+          }
+          .tw-brand-logo .tw-logo-emblem {
+            height: 24px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-wrap {
+            width: 100px !important;
+          }
+          .tw-brand-logo .tw-logo-wordmark-img {
+            height: 10px !important;
+          }
+          .tw-brand-logo .tw-logo-subtitle {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 0.40rem !important;
+            margin-top: 1px !important;
+          }
+          .tw-nav-cta-btn {
+            padding: 4px 7px !important;
+            font-size: 0.68rem !important;
+          }
+          .tw-nav-right-wrap {
+            gap: 3px !important;
           }
         }
       `}</style>

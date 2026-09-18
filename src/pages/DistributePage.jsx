@@ -188,7 +188,7 @@ export default function DistributePage({ onNavigate, theme }) {
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 48, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'center' }}>
             <div className="reveal-up">
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                 <span className="pill-badge" style={{ color: 'var(--tw-cyan)', background: 'rgba(0, 126, 167, 0.12)', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
@@ -708,7 +708,7 @@ export default function DistributePage({ onNavigate, theme }) {
                 color: 'var(--tw-text-white)',
                 lineHeight: 1.15
               }}>
-                Sell your music on <br />
+                Distribute your music on <br />
                 <span className="text-cyan-gradient">every platform that pays.</span>
               </h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--tw-text-dim)', maxWidth: '620px', marginTop: 12, lineHeight: 1.6 }}>

@@ -427,12 +427,30 @@ export default function Footer({ onNavigate, theme = 'dark' }) {
         color: bodyClr,
       }}>
         <span>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</span>
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-          <FooterLink label="About Us" onClick={() => onNavigate('/about')} bodyClr={bodyClr} hoverClr={linkHoverClr} small />
-          {['Terms of Service', 'Privacy Notice', 'Cookie Settings', 'Security & 2FA'].map(t => (
-            <FooterLink key={t} label={t} onClick={() => {}} bodyClr={bodyClr} hoverClr={linkHoverClr} small />
-          ))}
-        </div>
+        <span>
+          Design and Develop by{' '}
+          <a
+            href="https://xrmarketing.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: headingClr,
+              fontWeight: 600,
+              textDecoration: 'none',
+              transition: 'color 0.2s ease, text-decoration 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#00E5FF';
+              e.currentTarget.style.textDecoration = 'underline';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = headingClr;
+              e.currentTarget.style.textDecoration = 'none';
+            }}
+          >
+            XR Marketing
+          </a>
+        </span>
       </div>
     </footer>
   );

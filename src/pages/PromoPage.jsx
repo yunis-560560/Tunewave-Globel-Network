@@ -321,7 +321,7 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
         </div>
 
         <div className="container promo-hero-content">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 54, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(28px, 4vw, 54px)', alignItems: 'center' }}>
             <div className="promo-hero-text-col">
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                 <span className="pill-badge" style={{ 
@@ -335,7 +335,7 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
               </div>
 
               <h1 style={{
-                fontSize: 'clamp(2.5rem, 5.5vw, 4.4rem)',
+                fontSize: 'clamp(2.1rem, 5.5vw, 4.4rem)',
                 fontWeight: 800,
                 lineHeight: 1.08,
                 marginBottom: 20,
@@ -348,7 +348,7 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
               </h1>
 
               <p style={{
-                fontSize: '1.2rem',
+                fontSize: 'clamp(0.95rem, 2vw, 1.2rem)',
                 color: 'var(--tw-text-dim)',
                 lineHeight: 1.65,
                 marginBottom: 36,
@@ -362,8 +362,8 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
                   href="#campaigns"
                   className="btn-cyan"
                   style={{
-                    padding: '16px 36px',
-                    fontSize: '1rem',
+                    padding: '14px 30px',
+                    fontSize: '0.95rem',
                     fontWeight: 700,
                     textDecoration: 'none',
                     display: 'inline-flex',
@@ -375,7 +375,7 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
                   <ArrowRight size={18} className="btn-icon-hover" />
                 </a>
 
-                <span style={{ fontSize: '0.88rem', color: 'var(--tw-text-dim)', maxWidth: '250px', lineHeight: 1.45 }}>
+                <span style={{ fontSize: '0.85rem', color: 'var(--tw-text-dim)', maxWidth: '250px', lineHeight: 1.45 }}>
                   Lock your campaign in now. <strong style={{ color: 'var(--tw-text-white)' }}>Launch anytime in the next 12 months.</strong>
                 </span>
               </div>
@@ -384,24 +384,27 @@ export default function PromoPage({ onNavigate, theme = 'dark' }) {
               <div style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                gap: 24, 
-                marginTop: 40, 
-                paddingTop: 20, 
-                borderTop: '1px solid var(--tw-line)' 
+                flexWrap: 'wrap',
+                gap: 'clamp(10px, 3vw, 24px)', 
+                marginTop: 32, 
+                paddingTop: 18, 
+                borderTop: '1px solid var(--tw-line)',
+                width: '100%',
+                boxSizing: 'border-box'
               }}>
-                <div>
-                  <div style={{ fontSize: '1.3rem', fontWeight: 900, color: 'var(--tw-cyan)' }}>2 Guaranteed</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Online Press Features</div>
+                <div style={{ minWidth: 80 }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)', fontWeight: 900, color: 'var(--tw-cyan)' }}>2 Guaranteed</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Online Press Features</div>
                 </div>
-                <div style={{ height: 30, width: 1, background: 'var(--tw-line)' }} />
-                <div>
-                  <div style={{ fontSize: '1.3rem', fontWeight: 900, color: isLight ? '#059669' : 'var(--tw-lime)' }}>100%</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Keep Your Royalties</div>
+                <div style={{ height: 28, width: 1, background: 'var(--tw-line)' }} />
+                <div style={{ minWidth: 80 }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)', fontWeight: 900, color: isLight ? '#059669' : 'var(--tw-lime)' }}>100%</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Keep Your Royalties</div>
                 </div>
-                <div style={{ height: 30, width: 1, background: 'var(--tw-line)' }} />
-                <div>
-                  <div style={{ fontSize: '1.3rem', fontWeight: 900, color: isLight ? '#7C3AED' : 'var(--tw-purple)' }}>1-on-1</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Dedicated Publicist</div>
+                <div style={{ height: 28, width: 1, background: 'var(--tw-line)' }} />
+                <div style={{ minWidth: 80 }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)', fontWeight: 900, color: isLight ? '#7C3AED' : 'var(--tw-purple)' }}>1-on-1</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--tw-text-dim)', fontWeight: 500 }}>Dedicated Publicist</div>
                 </div>
               </div>
             </div>
